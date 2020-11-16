@@ -1,0 +1,16 @@
+{
+  "name": "among-us-chat",
+  "version": "1.0.0",
+  "description": "Um chat para jogadores de Among Us",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Jefferson Dantas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.0.1"
+  }
+}
