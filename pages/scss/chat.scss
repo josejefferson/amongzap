@@ -3,7 +3,12 @@
 }
 
 body {
-	font-family: Roboto, sans-serif;
+	background-color: rgb(50, 50, 80);
+	font-family: Arial, sans-serif;
+	background-image: url(/public/img/stars.png);
+	background-repeat: repeat;
+	background-size: 100%;
+	background-attachment: fixed;
 }
 
 header {
@@ -28,6 +33,58 @@ header {
 	margin-top: 56px;
 	margin-bottom: 48px;
 	padding: 10px;
+
+	.messageArea {
+		display: flex;
+
+		&:not(:first-child) { margin-top: 10px; }
+		&.sent {
+			justify-content: flex-end;
+			.sender { display: none; }
+			.text { text-align: right; }
+			.dateTime { text-align: right; }
+		}
+
+		.message {
+			display: flex;
+			flex-direction: row;
+			width: 90%;
+			background: #fff;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.447059);
+			padding: 10px;
+
+			.content {
+				display: flex;
+				flex-direction: column;
+
+				.sender {
+					color: #fff;
+					text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.5136px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
+				}
+				.text {
+				}
+				.dateTime {
+					font-size: 12px;
+				}
+			}
+
+			.picture {
+				flex: 0 0 56px;
+				margin-left: 15px;
+				margin-right: 15px;
+				
+				.pic {
+					border-radius: 50%;
+					background-size: cover;
+					background-position: center;
+					width: 100%;
+					height: 56px;
+				}
+			}
+		}
+	}
 }
 
 .sendArea {
@@ -35,11 +92,32 @@ header {
 	flex-direction: row;
 	align-items: center;
 	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 48px;
-	background: #000;
-	color: #fff;
-	padding: 5px 15px;
+	bottom: 5px;
+	left: 5px;
+	width: calc(100% - 10px);
+	height: 56px;
+	background: white;
+	box-shadow: 0 10px 20px black;
+	border: black 2.5px solid;
+	border-radius: 7px;
+	padding: 8px;
+
+	textarea {
+		display: flex;
+		width: 100%;
+		border: none;
+		resize: none;
+	}
+
+	button {
+		display: flex;
+		background-image: url(/public/img/sendIcon.png);
+		background-size: cover;
+		background-position: center;
+		border: none;
+		background-color: transparent;
+		height: 100%;
+		width: 30px;
+		flex: 0 0 30px;
+	}
 }

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chat do Among Us</title>
 	<link rel="stylesheet" href="css/chat.css">
 </head>
+
 <body>
 	<header>
 		<div class="title">
@@ -14,15 +16,57 @@
 	</header>
 
 	<div class="chat">
-		Messages here...
+		<div class="messageArea">
+			<div class="message">
+				<div class="picture">
+					<div class="pic" style="background-image:url(/public/img/red.png)"></div>
+				</div>
+				<div class="content">
+					<div class="sender">O estranho</div>
+					<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, porro. Ipsam aliquam
+						doloremque fugit necessitatibus!</div>
+					<div class="dateTime">12:56</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="messageArea sent">
+			<div class="message">
+				<div class="content">
+					<div class="sender">O estranho</div>
+					<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, porro. Ipsam aliquam
+						doloremque fugit necessitatibus!</div>
+					<div class="dateTime">12:56</div>
+				</div>
+				<div class="picture">
+					<div class="pic" style="background-image:url(/public/img/red.png)"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="messageArea">
+			<div class="message">
+				<div class="picture">
+					<div class="pic" style="background-image:url(/public/img/red.png)"></div>
+				</div>
+				<div class="content">
+					<div class="sender">O estranho</div>
+					<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, porro. Ipsam aliquam
+						doloremque fugit necessitatibus!</div>
+					<div class="dateTime">12:56</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
-	
+
 	<div class="sendArea">
 		<textarea class="sendText" rows="1"></textarea>
-		<button class="sendButton">SEND</button>
+		<button class="sendButton"></button>
 	</div>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/chat.js"></script>
 </body>
+
 </html>
