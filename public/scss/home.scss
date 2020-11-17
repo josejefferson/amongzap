@@ -1,0 +1,145 @@
+@font-face {
+	font-family: "VCR OSD MONO";
+	src: url(/public/fonts/VCR_OSD_MONO_1.001.ttf);
+}
+
+@font-face {
+	font-family: "In your face, joffrey!";
+	src: url("/public/fonts/In your face, joffrey!.ttf");
+}
+
+* {
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	background-color: rgb(50, 50, 80);
+	font-family: Arial, sans-serif;
+	background-image: url(/public/img/stars.png);
+	background-repeat: repeat;
+	background-size: 100%;
+	background-attachment: fixed;
+	// animation: test 45s infinite linear;
+}
+
+// @keyframes test {
+// 	from { background-position-x: 0%; }
+// 	to { background-position-x: 258%; }
+// }
+
+button:hover,
+input:hover {
+	filter: brightness(90%);
+}
+
+button:active,
+input:active {
+	filter: brightness(80%);
+}
+
+header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 56px;
+	background: #000;
+	color: #fff;
+	padding: 5px 15px;
+	font-family: "In your face, joffrey!";
+
+	.title {
+		display: flex;
+		align-items: center;
+		font-size: 36px;
+		color: #fff;
+		text-decoration: none;
+
+		.logo {
+			background-image: url(/public/img/logo.png);
+			width: 139.23px;
+			height: 38px;
+			background-size: cover;
+			background-position: center;
+			display: inline-block;
+			margin-left: 20px;
+		}
+	}
+
+}
+
+.content {
+	margin-top: 56px;
+	margin-bottom: 48px;
+	padding: 10px;
+	color: #fff;
+	text-align: center;
+	display: block;
+
+	.input {
+		display: block;
+		width: 100%;
+		background: #000;
+		color: #fff;
+		border: 7px double;
+		border-radius: 8px;
+		// box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.447059);
+		padding: 3px;
+		margin-bottom: 26px;
+		outline: none;
+		text-align: center;
+		font-size: 26px;
+	}
+
+	.startBtn {
+		background-image: url(/public/img/start.png);
+		background-position: center;
+		background-size: cover;
+		width: 120px;
+		height: 68.11px;
+		background-color: transparent;
+		border: none;
+		outline: none;
+	}
+}
+
+
+.sendArea {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: fixed;
+	bottom: 5px;
+	left: 5px;
+	width: calc(100% - 10px);
+	height: 56px;
+	background: white;
+	box-shadow: 0 10px 20px black;
+	border: black 2.5px solid;
+	border-radius: 7px;
+	padding: 8px;
+
+	textarea {
+		display: flex;
+		width: 100%;
+		border: none;
+		resize: none;
+	}
+
+	button {
+		display: flex;
+		background-image: url(/public/img/sendIcon.png);
+		background-size: cover;
+		background-position: center;
+		border: none;
+		background-color: transparent;
+		height: 100%;
+		width: 30px;
+		flex: 0 0 30px;
+	}
+}

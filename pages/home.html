@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chat do Among Us</title>
+	<link rel="stylesheet" href="/public/css/home.css">
 </head>
+
 <body>
-	<form action="/chat" method="GET">
-		<h3>Digite seu nome:</h3>
-		<input type="text" name="user" minlength="1" maxlength="10" required>
-		<button type="submit">START</button>
-	</form>
+	<header>
+		<a href="/" class="title">
+			Chat do <span class="logo"></span>
+		</a>
+	</header>
+
+	<div class="content">
+		<form action="/chat" method="GET">
+			<h3>Digite seu nome</h3>
+			<input type="text" name="user" class="input" minlength="1" maxlength="10" autocomplete="off" required>
+			<button type="submit" class="startBtn"></button>
+		</form>
+	</div>
 </body>
+
 </html>

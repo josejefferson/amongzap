@@ -2,7 +2,7 @@ const chatArea = document.querySelector('.chat')
 const sendTextArea = document.querySelector('.sendText')
 const sendButton = document.querySelector('.sendButton')
 
-username = 'josé'
+const username = 'josé'
 const socket = io()
 
 socket.on('initial chat', data => {
@@ -10,29 +10,56 @@ socket.on('initial chat', data => {
 
 	for (i of data) {
 		console.log(data);
-
-		chatArea.innerHTML += `
-			<div class="message${i.sender == username ? ' sent' : ''}">
-				<div class="sender">${i.sender}</div>
-				<div class="content">${i.text}</div>
-				<div class="dateTime">${i.dateTime}</div>
-			</div>
-		`
+		chatArea.append(Message(i))
 	}
 })
 
 socket.on('chat', i => {
-	chatArea.innerHTML += `
-			<div class="messageArea${i.sender == username ? ' sent' : ''}">
-				<div class="message">
-					<div class="sender">${i.sender}</div>
-					<div class="content">${i.text}</div>
-					<div class="dateTime">${i.dateTime}</div>
-				</div>
-			</div>
-		`
+	chatArea.append(Message(i))
 })
 
 sendButton.onclick = () => {
 	socket.emit('chat', { text: sendTextArea.value })
+}
+
+function Message(msg) {
+	const { sender, text, dateTime } = msg
+	const { name, color } = sender
+
+	const message = document.createElement('div')
+	const messageEl = document.createElement('div')
+	const pictureEl = document.createElement('div')
+	const picEl = document.createElement('div')
+	const contentEl = document.createElement('div')
+	const senderEl = document.createElement('div')
+	const textEl = document.createElement('div')
+	const dateTimeEl = document.createElement('div')
+	
+	message.classList.add('messageArea')
+	messageEl.classList.add('message')
+	pictureEl.classList.add('picture')
+	picEl.classList.add('pic')
+	contentEl.classList.add('content')
+	senderEl.classList.add('sender')
+	textEl.classList.add('text')
+	dateTimeEl.classList.add('dateTime')
+	
+	if (name == username) {
+		messageEl.classList.add('sent')
+	}
+	
+	picEl.style.backgroundImage = `url(/public/img/${color}.png)`
+	senderEl.innerText = name
+	textEl.innerText = text
+	dateTimeEl.innerText = dateTime
+	
+	pictureEl.append(picEl)
+	contentEl.append(senderEl, textEl, dateTimeEl)
+	messageEl.append(contentEl)
+	if (name == username) messageEl.append(pictureEl)
+	else messageEl.prepend(pictureEl)
+
+	message.append(messageEl)
+
+	return message
 }

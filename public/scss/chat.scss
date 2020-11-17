@@ -1,5 +1,16 @@
+@font-face {
+	font-family: "VCR OSD MONO";
+	src: url(/public/fonts/VCR_OSD_MONO_1.001.ttf);
+}
+
+@font-face {
+	font-family: "In your face, joffrey!";
+	src: url("/public/fonts/In your face, joffrey!.ttf");
+}
+
 * {
 	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -11,10 +22,21 @@ body {
 	background-attachment: fixed;
 }
 
+button:hover,
+input:hover {
+	filter: brightness(90%);
+}
+
+button:active,
+input:active {
+	filter: brightness(80%);
+}
+
 header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -23,17 +45,36 @@ header {
 	background: #000;
 	color: #fff;
 	padding: 5px 15px;
-
+	font-family: "In your face, joffrey!";
+	
 	.title {
-		font-size: 20px;
+		display: flex;
+		align-items: center;
+		font-size: 36px;
+		color: #fff;
+		text-decoration: none;
+
+		.logo {
+			background-image: url(/public/img/logo.png);
+			width: 139.23px;
+			height: 38px;
+			background-size: cover;
+			background-position: center;
+			display: inline-block;
+			margin-left: 20px;
+		}
 	}
 }
 
 .chat {
 	margin-top: 56px;
-	margin-bottom: 48px;
+	margin-bottom: 61px;
 	padding: 10px;
-
+	min-height: calc(100vh - 56px - 61px);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	
 	.messageArea {
 		display: flex;
 
@@ -58,6 +99,7 @@ header {
 			.content {
 				display: flex;
 				flex-direction: column;
+				font-size: 14px;
 
 				.sender {
 					color: #fff;
@@ -66,21 +108,21 @@ header {
 				.text {
 				}
 				.dateTime {
-					font-size: 12px;
+					font-size: 10px;
 				}
 			}
 
 			.picture {
-				flex: 0 0 56px;
-				margin-left: 15px;
-				margin-right: 15px;
+				flex: 0 0 46px;
+				// margin-left: 15px;
+				// margin-right: 15px;
 				
 				.pic {
 					border-radius: 50%;
 					background-size: cover;
 					background-position: center;
 					width: 100%;
-					height: 56px;
+					height: 46px;
 				}
 			}
 		}
@@ -95,18 +137,28 @@ header {
 	bottom: 5px;
 	left: 5px;
 	width: calc(100% - 10px);
-	height: 56px;
+	height: 48px;
 	background: white;
 	box-shadow: 0 10px 20px black;
 	border: black 2.5px solid;
 	border-radius: 7px;
-	padding: 8px;
+	padding: 4px 8px;
 
 	textarea {
+		display: flex;
+		align-items: center;
+		vertical-align: middle;
+		padding: 0;
+		background: red;
+		margin-right: 10px;
+		height: auto;
 		display: flex;
 		width: 100%;
 		border: none;
 		resize: none;
+		outline: none;
+		font-size: 14px;
+		font-family: Arial, sans-serif;
 	}
 
 	button {
@@ -119,5 +171,6 @@ header {
 		height: 100%;
 		width: 30px;
 		flex: 0 0 30px;
+		outline: none;
 	}
 }

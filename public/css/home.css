@@ -62,64 +62,36 @@ header .title .logo {
   margin-left: 20px;
 }
 
-.chat {
+.content {
   margin-top: 56px;
-  margin-bottom: 61px;
+  margin-bottom: 48px;
   padding: 10px;
-  min-height: calc(100vh - 56px - 61px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.chat .messageArea {
-  display: flex;
-}
-.chat .messageArea:not(:first-child) {
-  margin-top: 10px;
-}
-.chat .messageArea.sent {
-  justify-content: flex-end;
-}
-.chat .messageArea.sent .sender {
-  display: none;
-}
-.chat .messageArea.sent .text {
-  text-align: right;
-}
-.chat .messageArea.sent .dateTime {
-  text-align: right;
-}
-.chat .messageArea .message {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  background: #fff;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.447059);
-  padding: 10px;
-}
-.chat .messageArea .message .content {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-}
-.chat .messageArea .message .content .sender {
   color: #fff;
-  text-shadow: black 2px 0px 0px, black 1.75517px 0.958851px 0px, black 1.0806px 1.68294px 0px, black 0.141474px 1.99499px 0px, black -0.832294px 1.81859px 0px, black -1.60229px 1.19694px 0px, black -1.97998px 0.28224px 0px, black -1.87291px -0.701566px 0px, black -1.30729px -1.5136px 0px, black -0.421592px -1.95506px 0px, black 0.567324px -1.91785px 0px, black 1.41734px -1.41108px 0px, black 1.92034px -0.558831px 0px;
+  text-align: center;
+  display: block;
 }
-.chat .messageArea .message .content .dateTime {
-  font-size: 10px;
-}
-.chat .messageArea .message .picture {
-  flex: 0 0 46px;
-}
-.chat .messageArea .message .picture .pic {
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
+.content .input {
+  display: block;
   width: 100%;
-  height: 46px;
+  background: #000;
+  color: #fff;
+  border: 7px double;
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 26px;
+  outline: none;
+  text-align: center;
+  font-size: 26px;
+}
+.content .startBtn {
+  background-image: url(/public/img/start.png);
+  background-position: center;
+  background-size: cover;
+  width: 120px;
+  height: 68.11px;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 
 .sendArea {
@@ -130,28 +102,18 @@ header .title .logo {
   bottom: 5px;
   left: 5px;
   width: calc(100% - 10px);
-  height: 48px;
+  height: 56px;
   background: white;
   box-shadow: 0 10px 20px black;
   border: black 2.5px solid;
   border-radius: 7px;
-  padding: 4px 8px;
+  padding: 8px;
 }
 .sendArea textarea {
-  display: flex;
-  align-items: center;
-  vertical-align: middle;
-  padding: 0;
-  background: red;
-  margin-right: 10px;
-  height: auto;
   display: flex;
   width: 100%;
   border: none;
   resize: none;
-  outline: none;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
 }
 .sendArea button {
   display: flex;
@@ -163,7 +125,6 @@ header .title .logo {
   height: 100%;
   width: 30px;
   flex: 0 0 30px;
-  outline: none;
 }
 
-/*# sourceMappingURL=chat.css.map */
+/*# sourceMappingURL=home.css.map */
