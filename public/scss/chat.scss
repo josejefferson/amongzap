@@ -1,11 +1,11 @@
 @font-face {
 	font-family: "VCR OSD MONO";
-	src: url(/public/fonts/VCR_OSD_MONO_1.001.ttf);
+	src: url(/fonts/VCR_OSD_MONO_1.001.ttf);
 }
 
 @font-face {
 	font-family: "In your face, joffrey!";
-	src: url("/public/fonts/In your face, joffrey!.ttf");
+	src: url("/fonts/In your face, joffrey!.ttf");
 }
 
 * {
@@ -16,7 +16,7 @@
 body {
 	background-color: rgb(50, 50, 80);
 	font-family: Arial, sans-serif;
-	background-image: url(/public/img/stars.png);
+	background-image: url(/img/stars.png);
 	background-repeat: repeat;
 	background-size: 100%;
 	background-attachment: fixed;
@@ -55,7 +55,7 @@ header {
 		text-decoration: none;
 
 		.logo {
-			background-image: url(/public/img/logo.png);
+			background-image: url(/img/logo.png);
 			width: 139.23px;
 			height: 38px;
 			background-size: cover;
@@ -80,10 +80,14 @@ header {
 
 		&:not(:first-child) { margin-top: 10px; }
 		&.sent {
+			.picture { margin-left: 10px; }
 			justify-content: flex-end;
-			.sender { display: none; }
+			.sender { text-align: right; }
 			.text { text-align: right; }
 			.dateTime { text-align: right; }
+		}
+		&:not(.sent) {
+			.picture { margin-right: 10px; }
 		}
 
 		.message {
@@ -100,6 +104,7 @@ header {
 				display: flex;
 				flex-direction: column;
 				font-size: 14px;
+				flex: 1 1 auto;
 
 				.sender {
 					color: #fff;
@@ -114,8 +119,6 @@ header {
 
 			.picture {
 				flex: 0 0 46px;
-				// margin-left: 15px;
-				// margin-right: 15px;
 				
 				.pic {
 					border-radius: 50%;
@@ -149,9 +152,8 @@ header {
 		align-items: center;
 		vertical-align: middle;
 		padding: 0;
-		background: red;
 		margin-right: 10px;
-		height: auto;
+		height: 100%;
 		display: flex;
 		width: 100%;
 		border: none;
@@ -163,7 +165,7 @@ header {
 
 	button {
 		display: flex;
-		background-image: url(/public/img/sendIcon.png);
+		background-image: url(/img/sendIcon.png);
 		background-size: cover;
 		background-position: center;
 		border: none;

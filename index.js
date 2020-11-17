@@ -2,10 +2,10 @@ const express = require('express')
 const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
-const fs = require('fs')
-const bodyParser = require('body-parser')
+// const fs = require('fs')
+// const bodyParser = require('body-parser')
 // const expressLayouts = require('express-ejs-layouts')
-const session = require('express-session')
+// const session = require('express-session')
 // const passport = require('passport')
 // require('./config/auth')(passport)
 
@@ -22,23 +22,26 @@ app.get('/chat', (req, res) => {
 messages = []
 
 io.on('connection', function (socket) {
-	// socket.on('username', name => {
-		// socket.username = name
+	socket.on('username', name => {
+		socket.username = name
 		// onlineUsers.push(name)
 		// socket.broadcast.emit('user connected', name)
 		// io.emit('online users', onlineUsers)
 		// console.log(`Usuário conectado => ${socket.id} (${socket.username})`)
-	// })
+	})
 
 	socket.emit('initial chat', messages)
 
 	socket.on('chat', msg => {
 		msg.dateTime = Date.now()
-		msg.sender = 'Joe'
+		msg.sender = {
+			name: socket.username,
+			color: 'red'
+		}
 		messages.push(msg)
-		console.log(messages)
+		// console.log(messages)
 
-		io.emit('chat', messages[messages.length - 1])
+		io.emit('chat', msg)
 
 		// console.log(socket.username)
 		// console.log(msg.data)

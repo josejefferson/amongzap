@@ -1,11 +1,11 @@
 @font-face {
 	font-family: "VCR OSD MONO";
-	src: url(/public/fonts/VCR_OSD_MONO_1.001.ttf);
+	src: url(/fonts/VCR_OSD_MONO_1.001.ttf);
 }
 
 @font-face {
 	font-family: "In your face, joffrey!";
-	src: url("/public/fonts/In your face, joffrey!.ttf");
+	src: url("/fonts/In your face, joffrey!.ttf");
 }
 
 * {
@@ -16,7 +16,7 @@
 body {
 	background-color: rgb(50, 50, 80);
 	font-family: Arial, sans-serif;
-	background-image: url(/public/img/stars.png);
+	background-image: url(/img/stars.png);
 	background-repeat: repeat;
 	background-size: 100%;
 	background-attachment: fixed;
@@ -61,7 +61,7 @@ header {
 		text-decoration: none;
 
 		.logo {
-			background-image: url(/public/img/logo.png);
+			background-image: url(/img/logo.png);
 			width: 139.23px;
 			height: 38px;
 			background-size: cover;
@@ -97,7 +97,7 @@ header {
 	}
 
 	.startBtn {
-		background-image: url(/public/img/start.png);
+		background-image: url(/img/start.png);
 		background-position: center;
 		background-size: cover;
 		width: 120px;
@@ -133,7 +133,7 @@ header {
 
 	button {
 		display: flex;
-		background-image: url(/public/img/sendIcon.png);
+		background-image: url(/img/sendIcon.png);
 		background-size: cover;
 		background-position: center;
 		border: none;

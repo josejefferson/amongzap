@@ -2,9 +2,10 @@ const chatArea = document.querySelector('.chat')
 const sendTextArea = document.querySelector('.sendText')
 const sendButton = document.querySelector('.sendButton')
 
-const username = 'josé'
+const username = new URLSearchParams(window.location.search).get('user')
 const socket = io()
 
+socket.emit('username', username)
 socket.on('initial chat', data => {
 	chatArea.innerHTML = ''
 
@@ -16,6 +17,7 @@ socket.on('initial chat', data => {
 
 socket.on('chat', i => {
 	chatArea.append(Message(i))
+	// window.scroll(chatArea.scrollHeight, 0)
 })
 
 sendButton.onclick = () => {
@@ -45,10 +47,10 @@ function Message(msg) {
 	dateTimeEl.classList.add('dateTime')
 	
 	if (name == username) {
-		messageEl.classList.add('sent')
+		message.classList.add('sent')
 	}
 	
-	picEl.style.backgroundImage = `url(/public/img/${color}.png)`
+	picEl.style.backgroundImage = `url(/img/${color}.png)`
 	senderEl.innerText = name
 	textEl.innerText = text
 	dateTimeEl.innerText = dateTime
