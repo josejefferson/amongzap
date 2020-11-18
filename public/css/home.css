@@ -21,12 +21,12 @@ body {
 }
 
 button:hover,
-input:hover {
+label:hover {
   filter: brightness(90%);
 }
 
 button:active,
-input:active {
+label:active {
   filter: brightness(80%);
 }
 
@@ -48,7 +48,7 @@ header {
 header .title {
   display: flex;
   align-items: center;
-  font-size: 36px;
+  font-size: 40px;
   color: #fff;
   text-decoration: none;
 }
@@ -83,6 +83,60 @@ header .title .logo {
   text-align: center;
   font-size: 26px;
 }
+.content .color {
+  display: none;
+}
+.content .colorLabel {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border: black 3.3px solid;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.content .colorSelect {
+  margin-bottom: 26px;
+}
+.content .color:checked + .colorLabel {
+  background-image: url(/img/selectedColor.png);
+  background-size: cover;
+}
+.content .red {
+  background: red;
+}
+.content .blue {
+  background: blue;
+}
+.content .green {
+  background: green;
+}
+.content .pink {
+  background: pink;
+}
+.content .orange {
+  background: orange;
+}
+.content .yellow {
+  background: yellow;
+}
+.content .gray {
+  background: gray;
+}
+.content .white {
+  background: white;
+}
+.content .purple {
+  background: purple;
+}
+.content .brown {
+  background: brown;
+}
+.content .cyan {
+  background: cyan;
+}
+.content .lime {
+  background: lime;
+}
 .content .startBtn {
   background-image: url(/img/start.png);
   background-position: center;
@@ -92,6 +146,7 @@ header .title .logo {
   background-color: transparent;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .sendArea {

@@ -3,25 +3,30 @@ const sendTextArea = document.querySelector('.sendText')
 const sendButton = document.querySelector('.sendButton')
 
 const username = new URLSearchParams(window.location.search).get('user')
+const usercolor = new URLSearchParams(window.location.search).get('color')
 const socket = io()
 
 socket.emit('username', username)
+socket.emit('usercolor', usercolor)
 socket.on('initial chat', data => {
 	chatArea.innerHTML = ''
 
 	for (i of data) {
-		console.log(data);
 		chatArea.append(Message(i))
 	}
+
+	document.querySelector('html').scrollTop = document.querySelector('html').scrollHeight
 })
 
 socket.on('chat', i => {
 	chatArea.append(Message(i))
-	// window.scroll(chatArea.scrollHeight, 0)
+	document.querySelector('html').scrollTop = document.querySelector('html').scrollHeight
 })
 
 sendButton.onclick = () => {
 	socket.emit('chat', { text: sendTextArea.value })
+	sendTextArea.value = ''
+	sendTextArea.focus()
 }
 
 function Message(msg) {
@@ -50,13 +55,13 @@ function Message(msg) {
 		message.classList.add('sent')
 	}
 	
-	picEl.style.backgroundImage = `url(/img/${color}.png)`
+	picEl.style.backgroundImage = `url(/img/players/${color}.png)`
 	senderEl.innerText = name
 	textEl.innerText = text
 	dateTimeEl.innerText = dateTime
 	
 	pictureEl.append(picEl)
-	contentEl.append(senderEl, textEl, dateTimeEl)
+	contentEl.append(senderEl, textEl/*, dateTimeEl*/)
 	messageEl.append(contentEl)
 	if (name == username) messageEl.append(pictureEl)
 	else messageEl.prepend(pictureEl)

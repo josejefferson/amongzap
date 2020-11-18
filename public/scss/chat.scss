@@ -1,25 +1,7 @@
-@font-face {
-	font-family: "VCR OSD MONO";
-	src: url(/fonts/VCR_OSD_MONO_1.001.ttf);
-}
-
-@font-face {
-	font-family: "In your face, joffrey!";
-	src: url("/fonts/In your face, joffrey!.ttf");
-}
-
-* {
-	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent;
-}
+@import "base.scss";
 
 body {
-	background-color: rgb(50, 50, 80);
-	font-family: Arial, sans-serif;
-	background-image: url(/img/stars.png);
-	background-repeat: repeat;
-	background-size: 100%;
-	background-attachment: fixed;
+	overflow-y: scroll;
 }
 
 button:hover,
@@ -32,39 +14,7 @@ input:active {
 	filter: brightness(80%);
 }
 
-header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 56px;
-	background: #000;
-	color: #fff;
-	padding: 5px 15px;
-	font-family: "In your face, joffrey!";
-	
-	.title {
-		display: flex;
-		align-items: center;
-		font-size: 36px;
-		color: #fff;
-		text-decoration: none;
-
-		.logo {
-			background-image: url(/img/logo.png);
-			width: 139.23px;
-			height: 38px;
-			background-size: cover;
-			background-position: center;
-			display: inline-block;
-			margin-left: 20px;
-		}
-	}
-}
+@import "header.scss";
 
 .chat {
 	margin-top: 56px;
@@ -80,7 +30,7 @@ header {
 
 		&:not(:first-child) { margin-top: 10px; }
 		&.sent {
-			.picture { margin-left: 10px; }
+			.picture { margin-left: 10px; .pic { transform: scaleX(-1); } }
 			justify-content: flex-end;
 			.sender { text-align: right; }
 			.text { text-align: right; }
@@ -98,13 +48,14 @@ header {
 			border: none;
 			border-radius: 5px;
 			box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.447059);
-			padding: 10px;
+			padding: 0 5px;
 
 			.content {
 				display: flex;
 				flex-direction: column;
 				font-size: 14px;
 				flex: 1 1 auto;
+				margin: 8px auto;
 
 				.sender {
 					color: #fff;
@@ -118,10 +69,11 @@ header {
 			}
 
 			.picture {
+				display: flex;
+				align-items: flex-end;
 				flex: 0 0 46px;
 				
 				.pic {
-					border-radius: 50%;
 					background-size: cover;
 					background-position: center;
 					width: 100%;

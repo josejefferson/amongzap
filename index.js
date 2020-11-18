@@ -30,13 +30,17 @@ io.on('connection', function (socket) {
 		// console.log(`Usuário conectado => ${socket.id} (${socket.username})`)
 	})
 
+	socket.on('usercolor', color => {
+		socket.usercolor = color
+	})
+
 	socket.emit('initial chat', messages)
 
 	socket.on('chat', msg => {
 		msg.dateTime = Date.now()
 		msg.sender = {
 			name: socket.username,
-			color: 'red'
+			color: socket.usercolor
 		}
 		messages.push(msg)
 		// console.log(messages)

@@ -1,77 +1,16 @@
-@font-face {
-	font-family: "VCR OSD MONO";
-	src: url(/fonts/VCR_OSD_MONO_1.001.ttf);
-}
-
-@font-face {
-	font-family: "In your face, joffrey!";
-	src: url("/fonts/In your face, joffrey!.ttf");
-}
-
-* {
-	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent;
-}
-
-body {
-	background-color: rgb(50, 50, 80);
-	font-family: Arial, sans-serif;
-	background-image: url(/img/stars.png);
-	background-repeat: repeat;
-	background-size: 100%;
-	background-attachment: fixed;
-	// animation: test 45s infinite linear;
-}
-
-// @keyframes test {
-// 	from { background-position-x: 0%; }
-// 	to { background-position-x: 258%; }
-// }
+@import "base.scss";
 
 button:hover,
-input:hover {
+label:hover {
 	filter: brightness(90%);
 }
 
 button:active,
-input:active {
+label:active {
 	filter: brightness(80%);
 }
 
-header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 56px;
-	background: #000;
-	color: #fff;
-	padding: 5px 15px;
-	font-family: "In your face, joffrey!";
-
-	.title {
-		display: flex;
-		align-items: center;
-		font-size: 36px;
-		color: #fff;
-		text-decoration: none;
-
-		.logo {
-			background-image: url(/img/logo.png);
-			width: 139.23px;
-			height: 38px;
-			background-size: cover;
-			background-position: center;
-			display: inline-block;
-			margin-left: 20px;
-		}
-	}
-
-}
+@import "header.scss";
 
 .content {
 	margin-top: 56px;
@@ -88,13 +27,47 @@ header {
 		color: #fff;
 		border: 7px double;
 		border-radius: 8px;
-		// box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.447059);
 		padding: 3px;
 		margin-bottom: 26px;
 		outline: none;
 		text-align: center;
 		font-size: 26px;
 	}
+
+	.color {
+		display: none;
+	}
+
+	.colorLabel {
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		border: black 3.3px solid;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+
+	.colorSelect {
+		margin-bottom: 26px;
+	}
+
+	.color:checked + .colorLabel {
+		background-image: url(/img/selectedColor.png);
+		background-size: cover;
+	}
+
+	.red { background: red; }
+	.blue { background: blue; }
+	.green { background: green; }
+	.pink { background: pink; }
+	.orange { background: orange; }
+	.yellow { background: yellow; }
+	.gray { background: gray; }
+	.white { background: white; }
+	.purple { background: purple; }
+	.brown { background: brown; }
+	.cyan { background: cyan; }
+	.lime { background: lime; }
 
 	.startBtn {
 		background-image: url(/img/start.png);
@@ -105,6 +78,7 @@ header {
 		background-color: transparent;
 		border: none;
 		outline: none;
+		cursor: pointer;
 	}
 }
 

@@ -20,6 +20,10 @@ body {
   background-attachment: fixed;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 button:hover,
 input:hover {
   filter: brightness(90%);
@@ -48,7 +52,7 @@ header {
 header .title {
   display: flex;
   align-items: center;
-  font-size: 36px;
+  font-size: 40px;
   color: #fff;
   text-decoration: none;
 }
@@ -83,6 +87,9 @@ header .title .logo {
 .chat .messageArea.sent .picture {
   margin-left: 10px;
 }
+.chat .messageArea.sent .picture .pic {
+  transform: scaleX(-1);
+}
 .chat .messageArea.sent .sender {
   text-align: right;
 }
@@ -103,13 +110,14 @@ header .title .logo {
   border: none;
   border-radius: 5px;
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.447059);
-  padding: 10px;
+  padding: 0 5px;
 }
 .chat .messageArea .message .content {
   display: flex;
   flex-direction: column;
   font-size: 14px;
   flex: 1 1 auto;
+  margin: 8px auto;
 }
 .chat .messageArea .message .content .sender {
   color: #fff;
@@ -119,10 +127,11 @@ header .title .logo {
   font-size: 10px;
 }
 .chat .messageArea .message .picture {
+  display: flex;
+  align-items: flex-end;
   flex: 0 0 46px;
 }
 .chat .messageArea .message .picture .pic {
-  border-radius: 50%;
   background-size: cover;
   background-position: center;
   width: 100%;

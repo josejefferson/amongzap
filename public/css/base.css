@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "VCR OSD MONO";
+  src: url(/fonts/VCR_OSD_MONO_1.001.ttf);
+}
+@font-face {
+  font-family: "In your face, joffrey!";
+  src: url("/fonts/In your face, joffrey!.ttf");
+}
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #323250;
+  font-family: Arial, sans-serif;
+  background-image: url(/img/stars.png);
+  background-repeat: repeat;
+  background-size: 100%;
+  background-attachment: fixed;
+}
+
+/*# sourceMappingURL=base.css.map */
