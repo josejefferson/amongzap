@@ -1,4 +1,4 @@
-@import "base.scss";
+@import "_base.scss";
 
 body {
 	overflow-y: scroll;
@@ -14,7 +14,7 @@ input:active {
 	filter: brightness(80%);
 }
 
-@import "header.scss";
+@import "_header.scss";
 
 .chat {
 	margin-top: 56px;
@@ -30,11 +30,11 @@ input:active {
 
 		&:not(:first-child) { margin-top: 10px; }
 		&.sent {
-			.picture { margin-left: 10px; .pic { transform: scaleX(-1); } }
+			.picture { margin-left: 10px; order: 1; .pic { transform: scaleX(-1); } }
 			justify-content: flex-end;
-			.sender { text-align: right; }
+			// .sender { text-align: right; }
 			.text { text-align: right; }
-			.dateTime { text-align: right; }
+			.dateTime { justify-content: flex-start !important; order: -1; }
 		}
 		&:not(.sent) {
 			.picture { margin-right: 10px; }
@@ -57,14 +57,24 @@ input:active {
 				flex: 1 1 auto;
 				margin: 8px auto;
 
-				.sender {
-					color: #fff;
-					text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.5136px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
+				.messageData {
+					display: flex;
+					justify-content: flex-end;
+
+					.sender {
+						color: #fff;
+						text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.5136px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
+					}
+					.dateTime {
+						display: flex;
+						align-self: flex-start;
+						flex: 1 1 auto;
+						font-size: 10px;
+						justify-content: flex-end;
+					}
 				}
+
 				.text {
-				}
-				.dateTime {
-					font-size: 10px;
 				}
 			}
 

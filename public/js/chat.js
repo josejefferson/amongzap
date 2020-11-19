@@ -29,6 +29,12 @@ sendButton.onclick = () => {
 	sendTextArea.focus()
 }
 
+function updateDateTimes() {
+	const dateTimes = document.querySelectorAll('.dateTime')
+	dateTimes.forEach(e => e.innerText = moment(parseInt(e.dataset.time)).fromNow())
+}
+window.setInterval(updateDateTimes, 5000)
+
 function Message(msg) {
 	const { sender, text, dateTime } = msg
 	const { name, color } = sender
@@ -38,6 +44,7 @@ function Message(msg) {
 	const pictureEl = document.createElement('div')
 	const picEl = document.createElement('div')
 	const contentEl = document.createElement('div')
+	const messageDataEl = document.createElement('div')
 	const senderEl = document.createElement('div')
 	const textEl = document.createElement('div')
 	const dateTimeEl = document.createElement('div')
@@ -47,9 +54,11 @@ function Message(msg) {
 	pictureEl.classList.add('picture')
 	picEl.classList.add('pic')
 	contentEl.classList.add('content')
+	messageDataEl.classList.add('messageData')
 	senderEl.classList.add('sender')
 	textEl.classList.add('text')
 	dateTimeEl.classList.add('dateTime')
+	dateTimeEl.dataset.time = dateTime
 	
 	if (name == username) {
 		message.classList.add('sent')
@@ -58,13 +67,14 @@ function Message(msg) {
 	picEl.style.backgroundImage = `url(/img/players/${color}.png)`
 	senderEl.innerText = name
 	textEl.innerText = text
-	dateTimeEl.innerText = dateTime
+	dateTimeEl.innerText = moment(dateTime).fromNow()
 	
 	pictureEl.append(picEl)
-	contentEl.append(senderEl, textEl/*, dateTimeEl*/)
+	messageDataEl.append(senderEl, dateTimeEl)
+	contentEl.append(messageDataEl, textEl)
 	messageEl.append(contentEl)
-	if (name == username) messageEl.append(pictureEl)
-	else messageEl.prepend(pictureEl)
+	// if (name == username) messageEl.append(pictureEl)
+	/*else */messageEl.prepend(pictureEl)
 
 	message.append(messageEl)
 
