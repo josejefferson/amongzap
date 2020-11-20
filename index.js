@@ -24,17 +24,13 @@ messages = []
 io.on('connection', function (socket) {
 	socket.on('username', name => {
 		socket.username = name
-		// onlineUsers.push(name)
-		// socket.broadcast.emit('user connected', name)
-		// io.emit('online users', onlineUsers)
-		// console.log(`Usuário conectado => ${socket.id} (${socket.username})`)
 	})
 
 	socket.on('usercolor', color => {
 		socket.usercolor = color
 	})
 
-	socket.emit('initial chat', messages)
+	socket.emit('initialChat', messages)
 
 	socket.on('chat', msg => {
 		msg.dateTime = Date.now()
