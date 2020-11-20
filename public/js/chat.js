@@ -66,7 +66,7 @@ function Message(msg) {
 	
 	picEl.style.backgroundImage = `url(/img/players/${color}.png)`
 	senderEl.innerText = name
-	textEl.innerText = text
+	textEl.innerHTML = linkify(escapeHtml(text))
 	dateTimeEl.innerText = moment(dateTime).fromNow()
 	
 	pictureEl.append(picEl)
@@ -79,4 +79,20 @@ function Message(msg) {
 	message.append(messageEl)
 
 	return message
+}
+
+function linkify(text) {
+	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	return text.replace(urlRegex, function (url) {
+		return '<a href="' + url + '" target="blank">' + url + '</a>';
+	});
+}
+
+function escapeHtml(unsafe) {
+	return unsafe
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
 }

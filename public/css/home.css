@@ -103,40 +103,40 @@ header .title .logo {
   background-size: cover;
 }
 .content .red {
-  background: red;
+  background: #C61111;
 }
 .content .blue {
-  background: blue;
+  background: #132ED2;
 }
 .content .green {
-  background: green;
+  background: #11802D;
 }
 .content .pink {
-  background: pink;
+  background: #EE54BB;
 }
 .content .orange {
-  background: orange;
+  background: #F07D0D;
 }
 .content .yellow {
-  background: yellow;
+  background: #F6F657;
 }
 .content .gray {
-  background: gray;
+  background: #3F474E;
 }
 .content .white {
-  background: white;
+  background: #D7E1F1;
 }
 .content .purple {
-  background: purple;
+  background: #6B2FBC;
 }
 .content .brown {
-  background: brown;
+  background: #71491E;
 }
 .content .cyan {
-  background: cyan;
+  background: #38FFDD;
 }
 .content .lime {
-  background: lime;
+  background: #50F039;
 }
 .content .startBtn {
   background-image: url(/img/start.png);
