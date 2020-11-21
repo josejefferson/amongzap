@@ -1,13 +1,10 @@
+console.clear()
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
-// const fs = require('fs')
-// const bodyParser = require('body-parser')
-// const expressLayouts = require('express-ejs-layouts')
-// const session = require('express-session')
-// const passport = require('passport')
-// require('./config/auth')(passport)
+
+const ACCEPTED_COLORS = ['red', 'blue', 'green', 'pink', 'orange', 'yellow', 'gray', 'white', 'purple', 'brown', 'cyan', 'lime']
 
 app.use(express.static('public'))
 
@@ -19,37 +16,39 @@ app.get('/chat', (req, res) => {
 	res.sendFile(__dirname + '/pages/chat.html')
 })
 
-messages = []
+let messages = []
+let onlineUsers = []
 
-io.on('connection', function (socket) {
-	socket.on('username', name => {
-		socket.username = name
-	})
+io.of('/chat').on('connection', function (socket) {
+	let { /*userID, */userName, userColor } = socket.handshake.query
 
-	socket.on('usercolor', color => {
-		socket.usercolor = color
-	})
+	if (!userName) {
+		socket.emit('error', {
+			errorCode: 'INVALID_USER_NAME',
+			description: 'Nome de usuário inválido!'
+		})
+		return
+	}
+
+	userName = userName.trim().slice(0, 10)
+	if (!ACCEPTED_COLORS.includes(userColor))
+		userColor = ACCEPTED_COLORS[Math.floor(Math.random() * 12)]
+
+	socket.userName = userName
+	socket.userColor = userColor
 
 	socket.emit('initialChat', messages)
 
 	socket.on('chat', msg => {
 		msg.dateTime = Date.now()
 		msg.sender = {
-			name: socket.username,
-			color: socket.usercolor
+			name: socket.userName,
+			color: socket.userColor
 		}
 		messages.push(msg)
-		// console.log(messages)
 
-		io.emit('chat', msg)
+		io.of('/chat').emit('chat', msg)
 
-		// console.log(socket.username)
-		// console.log(msg.data)
-		// if (socket.username == 'admin' && msg.data == 'deleteAll') {
-		// 	messages = []
-		// 	io.emit('command', 'deleteAll')
-		// }
-		// fs.writeFile('messages.txt', JSON.stringify(messages), err => console.log(err))
 	})
 
 	// socket.on('disconnect', function () {

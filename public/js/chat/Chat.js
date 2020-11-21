@@ -3,7 +3,7 @@ function Chat() {
 	const subscribe = f => observers.push(f)
 	const notifyAll = (...p) => observers.forEach(f => f(...p))
 
-	const username = new URLSearchParams(window.location.search).get('user')
+	const username = new URLSearchParams(window.location.search).get('user').trim().slice(0, 10)
 	const chatArea = document.querySelector('.chat')
 	const sendTextArea = document.querySelector('.sendText')
 	const sendButton = document.querySelector('.sendButton')
