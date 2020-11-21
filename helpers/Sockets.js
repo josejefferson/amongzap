@@ -1,14 +1,15 @@
 function Sockets(http, chat) {
 	const MAX_MESSAGES = 300
+	const MAX_LENGTH_MESSAGE = 500
 
 	const io = require('socket.io')(http)
 	const helpers = require('../public/js/Helpers')
-	const helpers2 = require('./Helpers')
+	const safeData = require('./SafeData')
 	const validateUser = require('./ValidateUser')
 	const sha1 = require('js-sha1')
 
 	io.of('/chat').on('connection', function (socket) {
-
+		console.dir(socket)
 		const user = validateUser(socket, chat)
 		if (!user) return
 
@@ -19,32 +20,39 @@ function Sockets(http, chat) {
 
 		console.log(`[INFO] Usuários online:`, chat.onlineUsers)
 
-		socket.emit('initialChat', helpers2.messages(chat.messages))
-		io.of('/chat').emit('userConnected', helpers2.user(user))
+		socket.emit('initialChat', safeData.messages(chat.messages))
+		socket.broadcast.emit('userConnected', safeData.user(user))
 
 		socket.on('chat', msg => {
-			msg.text = msg.text.trim()
-			if (msg.text === '') {
-				// socket.emit('error',)
+			const message = {}
+			
+			if (typeof msg.text == 'string' &&
+				msg.text.trim !== '' &&
+				msg.text.length <= MAX_LENGTH_MESSAGE
+			) {
+				message.text = msg.text.trim()
+			} else {
+				// socket.emit(error INVALID_MESSAGE_TEXT
 				return
 			}
-			msg.id = helpers.randomString(50)
-			msg.dateTime = Date.now()
-			msg.sender = {
+	
+			message.id = helpers.randomString(50)
+			message.dateTime = Date.now()
+			message.sender = {
 				userID: socket.userID,
 				userName: socket.userName,
 				userColor: socket.userColor
 			}
-			chat.messages.push(msg)
+			chat.messages.push(message)
 			if (chat.messages.length > MAX_MESSAGES) chat.messages.splice(0, 1)
-			io.of('/chat').emit('chat', helpers2.message(msg))
+			io.of('/chat').emit('chat', safeData.message(message))
 		})
 
 		socket.on('disconnect', () => {
 			console.log(`[INFO] Usuário desconectado: ${socket.id}`)
 			delete chat.onlineUsers[chat.onlineUsers.indexOf(user)]
 			console.log(`[INFO] Usuários online`, chat.onlineUsers)
-			io.of('/chat').emit('userDisconnected', helpers2.user(user))
+			socket.broadcast.emit('userDisconnected', safeData.user(user))
 		})
 	})
 }

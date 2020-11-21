@@ -22,6 +22,7 @@ function Chat() {
 	function chat(data) {
 		console.log(data)
 		$chat.append(genMsgEl(data))
+		document.querySelector('html').scrollTop = document.querySelector('html').scrollHeight
 	}
 	
 	function initialChat(data) {
@@ -30,23 +31,17 @@ function Chat() {
 	}
 
 	function userConnect(data) {
-		if (data.userName == userName && data.userIDHash == userIDHash) return
 		const a = document.createElement('div')
 		a.innerText = data.userName + ' entrou'
 		$logs.appendChild(a)
-		setTimeout(() => {
-			a.remove()
-		}, 5000);
+		setTimeout(() => a.remove(), 5000)
 	}
 	
 	function userDisconnect(data) {
-		if (data.userName == userName && data.userIDHash == userIDHash) return
 		const a = document.createElement('div')
 		a.innerText = data.userName + ' saiu'
 		$logs.appendChild(a)
-		setTimeout(() => {
-			a.remove()
-		}, 5000);
+		setTimeout(() => a.remove(), 5000)
 	}
 
 	function genMsgEl(msg) {
