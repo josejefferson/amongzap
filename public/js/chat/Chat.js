@@ -3,29 +3,32 @@ function Chat() {
 	const subscribe = f => observers.push(f)
 	const notifyAll = (...p) => observers.forEach(f => f(...p))
 
-	const username = new URLSearchParams(window.location.search).get('user').trim().slice(0, 10)
-	const chatArea = document.querySelector('.chat')
-	const sendTextArea = document.querySelector('.sendText')
-	const sendButton = document.querySelector('.sendButton')
+	const { userID, userName, userColor } = UserData()
 
-	sendButton.onclick = () => {
-		notifyAll({ type: 'chat', data: { text: sendTextArea.value } })
-		sendTextArea.value = ''
-		sendTextArea.focus()
+	const $chat = document.querySelector('.chat')
+	const $sendText = document.querySelector('.sendText')
+	const $sendBtn = document.querySelector('.sendButton')
+
+	$sendBtn.onclick = sendMsg
+	$sendText.onkeyup = e => (e.key === 'Enter') && sendMsg() // TEMP
+	
+	function sendMsg() {
+		notifyAll({ type: 'chat', data: { text: $sendText.value } })
+		$sendText.value = ''
+		$sendText.focus()
 	}
 
 	function chat(data) {
-		chatArea.append(message(data))
+		$chat.append(genMsgEl(data))
 	}
 	
 	function initialChat(data) {
-		chatArea.innerHTML = ''
+		$chat.innerHTML = ''
 		data.forEach(chat)
 	}
 
-	function message(msg) {
+	function genMsgEl(msg) {
 		const { sender, text, dateTime } = msg
-		const { name, color } = sender
 
 		const message = document.createElement('div')
 		const messageEl = document.createElement('div')
@@ -48,13 +51,13 @@ function Chat() {
 		dateTimeEl.classList.add('dateTime')
 		dateTimeEl.dataset.time = dateTime
 
-		if (name == username) {
+		if (userName == sender.userName) {
 			message.classList.add('sent')
 		}
 
-		picEl.style.backgroundImage = `url(/img/players/${color}.png)`
-		senderEl.innerText = name
-		textEl.innerHTML = linkify(escapeHtml(text))
+		picEl.style.backgroundImage = `url(/img/players/${sender.userColor}.png)`
+		senderEl.innerText = sender.userName
+		textEl.innerHTML = helpers.replaceLinks(helpers.escapeHTML(text))
 		dateTimeEl.innerText = moment(dateTime).fromNow()
 
 		pictureEl.append(picEl)
@@ -66,22 +69,6 @@ function Chat() {
 		message.append(messageEl)
 
 		return message
-	}
-
-	function linkify(text) {
-		var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-		return text.replace(urlRegex, function (url) {
-			return '<a href="' + url + '" target="blank">' + url + '</a>';
-		});
-	}
-
-	function escapeHtml(unsafe) {
-		return unsafe
-			.replace(/&/g, "&amp;")
-			.replace(/</g, "&lt;")
-			.replace(/>/g, "&gt;")
-			.replace(/"/g, "&quot;")
-			.replace(/'/g, "&#039;");
 	}
 
 	return {

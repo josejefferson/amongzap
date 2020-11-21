@@ -16,10 +16,11 @@
 	</header>
 
 	<div class="content">
-		<form action="/chat" method="GET">
+		<form action="/chat" method="GET" class="playerData">
 			<h3>Digite seu nome</h3>
-			<input type="text" name="user" class="input" minlength="1" maxlength="10" autocomplete="off" title="Digite seu nome no Among Us" required>
-			
+			<input type="text" name="user" class="input" minlength="1" maxlength="10" autocomplete="off"
+				title="Digite seu nome no Among Us" required>
+
 			<div class="colorSelect">
 				<h3>Escolha sua cor</h3>
 				<div class="row">
@@ -36,7 +37,7 @@
 					<input type="radio" name="color" class="color" id="yellow" value="yellow">
 					<label for="yellow" class="colorLabel yellow" title="Amarelo"></label>
 				</div>
-				
+
 				<div class="row">
 					<input type="radio" name="color" class="color" id="gray" value="gray">
 					<label for="gray" class="colorLabel gray" title="Cinza"></label>
@@ -52,13 +53,14 @@
 					<label for="lime" class="colorLabel lime" title="Verde claro"></label>
 				</div>
 			</div>
-			
+
 
 			<button type="submit" class="startBtn" title="Clique para entrar no chat"></button>
 		</form>
 	</div>
 
-	<script src="/js/js-cookie.js"></script>
+	<script src="/js/Helpers.js"></script>
+	<script src="/js/UserID.js"></script>
 	<script src="/js/home.js"></script>
 </body>
 

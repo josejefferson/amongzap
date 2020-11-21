@@ -3,20 +3,22 @@ function Socket() {
 	const subscribe = f => observers.push(f)
 	const notifyAll = (...p) => observers.forEach(f => f(...p))
 
-	const userName = new URLSearchParams(window.location.search).get('user').trim().slice(0, 10)
-	const userColor = new URLSearchParams(window.location.search).get('color')
-	const socket = io('http://localhost:3000/chat', {
+	const { userID, userName, userColor } = UserData()
+
+	const socket = io(`${window.location.origin}/chat`, {
 		query: {
-			userName, userColor
+			userID,
+			userName,
+			userColor
 		}
 	})
 
-	socket.on('error', console.error)
-	// socket.emit('username', username)
-	// socket.emit('usercolor', usercolor)
+	socket.on('error', err => alert(err.description))
 
 	socket.on('initialChat', data => notifyAll({ type: 'initialChat', data }))
 	socket.on('chat', data => notifyAll({ type: 'chat', data }))
+	socket.on('userConnected', console.log)
+	socket.on('userDisconnected', console.log)
 
 	function chat(data) {
 		socket.emit('chat', data)

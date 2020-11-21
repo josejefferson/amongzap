@@ -1,22 +1,20 @@
-const nameEl = document.querySelector('.input')
-const colorEls = document.querySelectorAll('.color')
-colorEls.forEach(e => e.onchange = e => Cookies.set('test', e.target.value))
+const DEFAULT_NAME_LS = 'amongUsChat.defaultName'
+const DEFAULT_COLOR_LS = 'amongUsChat.defaultColor'
+const $name = document.querySelector('.input')
+const $colors = document.querySelectorAll('.color')
+const $form = document.querySelector('.playerData')
+const helpers = Helpers()
 
-// if (Cookies.get('test')) {
-// 	document.querySelectorAll('.color')[Math.floor(Math.random() * 12)].checked = true
-// 	Cookies.set('test', )
-// }
-
-const userIDCookie = Cookies.get('userID')
-const userID = (!userIDCookie || (userIDCookie && userIDCookie.length !== 30)) ? generateID(30) : Cookies.get('userID')
-
-function generateID(length) {
-	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	const charactersLength = characters.length
-	let result = ''
-	for (let i = 0; i < length; i++) {
-		result += characters.charAt(Math.floor(Math.random() * charactersLength))
-	}
-	Cookies.set('userID', result)
-	return result
+$form.onsubmit = () => {
+	localStorage.setItem(DEFAULT_NAME_LS, $name.value)
+	localStorage.setItem(DEFAULT_COLOR_LS, document.querySelector('.color:checked').value)
 }
+
+if (!localStorage.getItem(DEFAULT_COLOR_LS)) {
+	const generatedColor = $colors[helpers.randomNumber(0, 11)]
+	generatedColor.checked = true
+} else {
+	document.querySelector(`#${localStorage.getItem(DEFAULT_COLOR_LS)}`).checked = true
+}
+
+$name.value = localStorage.getItem(DEFAULT_NAME_LS) || `Player${helpers.randomNumber(1000, 9999)}`
