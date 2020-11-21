@@ -5,6 +5,7 @@ function Chat() {
 
 	const { userID, userIDHash, userName, userColor } = UserData()
 
+	const $root = document.documentElement
 	const $chat = document.querySelector('.chat')
 	const $logs = document.querySelector('.logs')
 	const $sendText = document.querySelector('.sendText')
@@ -22,7 +23,7 @@ function Chat() {
 	function chat(data) {
 		console.log(data)
 		$chat.append(genMsgEl(data))
-		document.querySelector('html').scrollTop = document.querySelector('html').scrollHeight
+		$root.scrollTop = $root.scrollHeight
 	}
 	
 	function initialChat(data) {

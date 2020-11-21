@@ -9,7 +9,6 @@ function Sockets(http, chat) {
 	const sha1 = require('js-sha1')
 
 	io.of('/chat').on('connection', function (socket) {
-		console.dir(socket)
 		const user = validateUser(socket, chat)
 		if (!user) return
 
