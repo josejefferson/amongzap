@@ -2,9 +2,12 @@ function Chat() {
 	let messages = []
 	let onlineUsers = []
 
+	function getMessages() {return messages}
+
 	return {
 		messages,
-		onlineUsers
+		onlineUsers,
+		getMessages
 	}
 }
 

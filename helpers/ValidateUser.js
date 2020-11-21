@@ -41,14 +41,14 @@ function ValidateUser(socket) {
 		return false
 	}
 
-	if (chat.onlineUsers.filter(u => u.userName == userName).length > 0) {
-		console.log(`[ERRO] Já existe um usuário com este nome!`)
-		socket.emit('error', {
-			errorCode: 'USER_NAME_USED',
-			description: 'Já existe um usuário online com este nome!'
-		})
-		return false
-	}
+	// if (chat.onlineUsers.filter(u => u.userName == userName).length > 0) {
+	// 	console.log(`[ERRO] Já existe um usuário com este nome!`)
+	// 	socket.emit('error', {
+	// 		errorCode: 'USER_NAME_USED',
+	// 		description: 'Já existe um usuário online com este nome!'
+	// 	})
+	// 	return false
+	// }
 
 	userName = userName.trim().slice(0, 10)
 	if (!ACCEPTED_COLORS.includes(userColor)) {

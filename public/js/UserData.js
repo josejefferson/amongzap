@@ -13,11 +13,14 @@ function UserData() {
 		userID = currentUserID
 	}
 
+	let userIDHash = sha1(userID)
+
 	let userName = new URLSearchParams(window.location.search).get('user').trim().slice(0, 10)
 	let userColor = new URLSearchParams(window.location.search).get('color')
 	
 	return {
 		userID,
+		userIDHash,
 		userName,
 		userColor
 	}

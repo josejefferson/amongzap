@@ -3,7 +3,7 @@ function Chat() {
 	const subscribe = f => observers.push(f)
 	const notifyAll = (...p) => observers.forEach(f => f(...p))
 
-	const { userID, userName, userColor } = UserData()
+	const { userID, userIDHash, userName, userColor } = UserData()
 
 	const $chat = document.querySelector('.chat')
 	const $sendText = document.querySelector('.sendText')
@@ -51,7 +51,7 @@ function Chat() {
 		dateTimeEl.classList.add('dateTime')
 		dateTimeEl.dataset.time = dateTime
 
-		if (userName == sender.userName) {
+		if (userIDHash == sender.userIDHash && userName == sender.userName) {
 			message.classList.add('sent')
 		}
 
