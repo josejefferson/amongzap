@@ -1,13 +1,10 @@
 function Chat() {
-	let messages = []
-	let onlineUsers = []
-
-	function getMessages() {return messages}
+	const messages = []
+	const onlineUsers = []
 
 	return {
 		messages,
-		onlineUsers,
-		getMessages
+		onlineUsers
 	}
 }
 
