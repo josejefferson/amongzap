@@ -17,8 +17,8 @@ function Socket() {
 
 	socket.on('initialChat', data => notifyAll({ type: 'initialChat', data }))
 	socket.on('chat', data => notifyAll({ type: 'chat', data }))
-	socket.on('userConnected', console.log)
-	socket.on('userDisconnected', console.log)
+	socket.on('userConnected', data => notifyAll({ type: 'userConnect', data }))
+	socket.on('userDisconnected', data => notifyAll({ type: 'userDisconnect', data }))
 
 	function chat(data) {
 		socket.emit('chat', data)

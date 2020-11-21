@@ -150,6 +150,14 @@ header .title .logo {
   height: 46px;
 }
 
+.logs {
+  position: fixed;
+  top: 66px;
+  left: 10px;
+  width: 100%;
+  color: red;
+}
+
 .sendArea {
   display: flex;
   flex-direction: row;

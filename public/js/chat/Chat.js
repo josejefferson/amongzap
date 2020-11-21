@@ -6,6 +6,7 @@ function Chat() {
 	const { userID, userIDHash, userName, userColor } = UserData()
 
 	const $chat = document.querySelector('.chat')
+	const $logs = document.querySelector('.logs')
 	const $sendText = document.querySelector('.sendText')
 	const $sendBtn = document.querySelector('.sendButton')
 
@@ -19,12 +20,33 @@ function Chat() {
 	}
 
 	function chat(data) {
+		console.log(data)
 		$chat.append(genMsgEl(data))
 	}
 	
 	function initialChat(data) {
 		$chat.innerHTML = ''
 		data.forEach(chat)
+	}
+
+	function userConnect(data) {
+		if (data.userName == userName && data.userIDHash == userIDHash) return
+		const a = document.createElement('div')
+		a.innerText = data.userName + ' entrou'
+		$logs.appendChild(a)
+		setTimeout(() => {
+			a.remove()
+		}, 5000);
+	}
+	
+	function userDisconnect(data) {
+		if (data.userName == userName && data.userIDHash == userIDHash) return
+		const a = document.createElement('div')
+		a.innerText = data.userName + ' saiu'
+		$logs.appendChild(a)
+		setTimeout(() => {
+			a.remove()
+		}, 5000);
 	}
 
 	function genMsgEl(msg) {
@@ -74,6 +96,8 @@ function Chat() {
 	return {
 		subscribe,
 		chat,
-		initialChat
+		initialChat,
+		userConnect,
+		userDisconnect
 	}
 }
