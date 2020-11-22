@@ -20,7 +20,8 @@ module.exports = function (socketio) {
 		socket.on('chat', msg => {
 			const message = {}
 			
-			if (typeof msg === 'object' &&
+			if (msg && // tentar criar uma função somente para validar a mensagem
+				typeof msg === 'object' &&
 				typeof msg.text === 'string' &&
 				msg.text.trim() !== '' &&
 				msg.text.length <= MAX_LENGTH_MESSAGE
@@ -44,6 +45,7 @@ module.exports = function (socketio) {
 			chat.messages.push(message)
 			if (chat.messages.length > MAX_MESSAGES) chat.messages.splice(0, 1)
 			io.of('/chat').emit('chat', safeData.message(message))
+			console.log(chat.messages)
 		})
 
 		socket.on('disconnect', () => {
