@@ -7,7 +7,7 @@ module.exports = function (socketio) {
 	const io = socketio
 	const helpers = require('./Helpers')
 	const safeData = require('./SafeData')
-	const validateUser = require('./ValidateUser')
+	const validateUser = require('./RepairUser')
 
 	io.of('/chat').on('connection', function (socket) {
 		const user = validateUser(socket, chat)

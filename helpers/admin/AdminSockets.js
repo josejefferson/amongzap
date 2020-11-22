@@ -1,4 +1,4 @@
-const { blockedUserIDs, blockedIPs, onlineUsers } = require('./Chat')
+const { blockedUserIDs, blockedIPs, onlineUsers } = require('../Chat')
 function AdminSockets(socketio) {
 	const io = socketio
 	const { authenticate } = require('./AdminHelpers')
@@ -12,8 +12,10 @@ function AdminSockets(socketio) {
 		socket.on('ban', data => {
 			const { type, user, reason } = data
 
-			if (type === 'IP' && user && user.ip) blockedIPs.push({ userIP: user.ip, reason })
-			else if (type === 'ID' && user && user.id) blockedUserIDs.push({ userID: user.id, reason })
+			switch (type) {
+				case 'ID': blockedUserIDs.push({ userID: user.id, reason }); break
+				case 'IP': blockedIPs.push({ userIP: user.ip, reason }); break
+			}
 
 			if (user && user.id)
 				onlineUsers
@@ -22,8 +24,6 @@ function AdminSockets(socketio) {
 						e.socket.emit('error', { 'description': `Você foi banido pelo administrador!\nMotivo: ${reason}` })
 						e.socket.disconnect()
 					})
-
-			console.log(blockedIPs, blockedUserIDs)
 		})
 	})
 }
