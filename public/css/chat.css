@@ -158,6 +158,21 @@ header .title .logo {
   color: red;
 }
 
+.errors {
+  position: fixed;
+  top: 61px;
+  left: 8px;
+  right: 8px;
+}
+.errors .error {
+  background-color: rgba(255, 0, 0, 0.5);
+  border: red 3px solid;
+  color: red;
+  margin-top: 5px;
+  border-radius: 6px;
+  padding: 8px 8px;
+}
+
 .sendArea {
   display: flex;
   flex-direction: row;

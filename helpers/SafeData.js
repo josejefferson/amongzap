@@ -1,6 +1,7 @@
 const sha1 = require('js-sha1')
-function SafeData() {
-	function message(msg) {
+
+module.exports = {
+	message: function (msg) {
 		return {
 			id: msg.id,
 			dateTime: msg.dateTime,
@@ -11,29 +12,21 @@ function SafeData() {
 				userColor: msg.sender.userColor
 			}
 		}
-	}
+	},
 
-	function messages(msgs) {
+	messages: function (msgs) {
 		const messages = [...msgs]
 		for (i in messages) {
-			messages[i] = message(messages[i])
+			messages[i] = this.message(messages[i])
 		}
 		return messages
-	}
+	},
 
-	function user(us) {
+	user: function (us) {
 		return {
 			userIDHash: sha1(us.userID),
 			userName: us.userName,
 			userColor: us.userColor
 		}
 	}
-
-	return {
-		message,
-		messages,
-		user
-	}
 }
-
-module.exports = SafeData()

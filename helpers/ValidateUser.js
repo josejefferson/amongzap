@@ -1,4 +1,4 @@
-function ValidateUser(socket) {
+module.exports = function (socket) {
 	const ACCEPTED_COLORS = [
 		'red',
 		'blue',
@@ -16,12 +16,12 @@ function ValidateUser(socket) {
 
 	const chat = require('./Chat')
 
-	console.log(`[CONEXÃO] Usuário tentando conectar: ${socket.id}; IP: ${socket.handshake.headers['x-forwarded-for']}`)
+	// console.log(`[CONEXÃO] Usuário tentando conectar: ${socket.id}; IP: ${socket.handshake.headers['x-forwarded-for']}`)
 
 	let { userID, userName, userColor } = socket.handshake.query
 	const userIP = socket.handshake.headers['x-forwarded-for']
 
-	console.log(`[DADOS] ID: ${userID}; Nome: ${userName}; Cor: ${userColor}`)
+	// console.log(`[DADOS] ID: ${userID}; Nome: ${userName}; Cor: ${userColor}`)
 
 	const blockedUserID = chat.blockedUserIDs.filter(e => e.userID === userID)
 	const blockedUserIP = chat.blockedIPs.filter(e => e.userIP === userIP)
@@ -38,17 +38,17 @@ function ValidateUser(socket) {
 	}
 
 	if (!userID || userID.length !== 30) {
-		console.log(`[ERRO] ID do usuário inválido!`)
+		// console.log(`[ERRO] ID do usuário inválido!`)
 
 		const generatedUserID = helpers.randomString(30)
 		socket.emit('setID', generatedUserID)
 		userID = generatedUserID
 
-		console.log(`[GERAÇÃO] Novo ID gerado: ${generatedUserID}`)
+		// console.log(`[GERAÇÃO] Novo ID gerado: ${generatedUserID}`)
 	}
 
 	if (!userName) {
-		console.log(`[ERRO] Nome do usuário inválido!`)
+		// console.log(`[ERRO] Nome do usuário inválido!`)
 
 		socket.emit('error', {
 			errorCode: 'INVALID_USER_NAME',
@@ -68,9 +68,9 @@ function ValidateUser(socket) {
 
 	userName = userName.trim().slice(0, 10)
 	if (!ACCEPTED_COLORS.includes(userColor)) {
-		console.log(`[ERRO] Cor inválida!`)
+		// console.log(`[ERRO] Cor inválida!`)
 		userColor = ACCEPTED_COLORS[Math.floor(Math.random() * 12)]
-		console.log(`[GERAÇÃO] Nova cor gerada: ${userColor}`)
+		// console.log(`[GERAÇÃO] Nova cor gerada: ${userColor}`)
 	}
 
 	return {
@@ -80,5 +80,3 @@ function ValidateUser(socket) {
 		userColor: userColor
 	}
 }
-
-module.exports = ValidateUser

@@ -1,7 +1,7 @@
-function Socket() {
+function Socket(chat) {
 	const observers = []
 	const subscribe = f => observers.push(f)
-	const notifyAll = (...p) => observers.forEach(f => f(...p))
+	const notifyAll = (...p) => observers.forEach(f => f(...p)) // TODO: remover observers
 
 	const { userID, userName, userColor } = UserData()
 
@@ -13,22 +13,23 @@ function Socket() {
 		}
 	})
 
-	socket.on('error', err => alert(err.description))
 	socket.on('connect', () => console.log('Conectado'))
 	socket.on('disconnect', () => console.log('Desconectado'))
 
-	socket.on('initialChat', data => notifyAll({ type: 'initialChat', data }))
-	socket.on('chat', data => notifyAll({ type: 'chat', data }))
-	socket.on('userConnected', data => notifyAll({ type: 'userConnect', data }))
-	socket.on('userDisconnected', data => notifyAll({ type: 'userDisconnect', data }))
+	socket.on('error', chat.error)
+	socket.on('banned', chat.banned)
+	socket.on('initialChat', chat.initialChat)
+	socket.on('chat', chat.chat)
+	socket.on('userConnected', chat.userConnect)
+	socket.on('userDisconnected', chat.userDisconnect)
 
-	function chat(data) {
+	function sendChat(data) {
 		socket.emit('chat', data)
 	}
 
 	return {
 		subscribe,
-		chat,
+		chat: sendChat,
 		socket // temp
 	}
 }

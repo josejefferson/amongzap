@@ -1,42 +1,36 @@
-const { onlineUsers } = require('./Chat')
+const chat = require('./Chat')
 
-function Sockets(http, chat) {
+module.exports = function (socketio) {
 	const MAX_MESSAGES = 300
 	const MAX_LENGTH_MESSAGE = 500
 
-	const io = require('socket.io')(http)
-	const helpers = require('../public/js/Helpers')
+	const io = socketio
+	const helpers = require('./Helpers')
 	const safeData = require('./SafeData')
 	const validateUser = require('./ValidateUser')
 
-	io.of('/chat').on('connection', async function (socket) {
+	io.of('/chat').on('connection', function (socket) {
 		const user = validateUser(socket, chat)
 		if (!user) { socket.disconnect(); return }
-
-		console.log(`[INFO] Dados do usuário:`, user)
-
 		Object.assign(socket, user)
 		chat.onlineUsers.push(user)
-
-		console.log(`[INFO] Usuários online:`, chat.onlineUsers)
-
 		socket.emit('initialChat', safeData.messages(chat.messages))
 		socket.broadcast.emit('userConnected', safeData.user(user))
-
-		// socket.on('ban', id => {
-			// onlineUsers.filter(e => e.userID === id).forEach(e => e.socket.disconnect())
-		// })
 
 		socket.on('chat', msg => {
 			const message = {}
 			
-			if (typeof msg.text == 'string' &&
-				msg.text.trim !== '' &&
+			if (typeof msg === 'object' &&
+				typeof msg.text === 'string' &&
+				msg.text.trim() !== '' &&
 				msg.text.length <= MAX_LENGTH_MESSAGE
 			) {
 				message.text = msg.text.trim()
 			} else {
-				// socket.emit(error INVALID_MESSAGE_TEXT
+				socket.emit('error', {
+					code: 'INVALID_MESSAGE_TEXT',
+					description: 'Mensagem inválida!'
+				})
 				return
 			}
 	
@@ -53,12 +47,8 @@ function Sockets(http, chat) {
 		})
 
 		socket.on('disconnect', () => {
-			console.log(`[INFO] Usuário desconectado: ${socket.id}`)
 			delete chat.onlineUsers[chat.onlineUsers.indexOf(user)]
-			console.log(`[INFO] Usuários online`, chat.onlineUsers)
 			socket.broadcast.emit('userDisconnected', safeData.user(user))
 		})
 	})
 }
-
-module.exports = Sockets

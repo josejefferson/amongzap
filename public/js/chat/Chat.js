@@ -8,20 +8,22 @@ function Chat() {
 	const $root = document.documentElement
 	const $chat = document.querySelector('.chat')
 	const $logs = document.querySelector('.logs')
+	const $errors = document.querySelector('.errors')
 	const $sendText = document.querySelector('.sendText')
 	const $sendBtn = document.querySelector('.sendButton')
 
+	$sendText.focus()
 	$sendBtn.onclick = sendMsg
 	$sendText.onkeyup = e => (e.key === 'Enter') && sendMsg() // TEMP
 	
 	function sendMsg() {
+		if ($sendText.value.trim() === '') return
 		notifyAll({ type: 'chat', data: { text: $sendText.value } })
 		$sendText.value = ''
 		$sendText.focus()
 	}
 
 	function chat(data) {
-		console.log(data)
 		$chat.append(genMsgEl(data))
 		$root.scrollTop = $root.scrollHeight
 	}
@@ -45,6 +47,19 @@ function Chat() {
 		setTimeout(() => a.remove(), 5000)
 	}
 
+	function error(data) {
+		console.log(data)
+		const error = document.createElement('div')
+		error.classList.add('error')
+		error.innerText = data.description
+		$errors.appendChild(error)
+		setTimeout(() => error.remove(), 5000)
+	}
+
+	function banned(data) {
+		
+	}
+	
 	function genMsgEl(msg) {
 		const { sender, text, dateTime } = msg
 
@@ -94,6 +109,8 @@ function Chat() {
 		chat,
 		initialChat,
 		userConnect,
-		userDisconnect
+		userDisconnect,
+		error,
+		banned
 	}
 }

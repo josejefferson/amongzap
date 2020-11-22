@@ -1,1 +1,1 @@
-const socket = io(`${window.location.origin}/admin`)
+const socket = Socket()
