@@ -16,10 +16,26 @@ function ValidateUser(socket) {
 
 	const chat = require('./Chat')
 
-	console.log(`[CONEXÃO] Usuário tentando conectar: ${socket.id}`)
+	console.log(`[CONEXÃO] Usuário tentando conectar: ${socket.id}; IP: ${socket.handshake.headers['x-forwarded-for']}`)
 
 	let { userID, userName, userColor } = socket.handshake.query
+	const userIP = socket.handshake.headers['x-forwarded-for']
+
 	console.log(`[DADOS] ID: ${userID}; Nome: ${userName}; Cor: ${userColor}`)
+
+	const blockedUserID = chat.blockedUserIDs.filter(e => e.userID === userID)
+	const blockedUserIP = chat.blockedIPs.filter(e => e.userIP === userIP)
+
+	if (userID && userID.length === 30 && (blockedUserID.length || blockedUserIP.length)) {
+		if (blockedUserID.length) var reason = blockedUserID[0].reason || ''
+		if (blockedUserIP.length) var reason = blockedUserIP[0].reason || ''
+
+		socket.emit('error', {
+			errorCode: 'USER_BLOCKED',
+			description: `Você foi banido pelo administrador! Motivo: ${reason}`
+		})
+		return false
+	}
 
 	if (!userID || userID.length !== 30) {
 		console.log(`[ERRO] ID do usuário inválido!`)
@@ -58,6 +74,7 @@ function ValidateUser(socket) {
 	}
 
 	return {
+		socket,
 		userID: userID,
 		userName: userName,
 		userColor: userColor

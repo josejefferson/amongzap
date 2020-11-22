@@ -5,6 +5,7 @@ const chat = require('./helpers/Chat')
 const http = require('http').Server(app)
 const routes = require('./helpers/Routes')
 require('./helpers/Sockets')(http, chat)
+require('./helpers/AdminSockets')(http, chat)
 
 app.use('/', routes)
 

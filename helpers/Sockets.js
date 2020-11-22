@@ -1,3 +1,5 @@
+const { onlineUsers } = require('./Chat')
+
 function Sockets(http, chat) {
 	const MAX_MESSAGES = 300
 	const MAX_LENGTH_MESSAGE = 500
@@ -6,11 +8,10 @@ function Sockets(http, chat) {
 	const helpers = require('../public/js/Helpers')
 	const safeData = require('./SafeData')
 	const validateUser = require('./ValidateUser')
-	const sha1 = require('js-sha1')
 
-	io.of('/chat').on('connection', function (socket) {
+	io.of('/chat').on('connection', async function (socket) {
 		const user = validateUser(socket, chat)
-		if (!user) return
+		if (!user) { socket.disconnect(); return }
 
 		console.log(`[INFO] Dados do usuário:`, user)
 
@@ -21,6 +22,10 @@ function Sockets(http, chat) {
 
 		socket.emit('initialChat', safeData.messages(chat.messages))
 		socket.broadcast.emit('userConnected', safeData.user(user))
+
+		// socket.on('ban', id => {
+			// onlineUsers.filter(e => e.userID === id).forEach(e => e.socket.disconnect())
+		// })
 
 		socket.on('chat', msg => {
 			const message = {}

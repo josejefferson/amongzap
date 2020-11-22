@@ -14,6 +14,8 @@ function Socket() {
 	})
 
 	socket.on('error', err => alert(err.description))
+	socket.on('connect', () => console.log('Conectado'))
+	socket.on('disconnect', () => console.log('Desconectado'))
 
 	socket.on('initialChat', data => notifyAll({ type: 'initialChat', data }))
 	socket.on('chat', data => notifyAll({ type: 'chat', data }))
@@ -26,6 +28,7 @@ function Socket() {
 
 	return {
 		subscribe,
-		chat
+		chat,
+		socket // temp
 	}
 }
