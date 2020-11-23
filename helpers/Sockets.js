@@ -45,7 +45,6 @@ module.exports = function (socketio) {
 			chat.messages.push(message)
 			if (chat.messages.length > MAX_MESSAGES) chat.messages.splice(0, 1)
 			io.of('/chat').emit('chat', safeData.message(message))
-			console.log(chat.messages)
 		})
 
 		socket.on('disconnect', () => {

@@ -23,20 +23,23 @@ function Chat() {
 		$sendText.focus()
 	}
 
-	function chat(data) {
+	function chat(data, initial = false) {
 		$chat.append(genMsgEl(data))
 		$root.scrollTop = $root.scrollHeight
+		if (!initial && data.sender.userIDHash !== userIDHash)
+			sounds.play(`NEW_MESSAGE_0${1 + Math.floor(Math.random() * 2)}`)
 	}
 	
 	function initialChat(data) {
 		$chat.innerHTML = ''
-		data.forEach(chat)
+		data.forEach(d => chat(d, true))
 	}
 
 	function userConnect(data) {
 		const a = document.createElement('div')
 		a.innerText = data.userName + ' entrou'
 		$logs.appendChild(a)
+		sounds.play('PLAYER_SPAWN')
 		setTimeout(() => a.remove(), 5000)
 	}
 	
@@ -44,6 +47,7 @@ function Chat() {
 		const a = document.createElement('div')
 		a.innerText = data.userName + ' saiu'
 		$logs.appendChild(a)
+		sounds.play('PLAYER_LEFT')
 		setTimeout(() => a.remove(), 5000)
 	}
 

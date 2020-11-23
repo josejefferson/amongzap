@@ -1,4 +1,5 @@
 const helpers = Helpers()
+const sounds = Sounds()
 const chat = Chat()
 const socket = Socket(chat)
 
