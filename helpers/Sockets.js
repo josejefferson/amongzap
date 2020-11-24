@@ -16,7 +16,7 @@ module.exports = function (socketio) {
 		chat.onlineUsers.push(user)
 		socket.emit('initialChat', safeData.messages(chat.messages))
 		socket.broadcast.emit('userConnected', safeData.user(user))
-		io.of('/admin').emit('userConnected', user)
+		io.of('/admin').emit('userConnected', {userID: user.userID, userName: user.userName, userColor: user.userColor})
 
 		socket.on('chat', msg => {
 			const message = {}
@@ -52,7 +52,7 @@ module.exports = function (socketio) {
 		socket.on('disconnect', () => {
 			delete chat.onlineUsers[chat.onlineUsers.indexOf(user)]
 			socket.broadcast.emit('userDisconnected', safeData.user(user))
-			io.of('/admin').emit('userDisconnected', user)
+			io.of('/admin').emit('userDisconnected',  {userID: user.userID, userName: user.userName, userColor: user.userColor})
 		})
 	})
 }
