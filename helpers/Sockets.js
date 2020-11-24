@@ -16,6 +16,7 @@ module.exports = function (socketio) {
 		chat.onlineUsers.push(user)
 		socket.emit('initialChat', safeData.messages(chat.messages))
 		socket.broadcast.emit('userConnected', safeData.user(user))
+		io.of('/admin').emit('userConnected', user)
 
 		socket.on('chat', msg => {
 			const message = {}
@@ -45,11 +46,13 @@ module.exports = function (socketio) {
 			chat.messages.push(message)
 			if (chat.messages.length > MAX_MESSAGES) chat.messages.splice(0, 1)
 			io.of('/chat').emit('chat', safeData.message(message))
+			io.of('/admin').emit('chat', message)
 		})
 
 		socket.on('disconnect', () => {
 			delete chat.onlineUsers[chat.onlineUsers.indexOf(user)]
 			socket.broadcast.emit('userDisconnected', safeData.user(user))
+			io.of('/admin').emit('userDisconnected', user)
 		})
 	})
 }

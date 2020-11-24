@@ -4,6 +4,8 @@ function Socket() {
 	socket.on('error', err => alert(err.description))
 	socket.on('connect', () => console.log('Conectado'))
 	socket.on('disconnect', () => console.log('Desconectado'))
+	//socket.on('chat')
+
 
 	return {
 		socket // temp
