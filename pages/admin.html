@@ -7,6 +7,8 @@
 	<title>Administração do Chat do Among Us</title>
 	<link rel="shortcut icon" href="favicon.png" type="image/png">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+	<link href="https://unpkg.com/tabulator-tables@4.9.1/dist/css/tabulator.min.css" rel="stylesheet">
+	<link href="https://unpkg.com/tabulator-tables@4.9.1/dist/css/bootstrap/tabulator_bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/index.css">
 </head>
 
@@ -16,32 +18,7 @@
 		<h2>Chat do Among Us</h2>
 
 		<h4>Usuários online (<span class="onlineUserCount">0</span>)</h4>
-		<table class="table table-bordered table-sm table-hover table-responsive">
-			<thead class="thead-light">
-				<th>Nome</th>
-				<th>Cor</th>
-				<th>ID</th>
-				<th>IP</th>
-				<th>Socket ID</th>
-				<th>Online desde</th>
-				<th>Ações</th>
-			</thead>
-			<tbody class="onlineUsers">
-				<tr data-id="SOCKET_ID_HERE">
-					<td>José</td>
-					<td>Red</td>
-					<td>492380y9hco49e</td>
-					<td>123.456.789.101</td>
-					<td>8d79ch230fnp02387</td>
-					<td>15:14:13 25/11/2020</td>
-					<td>
-						<button class="btn btn-sm btn-warning">Desconectar</button>
-						<button class="btn btn-sm btn-danger">Banir ID</button>
-						<button class="btn btn-sm btn-danger">Banir IP</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div id="example-table"></div>
 
 		<h4>Histórico de usuários</h4>
 		<table class="table table-bordered table-sm table-hover table-responsive">
@@ -105,6 +82,10 @@
 
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+		integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.1/dist/js/tabulator.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/admin/Socket.js"></script>
 	<script src="/js/admin/index.js"></script>
