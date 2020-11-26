@@ -3,5 +3,9 @@ module.exports = {
 	onlineUsers: [],
 	typingUsers: [],
 	blockedUserIDs: [],
-	blockedIPs: []
+	blockedIPs: [], // TODO: tentar unificar os IPs e IDs
+	
+	// Admin
+	userHistory: [],
+	logs: []
 }

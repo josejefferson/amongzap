@@ -1,7 +1,7 @@
 const sha1 = require('js-sha1')
 
 module.exports = {
-	message: function (msg) { // validar mensagens inválidas (colocar badge de erro)
+	message: function (msg) {
 		return {
 			id: msg.id,
 			dateTime: msg.dateTime,

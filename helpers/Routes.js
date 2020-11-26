@@ -8,6 +8,7 @@ routes.get('/', (req, res) => {
 })
 
 routes.get('/chat', (req, res) => {
+// VERIFICAR SE USERNAME É DO ADMIN
 	res.sendFile('pages/chat.html', { root: './' })
 })
 
