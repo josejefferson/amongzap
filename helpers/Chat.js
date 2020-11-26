@@ -1,15 +1,11 @@
 module.exports = {
+	adminUserName: null, // TODO
 	messages: [],
 	onlineUsers: [],
 	typingUsers: [],
 	blockedUsers: [],
-
-	blackListUserNames: [],
-	blackListWords: [],
-	// blockedUserIDs: [],
-	// blockedIPs: [], // TODO: tentar unificar os IPs e IDs
-	
-	// Admin
+	blackListUserNames: [], // TODO
+	blackListWords: [], // TODO
 	userHistory: [],
 	logs: []
 }

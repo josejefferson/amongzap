@@ -1,10 +1,7 @@
 const helpers = Helpers()
 const sounds = Sounds()
 const chat = Chat()
-const socket = Socket(chat)
-
-socket.subscribe(f => chat[f.type](f.data))
-chat.subscribe(f => socket[f.type](f.data))
+const socket = Socket()
 
 window.setInterval(() => {
 	const dateTimes = document.querySelectorAll('.dateTime')

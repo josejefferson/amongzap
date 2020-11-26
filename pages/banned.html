@@ -1,0 +1,7 @@
+<h1>Você foi banido!</h1>
+Motivo: <span class="reason">Não especificado</span>
+
+<script>
+	const $reason = document.querySelector('.reason')
+	$reason.innerText = new URLSearchParams(location.search).get('reason') || 'Não especificado'
+</script>

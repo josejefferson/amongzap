@@ -1,34 +1,20 @@
-const chat = require('./Chat')
-const safeData = require('./SafeData')
+const { blockedUsers, onlineUsers } = require('../Chat')
 
 module.exports = io => ({
-	userConnected: (socket, user) => {
-		Object.assign(socket, user)
-		chat.onlineUsers.push(user)
-		socket.emit('initialChat', safeData.messages(chat.messages))
-		socket.broadcast.emit('userConnected', safeData.user(user))
-		io.of('/admin').emit('userConnected', {
-			userID: user.userID,
-			userName: user.userName,
-			userColor: user.userColor,
-			// IP
-		})
-	},
+	ban: (socket, data) => {
+		const { type, user, reason } = data
 
-	userDisconnected: (socket, user) => {
-		delete chat.onlineUsers[chat.onlineUsers.indexOf(user)]
-		socket.broadcast.emit('userDisconnected', safeData.user(user))
-		io.of('/admin').emit('userDisconnected', {
-			userID: user.userID,
-			userName: user.userName,
-			userColor: user.userColor
-		})
-	},
+		switch (type) {
+			case 'ID': blockedUsers.push({ userID: user.id, reason }); break
+			case 'IP': blockedUsers.push({ userIP: user.ip, reason }); break
+		}
 
-	message: (socket, message) => {
-		chat.messages.push(message)
-		if (chat.messages.length > MAX_MESSAGES) chat.messages.splice(0, 1)
-		io.of('/chat').emit('chat', safeData.message(message))
-		io.of('/admin').emit('chat', message)
+		if (user && user.id)
+			onlineUsers
+				.filter(e => e.userID === user.id)
+				.forEach(e => {
+					e.socket.emit('banned', { reason })
+					e.socket.disconnect()
+				})
 	}
 })
