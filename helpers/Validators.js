@@ -34,6 +34,16 @@ function validateMessage(data) {
 	else return false
 }
 
+function validateMessageText(data) {
+	const MAX_LENGTH_MESSAGE = 500
+	const constraints = {
+		'text': { presence: { allowEmpty: false }, type: 'string', length: { maximum: MAX_LENGTH_MESSAGE } }
+	}
+
+	if (validate(data, constraints) === undefined) return true
+	else return false
+}
+
 function validateBlockedUser(data) {
 	let constraints
 
@@ -44,40 +54,19 @@ function validateBlockedUser(data) {
 			'reason': { type: 'string' }
 		}
 	} else if (data && data.type && data.type === 'IP') {
-			constraints = {
-				'userIP': { presence: { allowEmpty: false }, type: 'string' },
-				'userID': { type: 'string', length: { is: USER_ID_LENGTH } },
-				'reason': { type: 'string' }
-			}
+		constraints = {
+			'userIP': { presence: { allowEmpty: false }, type: 'string' },
+			'userID': { type: 'string', length: { is: USER_ID_LENGTH } },
+			'reason': { type: 'string' }
+		}
 	} else { return false }
 
 	if (validate(data, constraints) === undefined) return true
 	else return false
 }
 
-// function validateBlockedUserID(data) {
-// 	const constraints = {
-// 		'userID': { presence: { allowEmpty: false }, type: 'string', length: { is: USER_ID_LENGTH } },
-// 		'reason': { type: 'string' }
-// 	}
-
-// 	if (validate(data, constraints) === undefined) return true
-// 	else return false
-// }
-
-// function validateBlockedIP(data) {
-// 	const constraints = {
-// 		'userIP': { presence: { allowEmpty: false }, type: 'string' },
-// 		'reason': { type: 'string' }
-// 	}
-
-// 	if (validate(data, constraints) === undefined) return true
-// 	else return false
-// }
-
 module.exports = {
 	validateMessage,
-	validateBlockedUser,
-	// validateBlockedUserID,
-	// validateBlockedIP
+	validateMessageText,
+	validateBlockedUser
 }

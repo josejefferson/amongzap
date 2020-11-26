@@ -1,4 +1,4 @@
-module.exports = function (socket) {
+module.exports = socket => {
 	const ACCEPTED_COLORS = [
 		'red',
 		'blue',

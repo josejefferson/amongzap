@@ -1,11 +1,13 @@
 const { blockedUsers, onlineUsers } = require('../Chat')
-function AdminSockets(socketio) {
-	const io = socketio
-	const { authenticate } = require('./AdminHelpers')
+module.exports = io => {
+	const { authenticate } = require('./AdminAuth')
 
 	io.of('/admin').on('connection', function (socket) {
 		if (!authenticate(socket.handshake.headers.authorization)) {
-			// socket error
+			socket.emit('error', {
+				code: 'UNAUTHENTICATED_USER',
+				description: 'Usuário não autenticado'
+			})
 			return
 		}
 
@@ -21,11 +23,12 @@ function AdminSockets(socketio) {
 				onlineUsers
 					.filter(e => e.userID === user.id)
 					.forEach(e => {
-						e.socket.emit('error', { 'description': `Você foi banido pelo administrador!\nMotivo: ${reason || 'Não especificado'}` })
+						e.socket.emit('error', {
+							code: 'USER_BLOCKED',
+							description: `Você foi banido pelo administrador!\nMotivo: ${reason || 'Não especificado'}`
+						})
 						e.socket.disconnect()
 					})
 		})
 	})
 }
-
-module.exports = AdminSockets

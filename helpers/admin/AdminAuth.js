@@ -5,7 +5,7 @@ const ADMINS = {
 const bcrypt = require('bcryptjs')
 
 module.exports = {
-	authenticate: function (authorization) {
+	authenticate: authorization => {
 		const b64auth = (authorization || '').split(' ')[1] || ''
 		const auth = Buffer.from(b64auth, 'base64').toString().split(':')
 		const [login, password] = auth

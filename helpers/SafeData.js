@@ -1,7 +1,7 @@
 const sha1 = require('js-sha1')
 
 module.exports = {
-	message: function (msg) {
+	message: msg => {
 		return {
 			id: msg.id,
 			dateTime: msg.dateTime,
@@ -14,7 +14,7 @@ module.exports = {
 		}
 	},
 
-	messages: function (msgs) {
+	messages: msgs => {
 		const messages = [...msgs]
 		for (i in messages) {
 			messages[i] = this.message(messages[i])
@@ -22,7 +22,7 @@ module.exports = {
 		return messages
 	},
 
-	user: function (us) {
+	user: us => {
 		return {
 			userIDHash: sha1(us.userID),
 			userName: us.userName,
