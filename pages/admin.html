@@ -8,9 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Administração do Chat do Among Us</title>
 	<link rel="shortcut icon" href="favicon.png" type="image/png">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
-	<link href="https://unpkg.com/tabulator-tables@4.9.1/dist/css/tabulator.min.css" rel="stylesheet">
-	<link href="https://unpkg.com/tabulator-tables@4.9.1/dist/css/bootstrap/tabulator_bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/vendor/bootstrap.css">
+	<link rel="stylesheet" href="/css/vendor/tabulator_bootstrap4.css">
+	<link rel="stylesheet" href="/css/vendor/tabulator.css">
 	<link rel="stylesheet" href="/css/admin/index.css">
 </head>
 
@@ -19,76 +19,28 @@
 	<div class="container my-3">
 		<h2>Chat do Among Us</h2>
 
-		<h4>Usuários online (<span class="onlineUserCount">0</span>)</h4>
-		<div id="example-table">Falha</div>
+		<h4 class="mt-3">Usuários online (<span class="onlineUsersCount">0</span>)</h4>
+		<div class="onlineUsers">Falha</div>
 
-		<h4>Histórico de usuários</h4>
-		<table class="table table-bordered table-sm table-hover table-responsive">
-			<thead class="thead-light">
-				<th>Nome</th>
-				<th>Cor</th>
-				<th>ID</th>
-				<th>IP</th>
-				<th>Ações</th>
-			</thead>
-			<tbody class="userHistory">
-				<tr id="SOCKET_ID_HERE">
-					<td>José</td>
-					<td>Red</td>
-					<td>492380y9hco49e</td>
-					<td>123.456.789.101</td>
-					<td>
-						<button class="btn btn-sm btn-danger">Banir ID</button>
-						<button class="btn btn-sm btn-danger">Banir IP</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<h4 class="mt-3">Histórico de usuários (<span class="userHistoryCount">0</span>)</h4>
+		<div class="userHistory"></div>
 		
-		<h4>Mensagens</h4>
-		<table class="table table-bordered table-sm table-hover table-responsive">
-			<thead class="thead-light">
-				<th>Texto</th>
-				<th>Data</th>
-				<th>ID</th>
-				<th>ID do remetente</th>
-				<th>Ações</th>
-			</thead>
-			<tbody class="onlineUsers">
-				<tr id="SOCKET_ID_HERE">
-					<td>Oi</td>
-					<td>2020-10-02</td>
-					<td>492380y9hco49e</td>
-					<td><a href="#SOCKET_ID_HERE">492380y9hco49e</a></td>
-					<td>
-						<button class="btn btn-sm btn-danger">Excluir</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<h4 class="mt-3">Mensagens (<span class="messagesCount">0</span>)</h4>
+		<div class="messages"></div>
 		
-		<h4>Digitando</h4>
-		<table class="table table-bordered table-sm table-hover table-responsive">
-			<thead class="thead-light">
-				<th>ID do remetente</th>
-			</thead>
-			<tbody class="onlineUsers">
-				<tr id="SOCKET_ID_HERE">
-					<td><a href="#SOCKET_ID_HERE">492380y9hco49e</a></td>
-				</tr>
-			</tbody>
-		</table>
+		<h4 class="mt-3">Digitando (<span class="typingUsersCount">0</span>)</h4>
+		<div class="typingUsers"></div>
 
-		<h4>Logs</h4>
-		<pre class="logs">[Hello WORLD]</pre>
+		<h4 class="mt-3">Usuários banidos (<span class="bannedUsersCount">0</span>)</h4>
+		<div class="bannedUsers"></div>
+
+		<h4 class="mt-3">Logs (<span class="logsCount">0</span>)</h4>
+		<pre class="logs border"></pre>
 
 	</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-		integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-		crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.1/dist/js/tabulator.min.js"></script>
-	<script src="/js/index.js"></script>
+	<script src="/js/vendor/moment.js"></script>
+	<script src="/js/vendor/tabulator.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/admin/Socket.js"></script>
 	<script src="/js/admin/index.js"></script>
