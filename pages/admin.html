@@ -20,19 +20,42 @@
 		<h2>Chat do Among Us</h2>
 
 		<h4 class="mt-3">Usuários online (<span class="onlineUsersCount">0</span>)</h4>
-		<div class="onlineUsers">Falha</div>
+		<div class="onlineUsers">Carregando...</div>
+		<div class="onlineUsersActions mt-2">
+			<button class="btn btn-sm btn-warning">Desconectar</button>
+			<button class="btn btn-sm btn-danger">Banir ID</button>
+			<button class="btn btn-sm btn-danger">Banir IP</button>
+		</div>
 
 		<h4 class="mt-3">Histórico de usuários (<span class="userHistoryCount">0</span>)</h4>
-		<div class="userHistory"></div>
-		
+		<div class="userHistory">Carregando...</div>
+		<div class="userHistoryActions mt-2">
+			<button class="btn btn-sm btn-danger">Banir ID</button>
+			<button class="btn btn-sm btn-danger">Banir IP</button>
+		</div>
+
 		<h4 class="mt-3">Mensagens (<span class="messagesCount">0</span>)</h4>
-		<div class="messages"></div>
-		
+		<div class="messages">Carregando...</div>
+		<div class="messagesActions mt-2">
+			<button class="btn btn-sm btn-danger">Excluir</button>
+			<button class="btn btn-sm btn-danger">Banir ID</button>
+			<button class="btn btn-sm btn-danger">Banir IP</button>
+		</div>
+
 		<h4 class="mt-3">Digitando (<span class="typingUsersCount">0</span>)</h4>
-		<div class="typingUsers"></div>
+		<div class="typingUsers">Carregando...</div>
+		<div class="typingUsersActions mt-2">
+			<button class="btn btn-sm btn-primary">Parar</button>
+			<button class="btn btn-sm btn-warning">Desconectar</button>
+			<button class="btn btn-sm btn-danger">Banir ID</button>
+			<button class="btn btn-sm btn-danger">Banir IP</button>
+		</div>
 
 		<h4 class="mt-3">Usuários banidos (<span class="bannedUsersCount">0</span>)</h4>
-		<div class="bannedUsers"></div>
+		<div class="bannedUsers">Carregando...</div>
+		<div class="bannedUsersActions mt-2">
+			<button class="btn btn-sm btn-primary">Desfazer</button>
+		</div>
 
 		<h4 class="mt-3">Logs (<span class="logsCount">0</span>)</h4>
 		<pre class="logs border"></pre>
@@ -42,8 +65,8 @@
 	<script src="/js/vendor/moment.js"></script>
 	<script src="/js/vendor/tabulator.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="/js/admin/Socket.js"></script>
 	<script src="/js/admin/index.js"></script>
+	<script src="/js/admin/Socket.js"></script>
 	<script src="/js/admin/Tables.js"></script>
 </body>
 

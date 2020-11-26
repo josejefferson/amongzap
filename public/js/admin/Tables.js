@@ -49,7 +49,7 @@ const onlineUsersTable = new Tabulator('.onlineUsers', {
 		{
 			title: 'Online desde',
 			field: 'onlineTime',
-			formatter: cell => moment(cell.getValue()).format('HH:MM:SS DD/MM/YYYY')
+			formatter: cell => moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
 		},
 		{
 			title: 'Ações',
@@ -89,12 +89,22 @@ const userHistoryTable = new Tabulator('.userHistory', {
 	columns: [
 		sharedColumns.selection,
 		sharedColumns.userName,
-		sharedColumns.userID,
+		{
+			title: 'ID',
+			field: 'userID',
+			headerFilter: 'input',
+			formatter: cell => { cell.getRow().getElement().id = cell.getValue(); return cell.getValue() }
+		},
 		sharedColumns.userIP,
 		{
 			title: 'Tempos online',
 			field: 'onlineTime',
-			formatter: cell => cell.getValue().map(i => moment(i).format('HH:MM:SS DD/MM/YYYY')).join('<br>')
+			formatter: cell => {
+				if (Array.isArray(cell.getValue()))
+					return cell.getValue().map(i => moment(i).format('HH:mm:ss DD/MM/YYYY')).join('<br>')
+				else
+					return moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+			}
 		},
 		{
 			title: 'Ações',
@@ -213,7 +223,7 @@ const typingUsersTable = new Tabulator('.typingUsers', {
 		{
 			title: 'Digitando desde',
 			field: 'onlineTime',
-			formatter: cell => moment(cell.getValue()).format('HH:MM:SS DD/MM/YYYY')
+			formatter: cell => moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
 		},
 		{
 			title: 'Ações',
