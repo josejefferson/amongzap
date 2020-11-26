@@ -19,16 +19,15 @@ module.exports = function (socket) {
 	let { userID, userName, userColor } = socket.handshake.query
 	const userIP = socket.handshake.headers['x-forwarded-for']
 
-	const blockedUserID = chat.blockedUserIDs.filter(e => e.userID === userID)
-	const blockedUserIP = chat.blockedIPs.filter(e => e.userIP === userIP)
+	const blockedUser = chat.blockedUsers.filter(e => e.type === 'ID' ? userID === e.userID : userIP === e.userIP)
 
-	if (userID && userID.length === 30 && (blockedUserID.length || blockedUserIP.length)) {
-		if (blockedUserID.length) var reason = blockedUserID[0].reason || ''
-		if (blockedUserIP.length) var reason = blockedUserIP[0].reason || ''
+	// const blockedUserID = chat.blockedUserIDs.filter(e => e.userID === userID)
+	// const blockedUserIP = chat.blockedIPs.filter(e => e.userIP === userIP)
 
+	if (userID && userID.length === 30 && blockedUser.length) {
 		socket.emit('error', {
 			errorCode: 'USER_BLOCKED',
-			description: `Você foi banido pelo administrador!\nMotivo: ${reason}`
+			description: `Você foi banido pelo administrador!\nMotivo: ${blockedUser[0].reason}`
 		})
 		return false
 	}
@@ -58,9 +57,7 @@ module.exports = function (socket) {
 
 	userName = userName.trim().slice(0, 10)
 	if (!ACCEPTED_COLORS.includes(userColor)) {
-		// console.log(`[ERRO] Cor inválida!`)
 		userColor = ACCEPTED_COLORS[Math.floor(Math.random() * 12)]
-		// console.log(`[GERAÇÃO] Nova cor gerada: ${userColor}`)
 	}
 
 	return {

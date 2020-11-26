@@ -2,8 +2,12 @@ module.exports = {
 	messages: [],
 	onlineUsers: [],
 	typingUsers: [],
-	blockedUserIDs: [],
-	blockedIPs: [], // TODO: tentar unificar os IPs e IDs
+	blockedUsers: [],
+
+	blackListUserNames: [],
+	blackListWords: [],
+	// blockedUserIDs: [],
+	// blockedIPs: [], // TODO: tentar unificar os IPs e IDs
 	
 	// Admin
 	userHistory: [],
