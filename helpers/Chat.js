@@ -5,7 +5,7 @@ module.exports = {
 	messages: [],
 	onlineUsers: [],
 	blockedUsers: [],
-	adminUserNames: ['Jefferson'], // TODO
+	adminUserName: 'Seu José', // TODO
 	blackListUserNames: [], // TODO
 	blackListWords: DEFAULT_BLOCKED_WORDS, // TODO
 	userHistory: [], // TODO

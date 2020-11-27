@@ -9,8 +9,8 @@ function Socket() {
 		}
 	})
 
-	socket.on('connect', () => console.log('Conectado'))
-	socket.on('disconnect', () => chat.error({code: 'DISCONNECTED', description: 'Desconectado'}, true)) // ao invés de error set status
+	socket.on('connect', chat.connected)
+	socket.on('disconnect', chat.disconnected) // ao invés de error set status
 
 	socket.on('error', chat.error)
 	socket.on('banned', chat.banned)

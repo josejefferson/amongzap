@@ -4,6 +4,10 @@ body {
 	overflow-y: scroll;
 }
 
+.hidden {
+	display: none !important;
+}
+
 button:hover,
 input:hover {
 	filter: brightness(90%);
@@ -115,6 +119,19 @@ input:active {
 		border-radius: 6px;
 		padding: 8px;
 		
+		&.status {
+			&.connected {
+				border-color: green;
+				background-color: rgba(200, 255, 200, 0.5);
+				color: green;
+			}
+			&.disconnected {
+				border-color: yellow;
+				background-color: rgba(255, 255, 0, 0.5);
+				color: yellow;
+			}
+		}
+
 		&.error {
 			border-color: red;
 			background-color: rgba(255, 0, 0, 0.5);

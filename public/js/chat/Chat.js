@@ -3,10 +3,13 @@ function Chat() {
 
 	const $root = document.documentElement
 	const $chat = document.querySelector('.chat')
-	const $logs = document.querySelector('.logs')
+	const $usersLog = document.querySelector('.usersLog')
+	const $status = document.querySelector('.status')
+	const $loadingMessages = document.querySelector('.loadingMessages')
 	const $errors = document.querySelector('.errors')
 	const $sendText = document.querySelector('.sendText')
 	const $sendBtn = document.querySelector('.sendButton')
+	let statusTime
 
 	$sendText.focus()
 	$sendBtn.onclick = sendMsg
@@ -22,12 +25,13 @@ function Chat() {
 	function initialChat(data) {
 		$chat.innerHTML = ''
 		data.forEach(d => chat(d, true))
+		$loadingMessages.classList.add('hidden')
 	}
 
 	function userConnect(data) {
 		const a = document.createElement('div')
 		a.innerText = data.userName + ' entrou'
-		$logs.appendChild(a)
+		$usersLog.appendChild(a)
 		sounds.play('PLAYER_SPAWN')
 		setTimeout(() => a.remove(), 5000)
 	}
@@ -35,20 +39,34 @@ function Chat() {
 	function userDisconnect(data) {
 		const a = document.createElement('div')
 		a.innerText = data.userName + ' saiu'
-		$logs.appendChild(a)
+		$usersLog.appendChild(a)
 		sounds.play('PLAYER_LEFT')
 		setTimeout(() => a.remove(), 5000)
 	}
 
 	function error(data, noRemove = false) {
-		console.log(data)
 		const error = document.createElement('div')
-		error.classList.add('error')
+		error.classList.add('alert', 'error')
 		error.innerText = data.description
 		$errors.appendChild(error)
 		!noRemove && setTimeout(() => error.remove(), 5000)
 	}
+
+	function connected() {
+		clearTimeout(statusTime)
+		$status.classList.remove('hidden', 'connected', 'disconnected')
+		$status.classList.add('connected')
+		$status.innerText = 'Conectado'
+		statusTime = setTimeout(() => $status.classList.add('hidden'), 5000)
+	}
 	
+	function disconnected() {
+		clearTimeout(statusTime)
+		$status.classList.remove('hidden', 'connected', 'disconnected')
+		$status.classList.add('disconnected')
+		$status.innerText = 'Desconectado'
+	}
+
 	function banned(data) {
 		const error = document.createElement('div')
 		error.classList.add('error')
@@ -117,6 +135,8 @@ function Chat() {
 		userConnect,
 		userDisconnect,
 		error,
-		banned
+		banned,
+		connected,
+		disconnected
 	}
 }

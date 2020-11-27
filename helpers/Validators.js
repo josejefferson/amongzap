@@ -9,6 +9,8 @@ const { randomString } = require('./Helpers')
 const validate = require('validate.js')
 const chat = require('./Chat')
 const Censoring = require('./Censoring')
+const { adminUserName } = require('./Chat')
+const authenticate = require('./admin/AdminAuth')
 const scan = new Censoring()
 scan.enableFilters(['phone_number', 'email_address', 'words'])
 scan.addFilterWords(chat.blackListWords)
@@ -49,6 +51,17 @@ function validateUser(socket) {
 	// })
 
 	userName = userName.trim().slice(0, 10)
+
+	if (userName.toLowerCase() === adminUserName.toLowerCase()) {
+		if (!authenticate(socket.handshake.headers.authorization)) {
+			socket.emit('error', {
+				errorCode: 'ADMIN_USER_NAME',
+				description: 'Nome de usuário já é usado pelo administrador!'
+			})
+			return false
+		}
+	}
+
 	if (!ACCEPTED_COLORS.includes(userColor)) {
 		userColor = ACCEPTED_COLORS[Math.floor(Math.random() * 12)]
 	}
