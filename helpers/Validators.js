@@ -2,7 +2,7 @@ const ACCEPTED_COLORS = [
 	'red', 'blue', 'green', 'pink', 'orange', 'yellow', 'gray', 'white', 'purple', 'brown', 'cyan', 'lime'
 ]
 const MAX_LENGTH_MESSAGE = 500
-const MESSAGE_ID_LENGTH = 30
+const MESSAGE_ID_LENGTH = 50
 const USER_ID_LENGTH = 30
 
 const { randomString } = require('./Helpers')

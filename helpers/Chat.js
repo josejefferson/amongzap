@@ -1,11 +1,11 @@
 module.exports = {
-	adminUserName: null, // TODO
 	messages: [],
 	onlineUsers: [],
-	typingUsers: [],
 	blockedUsers: [],
+	adminUserNames: [], // TODO
 	blackListUserNames: [], // TODO
 	blackListWords: [], // TODO
-	userHistory: [],
+	userHistory: [], // TODO
+	typingUsers: [],
 	logs: []
 }
