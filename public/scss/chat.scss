@@ -103,19 +103,29 @@ input:active {
 	color: red;
 }
 
-.errors {
+.floating {
 	position: fixed;
 	top: 61px;
 	left: 8px;
 	right: 8px;
-
-	.error {
-		background-color: rgba(255,0,0,0.5);
-		border: red 3px solid;
-		color: red;
+	
+	.alert {
+		border: 2px solid;
 		margin-top: 5px;
 		border-radius: 6px;
-		padding: 8px 8px;
+		padding: 8px;
+		
+		&.error {
+			border-color: red;
+			background-color: rgba(255, 0, 0, 0.5);
+			color: red;
+		}
+		
+		&.usersTyping, &.loadingMessages {
+			border-color: gray;
+			background-color: rgba(100, 100, 100, 0.5);
+			color: gray;
+		}
 	}
 }
 
