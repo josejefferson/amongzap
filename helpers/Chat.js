@@ -4,11 +4,10 @@ const DEFAULT_BLOCKED_WORDS = fs.readFileSync('./helpers/blockedWords.txt', {enc
 module.exports = {
 	messages: [],
 	onlineUsers: [],
-	blockedUsers: [],
-	adminUserName: 'Seu José', // TODO
-	blackListUserNames: [], // TODO
-	blackListWords: DEFAULT_BLOCKED_WORDS, // TODO
-	userHistory: [], // TODO
 	typingUsers: [],
+	blockedUsers: [],
+	adminUserName: 'Seu José',
+	blackListWords: DEFAULT_BLOCKED_WORDS,
+	userHistory: [],
 	logs: []
 }
