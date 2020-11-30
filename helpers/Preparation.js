@@ -26,6 +26,8 @@ async function preparation() {
 		uploadData('MESSAGES', chat.messages)
 		uploadData('BLOCKED_USERS', chat.blockedUsers)
 	}, BACKUP_TIME)
+	
+	//uploadData('MESSAGES', [])
 }
 
 module.exports = preparation()
