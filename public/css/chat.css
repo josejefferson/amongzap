@@ -190,6 +190,11 @@ header .title .logo {
   border-radius: 6px;
   padding: 10px 15px;
 }
+.floating .alert.status.connecting {
+  border-color: #222222;
+  background-color: #aaaaaa;
+  color: #333333;
+}
 .floating .alert.status.connected {
   border-color: #16482e;
   background-color: #addbb2;

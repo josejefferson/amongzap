@@ -140,6 +140,11 @@ button:active {
 		padding: 10px 15px;
 		
 		&.status {
+			&.connecting {
+				border-color: #222222;
+				background-color: #aaaaaa;
+				color: #333333;
+			}
 			&.connected {
 				border-color: #16482e;
 				background-color: #addbb2;

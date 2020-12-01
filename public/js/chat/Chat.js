@@ -35,7 +35,7 @@ function Chat() {
 	function initialChat(data) {
 		$chat.html('')
 		data.forEach(d => chat(d, true))
-		animation($loadingMessages, false, true)
+		animation($loadingMessages, false, true, true)
 	}
 
 	function userConnect(data) {
@@ -90,6 +90,7 @@ function Chat() {
 	function connected() {
 		$status.removeClass('disconnected').addClass('connected').text('Conectado')
 		animation($status, true, true)
+		animation($loadingMessages, true, false)
 	}
 
 	function disconnected() {
