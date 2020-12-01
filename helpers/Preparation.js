@@ -7,12 +7,10 @@ const { validateMessage, validateBlockedUser } = require('./Validators')
 async function preparation() {
 	let messages = downloadData('MESSAGES')
 	let blockedUsers = downloadData('BLOCKED_USERS')
-	let adminUserNames = downloadData('ADMIN_USERNAMES')
 
-	await Promise.all([messages, blockedUsers, adminUserNames]).then(v => {
+	await Promise.all([messages, blockedUsers]).then(v => {
 		messages = v[0]
 		blockedUsers = v[1]
-		adminUserNames = v[2]
 	})
 
 	if (messages && Array.isArray(messages)) {
@@ -23,15 +21,13 @@ async function preparation() {
 		blockedUsers.forEach((b, i) => { if (!validateBlockedUser(b)) blockedUsers.splice(i, 1) })
 		chat.blockedUsers = blockedUsers
 	}
-	if (adminUserNames && Array.isArray(adminUserNames)) {
-		// blockedUsers.forEach((b, i) => { if (!validateBlockedUser(b)) blockedUsers.splice(i, 1) })
-		chat.adminUserNames = adminUserNames
-	}
 
 	setInterval(() => {
 		uploadData('MESSAGES', chat.messages)
 		uploadData('BLOCKED_USERS', chat.blockedUsers)
 	}, BACKUP_TIME)
+	
+	//uploadData('MESSAGES', [])
 }
 
 module.exports = preparation()

@@ -16,5 +16,13 @@ module.exports = io => ({
 					e.socket.emit('banned', { reason })
 					e.socket.disconnect()
 				})
+	},
+	
+	unBan: (socket, data) => {
+		const { type, user } = data
+		switch (type) {
+			case 'ID': blockedUsers.splice(blockedUsers.findIndex(el => el.userID === user), 1); break
+			case 'IP': blockedUsers.splice(blockedUsers.findIndex(el => el.userIP === user), 1); break
+		}
 	}
 })
