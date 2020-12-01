@@ -28,13 +28,11 @@ body {
   display: none !important;
 }
 
-button:hover,
-input:hover {
+button:hover {
   filter: brightness(90%);
 }
 
-button:active,
-input:active {
+button:active {
   filter: brightness(80%);
 }
 
@@ -154,7 +152,7 @@ header .title .logo {
   height: 46px;
 }
 
-.logs {
+.usersLog {
   position: fixed;
   top: 66px;
   left: 10px;
@@ -164,13 +162,29 @@ header .title .logo {
 
 .floating {
   position: fixed;
-  top: 61px;
-  left: 8px;
-  right: 8px;
+  top: 56px;
+  left: 0;
+  width: 100%;
+}
+.floating .usersTyping {
+  margin-top: 0;
+  border-radius: 0 0 8px 8px;
+  background-color: black;
+  border: none;
+  padding: 3px 8px;
+  color: #ccc;
+  font-size: 12px;
+  text-align: center;
+  transition: transform 0.15s ease-in;
+}
+.floating .usersTyping.noOne {
+  transform: translateY(-100%);
 }
 .floating .alert {
   border: 2px solid;
   margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   border-radius: 6px;
   padding: 8px;
 }
@@ -189,7 +203,7 @@ header .title .logo {
   background-color: rgba(255, 0, 0, 0.5);
   color: red;
 }
-.floating .alert.usersTyping, .floating .alert.loadingMessages {
+.floating .alert.loadingMessages {
   border-color: gray;
   background-color: rgba(100, 100, 100, 0.5);
   color: gray;

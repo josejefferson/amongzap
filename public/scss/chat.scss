@@ -8,13 +8,11 @@ body {
 	display: none !important;
 }
 
-button:hover,
-input:hover {
+button:hover {
 	filter: brightness(90%);
 }
 
-button:active,
-input:active {
+button:active {
 	filter: brightness(80%);
 }
 
@@ -36,7 +34,6 @@ input:active {
 		&.sent {
 			.picture { margin-left: 10px; order: 1; .pic { transform: scaleX(-1); } }
 			justify-content: flex-end;
-			// .sender { text-align: right; }
 			.text { text-align: right; }
 			.dateTime { justify-content: flex-start !important; order: -1; }
 		}
@@ -99,7 +96,7 @@ input:active {
 	}
 }
 
-.logs {
+.usersLog {
 	position: fixed;
 	top: 66px;
 	left: 10px;
@@ -109,13 +106,31 @@ input:active {
 
 .floating {
 	position: fixed;
-	top: 61px;
-	left: 8px;
-	right: 8px;
+	top: 56px;
+	left: 0;
+	width: 100%;
 	
+	.usersTyping {
+		margin-top: 0;
+		border-radius: 0 0 8px 8px;
+		background-color: black;
+		border: none;
+		padding: 3px 8px;
+		color: #ccc;
+		font-size: 12px;
+		text-align: center;
+		transition: transform .15s ease-in;
+
+		&.noOne {
+			transform: translateY(-100%);
+		}
+	}
+
 	.alert {
 		border: 2px solid;
 		margin-top: 5px;
+		margin-left: 5px;
+		margin-right: 5px;
 		border-radius: 6px;
 		padding: 8px;
 		
@@ -138,7 +153,7 @@ input:active {
 			color: red;
 		}
 		
-		&.usersTyping, &.loadingMessages {
+		&.loadingMessages {
 			border-color: gray;
 			background-color: rgba(100, 100, 100, 0.5);
 			color: gray;

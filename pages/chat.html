@@ -22,9 +22,9 @@
 	<div class="chat"></div>
 	
 	<div class="floating">
-		<div class="alert status hidden"></div>
+		<div class="usersTyping noOne">Ninguém está digitando</div>
 		<div class="alert loadingMessages">Carregando mensagens...</div>
-		<div class="alert usersTyping hidden"></div>
+		<div class="alert status hidden"></div>
 		<div class="errors"></div>
 	</div>
 	
@@ -35,6 +35,7 @@
 		<button class="sendButton"></button>
 	</div>
 
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script> <!-- TODO -->
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/vendor/moment.js"></script>
 	<script src="/js/vendor/sha1.js"></script>
