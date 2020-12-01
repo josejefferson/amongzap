@@ -37,25 +37,17 @@ function Chat() {
 	}
 
 	function closeAnimation(el, remove = true) {
-		el.animate({ opacity: 0 }, 700)
-			.animate({
-				borderWidth: 'toggle',
-				height: 'toggle',
-				margin: 'toggle',
-				padding: 'toggle'
-			}, 200, function () {
+		el
+			.fadeTo(700, 0)
+			.slideUp(200, function () {
 				remove && $(this).remove()
 			})
 	}
 
 	function openAnimation(el) {
-		el.animate({
-			borderWidth: 'toggle',
-			height: 'toggle',
-			margin: 'toggle',
-			padding: 'toggle'
-		}, 200)
-			.animate({ opacity: 1 }, 700)
+		el
+			.slideDown(200)
+			.fadeIn(700)
 	}
 
 	function userDisconnect(data) {
@@ -71,6 +63,7 @@ function Chat() {
 			text: data.description
 		})
 		$errors.append($el)
+		openAnimation($el)
 		setTimeout(() => closeAnimation($el), 5000)
 	}
 
@@ -79,6 +72,7 @@ function Chat() {
 		$status.removeClass('hidden connected disconnected')
 		$status.addClass('connected')
 		$status.text('Conectado')
+		openAnimation($status)
 		statusTime = setTimeout(() => closeAnimation($status, false), 5000)
 	}
 
