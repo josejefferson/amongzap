@@ -1,77 +1,100 @@
 function Chat() {
 	const { userIDHash, userName } = UserData()
 
-	const $root = document.documentElement
-	const $chat = document.querySelector('.chat')
-	const $usersLog = document.querySelector('.usersLog')
-	const $status = document.querySelector('.status')
-	const $loadingMessages = document.querySelector('.loadingMessages')
-	const $errors = document.querySelector('.errors')
-	const $sendText = document.querySelector('.sendText')
-	const $sendBtn = document.querySelector('.sendButton')
+	const $root = $('html')
+	const $chat = $('.chat')
+	const $usersLog = $('.usersLog')
+	const $status = $('.status')
+	const $loadingMessages = $('.loadingMessages')
+	const $errors = $('.errors')
+	const $sendText = $('.sendText')
+	const $sendBtn = $('.sendButton')
 	let statusTime
 
 	$sendText.focus()
-	$sendBtn.onclick = sendMsg
-	$sendText.onkeyup = e => (e.key === 'Enter') && sendMsg()
+	$sendBtn.click(sendMsg)
+	$sendText.keyup(e => (e.key === 'Enter') && sendMsg())
 
 	function chat(data, initial = false) {
+		const scroll = $(window).scrollTop() + $(window).height() >= $(document).height() - 100
 		$chat.append(genMsgEl(data))
-		$root.scrollTop = $root.scrollHeight
-		if (!initial && data.sender.userIDHash !== userIDHash)
+		if (scroll) $('html, body').scrollTop($(document).height())
+		if (!initial && (data.sender.userIDHash !== userIDHash || data.sender.userName !== userName))
 			sounds.play(`NEW_MESSAGE_0${1 + Math.floor(Math.random() * 2)}`)
 	}
 
 	function initialChat(data) {
-		$chat.innerHTML = ''
+		$chat.html('')
 		data.forEach(d => chat(d, true))
-		$loadingMessages.classList.add('hidden')
+		$loadingMessages.addClass('hidden')
 	}
 
 	function userConnect(data) {
-		const a = document.createElement('div')
-		a.innerText = data.userName + ' entrou'
-		$usersLog.appendChild(a)
+		const $el = $('<div>', { text: data.userName + ' entrou' })
+		$usersLog.append($el)
 		sounds.play('PLAYER_SPAWN')
-		setTimeout(() => a.remove(), 5000)
+		setTimeout(() => closeAnimation($el), 5000)
+	}
+
+	function closeAnimation(el, remove = true) {
+		el.animate({ opacity: 0 }, 700)
+			.animate({
+				borderWidth: 'toggle',
+				height: 'toggle',
+				margin: 'toggle',
+				padding: 'toggle'
+			}, 200, function () {
+				remove && $(this).remove()
+			})
+	}
+
+	function openAnimation(el) {
+		el.animate({
+			borderWidth: 'toggle',
+			height: 'toggle',
+			margin: 'toggle',
+			padding: 'toggle'
+		}, 200)
+			.animate({ opacity: 1 }, 700)
 	}
 
 	function userDisconnect(data) {
-		const a = document.createElement('div')
-		a.innerText = data.userName + ' saiu'
-		$usersLog.appendChild(a)
+		const $el = $('<div>', { text: data.userName + ' saiu' })
+		$usersLog.append($el)
 		sounds.play('PLAYER_LEFT')
-		setTimeout(() => a.remove(), 5000)
+		setTimeout(() => closeAnimation($el), 5000)
 	}
 
-	function error(data, noRemove = false) {
-		const error = document.createElement('div')
-		error.classList.add('alert', 'error')
-		error.innerText = data.description
-		$errors.appendChild(error)
-		!noRemove && setTimeout(() => error.remove(), 5000)
+	function error(data) {
+		const $el = $('<div>', {
+			'class': 'container alert error',
+			text: data.description
+		})
+		$errors.append($el)
+		setTimeout(() => closeAnimation($el), 5000)
 	}
 
 	function connected() {
 		clearTimeout(statusTime)
-		$status.classList.remove('hidden', 'connected', 'disconnected')
-		$status.classList.add('connected')
-		$status.innerText = 'Conectado'
-		statusTime = setTimeout(() => $status.classList.add('hidden'), 5000)
+		$status.removeClass('hidden connected disconnected')
+		$status.addClass('connected')
+		$status.text('Conectado')
+		statusTime = setTimeout(() => closeAnimation($status, false), 5000)
 	}
-	
+
 	function disconnected() {
 		clearTimeout(statusTime)
-		$status.classList.remove('hidden', 'connected', 'disconnected')
-		$status.classList.add('disconnected')
-		$status.innerText = 'Desconectado'
+		$status.removeClass('hidden connected disconnected')
+		$status.addClass('disconnected')
+		$status.text('Desconectado')
 	}
 
 	function banned(data) {
-		const error = document.createElement('div')
-		error.classList.add('error')
-		error.innerText = data.reason || 'Não especificado'
-		$errors.appendChild(error)
+		const $el = $('<div>', {
+			'class': 'container alert error',
+			text: `Você foi banido! Motivo: ${data.description || 'Não especificado'}`
+		})
+		$errors.append($el)
 
 		const urlParams = new URLSearchParams()
 		urlParams.set('reason', data.reason || '')
@@ -79,44 +102,35 @@ function Chat() {
 	}
 
 	function sendMsg() {
-		if ($sendText.value.trim() === '') return
-		socket.sendChat({ text: $sendText.value })
-		$sendText.value = ''
+		if ($sendText.val().trim() === '') return
+		socket.sendChat({ text: $sendText.val() })
+		$sendText.val('')
 		$sendText.focus()
 	}
 
 	function genMsgEl(msg) {
 		const { sender, text, dateTime } = msg
 
-		const message = document.createElement('div')
-		const messageEl = document.createElement('div')
-		const pictureEl = document.createElement('div')
-		const picEl = document.createElement('div')
-		const contentEl = document.createElement('div')
-		const messageDataEl = document.createElement('div')
-		const senderEl = document.createElement('div')
-		const textEl = document.createElement('div')
-		const dateTimeEl = document.createElement('div')
+		const message = $('<div>', { 'class': 'messageArea' })
+		const messageEl = $('<div>', { 'class': 'message' })
+		const pictureEl = $('<div>', { 'class': 'picture' })
+		const picEl = $('<div>', { 'class': 'pic' })
+		const contentEl = $('<div>', { 'class': 'content' })
+		const messageDataEl = $('<div>', { 'class': 'messageData' })
+		const senderEl = $('<div>', { 'class': 'sender' })
+		const textEl = $('<div>', { 'class': 'text' })
+		const dateTimeEl = $('<div>', { 'class': 'dateTime' })
 
-		message.classList.add('messageArea')
-		messageEl.classList.add('message')
-		pictureEl.classList.add('picture')
-		picEl.classList.add('pic')
-		contentEl.classList.add('content')
-		messageDataEl.classList.add('messageData')
-		senderEl.classList.add('sender')
-		textEl.classList.add('text')
-		dateTimeEl.classList.add('dateTime')
-		dateTimeEl.dataset.time = dateTime
+		dateTimeEl.data('time', dateTime)
 
 		if (userIDHash == sender.userIDHash && userName == sender.userName) {
-			message.classList.add('sent')
+			message.addClass('sent')
 		}
 
-		picEl.style.backgroundImage = `url(/img/players/${sender.userColor}.png)`
-		senderEl.innerText = sender.userName
-		textEl.innerHTML = helpers.replaceLinks(helpers.escapeHTML(text))
-		dateTimeEl.innerText = moment(dateTime).fromNow()
+		picEl.css('backgroundImage', `url(/img/players/${sender.userColor}.png)`)
+		senderEl.text(sender.userName)
+		textEl.html(helpers.replaceLinks(helpers.escapeHTML(text)))
+		dateTimeEl.text(moment(dateTime).fromNow())
 
 		pictureEl.append(picEl)
 		messageDataEl.append(senderEl, dateTimeEl)
@@ -137,6 +151,7 @@ function Chat() {
 		error,
 		banned,
 		connected,
-		disconnected
+		disconnected,
+		$root
 	}
 }

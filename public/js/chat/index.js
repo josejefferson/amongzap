@@ -4,6 +4,8 @@ const chat = Chat()
 const socket = Socket()
 
 window.setInterval(() => {
-	const dateTimes = document.querySelectorAll('.dateTime')
-	dateTimes.forEach(e => e.innerText = moment(parseInt(e.dataset.time)).fromNow())
+	const dateTimes = $('.dateTime')
+	dateTimes.each(function () {
+		$(this).text(moment(parseInt($(this).data('time'))).fromNow())
+	})
 }, 5000)

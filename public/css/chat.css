@@ -66,7 +66,6 @@ header .title .logo {
   background-size: cover;
   background-position: center;
   display: inline-block;
-  margin-left: 20px;
 }
 
 .chat {
@@ -157,7 +156,8 @@ header .title .logo {
   top: 66px;
   left: 10px;
   width: 100%;
-  color: red;
+  color: #ff4040;
+  text-shadow: 0 0 2px black;
 }
 
 .floating {
@@ -165,6 +165,7 @@ header .title .logo {
   top: 56px;
   left: 0;
   width: 100%;
+  justify-content: center;
 }
 .floating .usersTyping {
   margin-top: 0;
@@ -181,42 +182,46 @@ header .title .logo {
   transform: translateY(-100%);
 }
 .floating .alert {
-  border: 2px solid;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  border: 3px solid;
+  margin-top: 2px;
   border-radius: 6px;
-  padding: 8px;
+  padding: 10px 15px;
 }
 .floating .alert.status.connected {
-  border-color: green;
-  background-color: rgba(200, 255, 200, 0.5);
-  color: green;
+  border-color: #16482e;
+  background-color: #addbb2;
+  color: #12871a;
 }
 .floating .alert.status.disconnected {
-  border-color: yellow;
-  background-color: rgba(255, 255, 0, 0.5);
-  color: yellow;
+  border-color: #555500;
+  background-color: #ffff99;
+  color: #777700;
 }
 .floating .alert.error {
-  border-color: red;
-  background-color: rgba(255, 0, 0, 0.5);
-  color: red;
+  border-color: #5d0000;
+  background-color: #ffb1b1;
+  color: #bb1616;
 }
 .floating .alert.loadingMessages {
-  border-color: gray;
-  background-color: rgba(100, 100, 100, 0.5);
-  color: gray;
+  border-color: #222222;
+  background-color: #aaaaaa;
+  color: #333333;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 .sendArea {
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: fixed;
-  bottom: 5px;
-  left: 5px;
-  width: calc(100% - 10px);
+  margin: 0 5px 8px 5px;
   height: 48px;
   background: white;
   box-shadow: 0 10px 20px black;
@@ -224,22 +229,17 @@ header .title .logo {
   border-radius: 7px;
   padding: 4px 8px;
 }
-.sendArea textarea {
-  display: flex;
-  align-items: center;
-  vertical-align: middle;
+.sendArea .sendText {
   padding: 0;
   margin-right: 10px;
   height: 100%;
-  display: flex;
   width: 100%;
   border: none;
-  resize: none;
   outline: none;
   font-size: 14px;
   font-family: Arial, sans-serif;
 }
-.sendArea button {
+.sendArea .sendButton {
   display: flex;
   background-image: url(/img/sendIcon.png);
   background-size: cover;

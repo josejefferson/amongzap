@@ -9,30 +9,33 @@
 	<title>Chat do Among Us</title>
 	<link rel="shortcut icon" href="favicon.png" type="image/png">
 	<link rel="manifest" href="/manifest.json">
+	<link rel="stylesheet" href="/css/vendor/bootstrap-grid.css">
 	<link rel="stylesheet" href="/css/chat.css">
 </head>
 
 <body>
 	<header>
 		<a href="/" class="title">
-			Chat do <span class="logo"></span>
+			<span class="logo"></span>
 		</a href="/">
 	</header>
 
-	<div class="chat"></div>
-	
-	<div class="floating">
-		<div class="usersTyping noOne">Ninguém está digitando</div>
-		<div class="alert loadingMessages">Carregando mensagens...</div>
-		<div class="alert status hidden"></div>
-		<div class="errors"></div>
-	</div>
+	<div class="chat container"></div>
 	
 	<div class="usersLog"></div>
+	<div class="floating">
+		<div class="usersTyping noOne">Ninguém está digitando</div>
+		<div class="container alert loadingMessages">Carregando mensagens...</div>
+		<div class="container alert status hidden"></div>
+		<div class="errors"></div>
+	</div>
 
-	<div class="sendArea">
-		<textarea class="sendText" rows="1" placeholder="Digite aqui..."></textarea>
-		<button class="sendButton"></button>
+	<div class="bottom">
+		<div class="sendArea container">
+			<input type="text" class="sendText" placeholder="Digite aqui...">
+			<button class="sendButton"></button>
+			<button class="sendButton"></button>
+		</div>
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script> <!-- TODO -->
