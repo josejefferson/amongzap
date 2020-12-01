@@ -29,8 +29,17 @@ function user(us) {
 	}
 }
 
+function users(uss) {
+	const users = [...uss]
+	for (i in users) {
+		users[i] = user(users[i])
+	}
+	return users
+}
+
 module.exports = {
 	message,
 	messages,
-	user
+	user,
+	users
 }

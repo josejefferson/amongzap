@@ -112,16 +112,19 @@ button:active {
 	width: 100%;
 	justify-content: center;
 	
-	.usersTyping {
+	.typing {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		margin-top: 0;
 		border-radius: 0 0 8px 8px;
 		background-color: black;
 		border: none;
 		padding: 3px 8px;
-		color: #ccc;
+		color: #888888;
 		font-size: 12px;
 		text-align: center;
-		transition: transform .15s ease-in;
+		transition: transform .1s ease-in;
 
 		&.noOne {
 			transform: translateY(-100%);

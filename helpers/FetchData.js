@@ -1,8 +1,5 @@
 const MESSAGES_DATABASE = 'https://jsonstorage.net/api/items/059b742b-adfd-47d6-92b6-6d91aed5e6bb'
 const BLOCKED_USERS_DATABASE = 'https://jsonstorage.net/api/items/82b20039-1695-422a-af20-1d3149d806fc'
-//const ADMIN_USERNAMES_DATABASE = 'https://jsonstorage.net/api/items/9c3a875e-b1b5-46ab-87dc-af880a5bcdb2'
-//const BLACKLIST_USERNAMES_DATABASE = ''
-//const BLACKLIST_WORDS_DATABASE = ''
 //const USERS_HISTORY_DATABASE = 'https://jsonstorage.net/api/items/faa65f13-e124-4adc-980f-dd399cc5e159'
 const MAX_ATTEMPTS = 3
 
@@ -14,9 +11,6 @@ async function downloadData(type) {
 	switch (type) {
 		case 'MESSAGES': URL = MESSAGES_DATABASE; break
 		case 'BLOCKED_USERS': URL = BLOCKED_USERS_DATABASE; break
-		//case 'ADMIN_USERNAMES': URL = ADMIN_USERNAMES_DATABASE; break
-		//case 'BLACKLIST_USERNAMES': URL = BLACKLIST_USERNAMES_DATABASE; break
-		//case 'BLACKLIST_WORDS': URL = BLACKLIST_WORDS_DATABASE; break
 		//case 'USERS_HISTORY': URL = USERS_HISTORY_DATABASE; break
 		default: return false
 	}
@@ -37,9 +31,6 @@ async function uploadData(type, data) {
 	switch (type) {
 		case 'MESSAGES': URL = MESSAGES_DATABASE; break
 		case 'BLOCKED_USERS': URL = BLOCKED_USERS_DATABASE; break
-		//case 'ADMIN_USERNAMES': URL = ADMIN_USERNAMES_DATABASE; break
-		//case 'BLACKLIST_USERNAMES': URL = BLACKLIST_USERNAMES_DATABASE; break
-		//case 'BLACKLIST_WORDS': URL = BLACKLIST_WORDS_DATABASE; break
 		//case 'USERS_HISTORY': URL = USERS_HISTORY_DATABASE; break
 		default: return false
 	}

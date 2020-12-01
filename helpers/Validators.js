@@ -8,12 +8,8 @@ const USER_ID_LENGTH = 30
 const { randomString } = require('./Helpers')
 const validate = require('validate.js')
 const chat = require('./Chat')
-const Censoring = require('./Censoring')
 const { adminUserName } = require('./Chat')
 const authenticate = require('./admin/AdminAuth')
-//const scan = new Censoring()
-//scan.enableFilters(['phone_number', 'email_address', 'words'])
-//scan.addFilterWords(chat.blackListWords)
 
 function validateUser(socket) {
 	let { userID, userName, userColor } = socket.handshake.query
@@ -31,7 +27,7 @@ function validateUser(socket) {
 		socket.emit('setID', userID)
 	}
 
-	if (!userName) {// || scan.prepare(userName).test()) {
+	if (!userName) {
 		socket.emit('error', {
 			errorCode: 'INVALID_USER_NAME',
 			description: 'Nome de usuário inválido!'
@@ -39,16 +35,6 @@ function validateUser(socket) {
 		socket.disconnect()
 		return false
 	}
-
-	// chat.adminUserNames.forEach(n => {
-	// 	if (n.toLowerCase() == userName.toLowerCase()) {
-	// 		socket.emit('error', {
-	// 			code: 'ADMIN_USER_NAME',
-	// 			description: 'Nome de usuário já é usado pelo administrador!'
-	// 		})
-	// 		return false
-	// 	}
-	// })
 
 	userName = userName.trim().slice(0, 10)
 
@@ -89,7 +75,7 @@ function validateMessageText(socket, data) {
 	}
 
 	return {
-		text: data.text.trim(),//scan.prepare(data.text.trim()).replace(),
+		text: data.text.trim(),
 		id: randomString(50),
 		dateTime: Date.now(),
 		sender: {

@@ -14,6 +14,11 @@ module.exports = io => {
 			actions.message(socket, message)
 		})
 
+		socket.on('typing', typing => {
+			if (![true, false].includes(typing)) return
+			actions.typing(socket, user, typing)
+		})
+
 		socket.on('disconnect', () => actions.userDisconnected(socket, user))
 	})
 }
