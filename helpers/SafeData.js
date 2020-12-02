@@ -9,7 +9,10 @@ function message(msg) {
 			userIDHash: sha1(msg.sender.userID),
 			userName: msg.sender.userName,
 			userColor: msg.sender.userColor
-		}
+		},
+		...(msg.badge && {
+			badge: msg.badge
+		})
 	}
 }
 

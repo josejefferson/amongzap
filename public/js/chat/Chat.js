@@ -25,6 +25,7 @@ function Chat() {
 	})
 
 	function chat(data, initial = false) {
+		console.log(data)
 		const scroll = $(window).scrollTop() + $(window).height() >= $(document).height() - 100
 		$chat.append(genMsgEl(data))
 		if (scroll) $('html, body').scrollTop($(document).height())
@@ -54,7 +55,7 @@ function Chat() {
 			text: data.userName + ' saiu',
 			css: { display: 'none', opacity: 0 }
 		})
-	
+
 		$usersLog.append($el)
 		animation($el, true, true)
 		sounds.play('PLAYER_LEFT')
@@ -66,7 +67,7 @@ function Chat() {
 			text: data.description,
 			css: { display: 'none', opacity: 0 }
 		})
-	
+
 		$errors.append($el)
 		animation($el, true, true, true)
 	}
@@ -102,7 +103,7 @@ function Chat() {
 		const $el = $('<div>', {
 			'class': 'container alert error',
 			text: `Você foi banido! Motivo: ${data.description || 'Não especificado'}`,
-			css: {display: 'none', opacity: 0}
+			css: { display: 'none', opacity: 0 }
 		})
 
 		$errors.append($el)
@@ -122,38 +123,42 @@ function Chat() {
 	}
 
 	function genMsgEl(msg) {
-		const { sender, text, dateTime } = msg
+		const { sender, badge, text, dateTime } = msg
 
-		const message = $('<div>', { 'class': 'messageArea' })
-		const messageEl = $('<div>', { 'class': 'message' })
-		const pictureEl = $('<div>', { 'class': 'picture' })
-		const picEl = $('<div>', { 'class': 'pic' })
-		const contentEl = $('<div>', { 'class': 'content' })
-		const messageDataEl = $('<div>', { 'class': 'messageData' })
-		const senderEl = $('<div>', { 'class': 'sender' })
-		const textEl = $('<div>', { 'class': 'text' })
-		const dateTimeEl = $('<div>', { 'class': 'dateTime' })
+		const $messageArea = $('<div>', { 'class': 'messageArea' })
+		const $message = $('<div>', { 'class': 'message' })
+		const $picture = $('<div>', { 'class': 'picture' })
+		const $pic = $('<div>', { 'class': 'pic' })
+		const $content = $('<div>', { 'class': 'content' })
+		const $messageData = $('<div>', { 'class': 'messageData' })
+		const $sender = $('<div>', { 'class': 'sender' })
+		const $badge = $('<div>', { 'class': 'badge' })
+		const $dateTime = $('<div>', { 'class': 'dateTime' })
+		const $text = $('<div>', { 'class': 'text' })
 
-		dateTimeEl.data('time', dateTime)
+		$dateTime.data('time', dateTime)
 
 		if (userIDHash == sender.userIDHash && userName == sender.userName) {
-			message.addClass('sent')
+			$messageArea.addClass('sent')
 		}
 
-		picEl.css('backgroundImage', `url(/img/players/${sender.userColor}.png)`)
-		senderEl.text(sender.userName)
-		textEl.html(helpers.replaceLinks(helpers.escapeHTML(text)))
-		dateTimeEl.text(moment(dateTime).fromNow())
+		$pic.css('backgroundImage', `url(/img/players/${sender.userColor}.png)`)
+		$sender.text(sender.userName)
+		$text.html(helpers.replaceLinks(helpers.escapeHTML(text)))
+		$dateTime.text(moment(dateTime).fromNow())
+		if (badge) {
+			$badge.html(`<i class="fas fa-${badge.icon}"></i> ${helpers.escapeHTML(badge.text)}`).css('color', badge.color)
+		}
 
-		pictureEl.append(picEl)
-		messageDataEl.append(senderEl, dateTimeEl)
-		contentEl.append(messageDataEl, textEl)
-		messageEl.append(contentEl)
-		messageEl.prepend(pictureEl)
+		$picture.append($pic)
+		$messageData.append($sender, $badge, $dateTime)
+		$content.append($messageData, $text)
+		$message.append($content)
+		$message.prepend($picture)
 
-		message.append(messageEl)
+		$messageArea.append($message)
 
-		return message
+		return $messageArea
 	}
 
 	function animation(el, open = false, close = false, remove = false) {
@@ -176,11 +181,11 @@ function Chat() {
 
 		else if (close)
 			el
-			.stop(true, false)
-			.fadeTo(500, 0)
-			.slideUp(100, function () {
-				remove && $(this).remove()
-			})
+				.stop(true, false)
+				.fadeTo(500, 0)
+				.slideUp(100, function () {
+					remove && $(this).remove()
+				})
 	}
 
 	return {

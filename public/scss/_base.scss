@@ -21,3 +21,17 @@ body {
 	background-size: 100%;
 	background-attachment: fixed;
 }
+
+.hidden {
+	display: none !important;
+}
+
+button:hover,
+label:hover {
+	filter: brightness(90%);
+}
+
+button:active,
+label:active {
+	filter: brightness(80%);
+}

@@ -20,6 +20,17 @@ header {
 		font-size: 40px;
 		color: #fff;
 		text-decoration: none;
+		width: 100%;
+		justify-content: space-between;
+
+		button {
+			background: none;
+			border: none;
+			font-size: 24px;
+			color: #ffffff;
+			outline: none;
+			cursor: pointer;
+		}
 
 		.logo {
 			background-image: url(/img/logo.png);

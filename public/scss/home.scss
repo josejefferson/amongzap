@@ -1,15 +1,4 @@
 @import "_base.scss";
-
-button:hover,
-label:hover {
-	filter: brightness(90%);
-}
-
-button:active,
-label:active {
-	filter: brightness(80%);
-}
-
 @import "_header.scss";
 
 .content {

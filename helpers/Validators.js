@@ -82,7 +82,14 @@ function validateMessageText(socket, data) {
 			userID: socket.userID,
 			userName: socket.userName,
 			userColor: socket.userColor
-		}
+		},
+		...(chat.adminUserName === socket.userName && {
+			badge: {
+				icon: 'crown',
+				text: 'Admin',
+				color: 'goldenrod'
+			}
+		})
 	}
 }
 
@@ -113,7 +120,7 @@ function validateMessage(data) {
 		'sender.userColor': { presence: { allowEmpty: false }, type: 'string', inclusion: ACCEPTED_COLORS },
 		'badge.icon': { type: 'string' },
 		'badge.text': { type: 'string' },
-		'badge.color:': { type: 'string' }
+		'badge.color': { type: 'string' }
 	}
 
 	if (validate(data, constraints) === undefined) return true

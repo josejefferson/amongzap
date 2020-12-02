@@ -20,20 +20,22 @@ body {
   background-attachment: fixed;
 }
 
-body {
-  overflow-y: scroll;
-}
-
 .hidden {
   display: none !important;
 }
 
-button:hover {
+button:hover,
+label:hover {
   filter: brightness(90%);
 }
 
-button:active {
+button:active,
+label:active {
   filter: brightness(80%);
+}
+
+body {
+  overflow-y: scroll;
 }
 
 header {
@@ -58,6 +60,16 @@ header .title {
   font-size: 40px;
   color: #fff;
   text-decoration: none;
+  width: 100%;
+  justify-content: space-between;
+}
+header .title button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  outline: none;
+  cursor: pointer;
 }
 header .title .logo {
   background-image: url(/img/logo.png);
@@ -96,12 +108,19 @@ header .title .logo {
 .chat .messageArea.sent .text {
   text-align: right;
 }
+.chat .messageArea.sent .badge {
+  margin-right: 8px;
+  order: -1;
+}
 .chat .messageArea.sent .dateTime {
   justify-content: flex-start !important;
-  order: -1;
+  order: -2;
 }
 .chat .messageArea:not(.sent) .picture {
   margin-right: 10px;
+}
+.chat .messageArea:not(.sent) .badge {
+  margin-left: 8px;
 }
 .chat .messageArea .message {
   display: flex;
@@ -129,6 +148,10 @@ header .title .logo {
   padding-top: 8px;
   color: #fff;
   text-shadow: black 2px 0px 0px, black 1.75517px 0.958851px 0px, black 1.0806px 1.68294px 0px, black 0.141474px 1.99499px 0px, black -0.832294px 1.81859px 0px, black -1.60229px 1.19694px 0px, black -1.97998px 0.28224px 0px, black -1.87291px -0.701566px 0px, black -1.30729px -1.5136px 0px, black -0.421592px -1.95506px 0px, black 0.567324px -1.91785px 0px, black 1.41734px -1.41108px 0px, black 1.92034px -0.558831px 0px;
+}
+.chat .messageArea .message .content .messageData .badge {
+  padding-top: 8px;
+  font-weight: bold;
 }
 .chat .messageArea .message .content .messageData .dateTime {
   display: flex;
