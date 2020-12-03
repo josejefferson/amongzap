@@ -105,7 +105,7 @@ header .title .logo {
 .chat .messageArea.sent .picture .pic {
   transform: scaleX(-1);
 }
-.chat .messageArea.sent .text {
+.chat .messageArea.sent .text, .chat .messageArea.sent .code, .chat .messageArea.sent .codeCaption {
   text-align: right;
 }
 .chat .messageArea.sent .badge {
@@ -161,6 +161,16 @@ header .title .logo {
   justify-content: flex-end;
   color: #777;
   padding-top: 5px;
+}
+.chat .messageArea .message .content .code:not(:empty) {
+  font-size: 24px;
+  margin-top: 6px;
+  font-weight: bold;
+}
+.chat .messageArea .message .content .codeCaption:not(:empty) {
+  font-size: 10px;
+  color: #777;
+  margin-bottom: 6px;
 }
 .chat .messageArea .message .picture {
   display: flex;
@@ -232,6 +242,11 @@ header .title .logo {
   border-color: #5d0000;
   background-color: #ffb1b1;
   color: #bb1616;
+}
+.floating .alert.success {
+  border-color: #16482e;
+  background-color: #addbb2;
+  color: #12871a;
 }
 .floating .alert.loadingMessages {
   border-color: #222222;

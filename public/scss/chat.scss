@@ -22,7 +22,7 @@ body {
 		&.sent {
 			.picture { margin-left: 10px; order: 1; .pic { transform: scaleX(-1); } }
 			justify-content: flex-end;
-			.text { text-align: right; }
+			.text, .code, .codeCaption { text-align: right; }
 			.badge { margin-right: 8px; order: -1; }
 			.dateTime { justify-content: flex-start !important; order: -2; }
 		}
@@ -73,6 +73,18 @@ body {
 						color: #777;
 						padding-top: 5px;
 					}
+				}
+
+				.code:not(:empty) {
+					font-size: 24px;
+					margin-top: 6px;
+					font-weight: bold;
+				}
+
+				.codeCaption:not(:empty) {
+					font-size: 10px;
+					color: #777;
+					margin-bottom: 6px;
 				}
 			}
 
@@ -159,6 +171,12 @@ body {
 			color: #bb1616;
 		}
 		
+		&.success {	
+			border-color: #16482e;
+			background-color: #addbb2;
+			color: #12871a;
+		}
+		
 		&.loadingMessages {
 			border-color: #222222;
 			background-color: #aaaaaa;
@@ -180,10 +198,6 @@ body {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	// position: fixed;
-	// bottom: 5px;
-	// left: 5px;
-	// width: calc(100% - 10px);
 	margin: 0 5px 8px 5px;
 	height: 48px;
 	background: white;

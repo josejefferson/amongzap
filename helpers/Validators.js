@@ -2,6 +2,7 @@ const ACCEPTED_COLORS = [
 	'red', 'blue', 'green', 'pink', 'orange', 'yellow', 'gray', 'white', 'purple', 'brown', 'cyan', 'lime'
 ]
 const MAX_LENGTH_MESSAGE = 500
+const MESSAGE_CODE_LENGTH = 6
 const MESSAGE_ID_LENGTH = 50
 const USER_ID_LENGTH = 30
 
@@ -62,8 +63,21 @@ function validateUser(socket) {
 
 
 function validateMessageText(socket, data) {
+	let hasCode = false
+	if (data && data.code) hasCode = true
+
 	const CONSTRAINTS = {
-		'text': { presence: { allowEmpty: false }, type: 'string', length: { maximum: MAX_LENGTH_MESSAGE } }
+		'text': {
+			...(!hasCode && { presence: { allowEmpty: false } }),
+			type: 'string',
+			length: { maximum: MAX_LENGTH_MESSAGE }
+		},
+		'code': {
+			...(hasCode && { presence: { allowEmpty: false } }),
+			type: 'string',
+			length: { is: MESSAGE_CODE_LENGTH },
+			format: { pattern: '[A-Za-z]+'}
+		}
 	}
 
 	if (validate(data, CONSTRAINTS) !== undefined) {
@@ -75,9 +89,10 @@ function validateMessageText(socket, data) {
 	}
 
 	return {
-		text: data.text.trim(),
+		text: data.text ? data.text.trim() : '',
 		id: randomString(50),
 		dateTime: Date.now(),
+		...(data.code && { code: data.code.toUpperCase() }),
 		sender: {
 			userID: socket.userID,
 			userName: socket.userName,
@@ -111,7 +126,8 @@ function validateMessage(data) {
 	]
 
 	const constraints = {
-		'text': { presence: { allowEmpty: false }, type: 'string' },
+		'text': { type: 'string', length: { maximum: MAX_LENGTH_MESSAGE } },
+		'code': { type: 'string', length: { is: MESSAGE_CODE_LENGTH } },
 		'dateTime': { presence: { allowEmpty: false }, type: 'number' },
 		'id': { presence: { allowEmpty: false }, type: 'string', length: { is: MESSAGE_ID_LENGTH } },
 		'sender': { presence: { allowEmpty: false } },

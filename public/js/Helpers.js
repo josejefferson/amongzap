@@ -28,10 +28,21 @@ function Helpers() {
 			.replace(/'/g, '&#039;')
 	}
 
+	const copy = text => {
+		const el = document.createElement('textarea')
+		el.value = text
+		document.body.appendChild(el)
+		el.select()
+		document.execCommand('copy')
+		document.body.removeChild(el)
+		chat.success({description: 'Código copiado'})
+	}
+
 	return {
 		randomString,
 		randomNumber,
 		replaceLinks,
-		escapeHTML
+		escapeHTML,
+		copy
 	}
 }

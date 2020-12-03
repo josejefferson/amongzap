@@ -8,11 +8,14 @@ function Chat() {
 	const $status = $('.status')
 	const $loadingMessages = $('.loadingMessages')
 	const $errors = $('.errors')
+	const $successes = $('.successes')
 	const $sendText = $('.sendText')
 	const $sendBtn = $('.sendButton')
+	const $sendCodeBtn = $('.sendCodeButton')
 
 	$sendText.focus()
 	$sendBtn.click(sendMsg)
+	$sendCodeBtn.click(sendCode)
 	$sendText.keyup(e => {
 		(e.key === 'Enter') && sendMsg()
 		if (typing && $sendText.val().trim() === '') {
@@ -25,7 +28,6 @@ function Chat() {
 	})
 
 	function chat(data, initial = false) {
-		console.log(data)
 		const scroll = $(window).scrollTop() + $(window).height() >= $(document).height() - 100
 		$chat.append(genMsgEl(data))
 		if (scroll) $('html, body').scrollTop($(document).height())
@@ -69,6 +71,17 @@ function Chat() {
 		})
 
 		$errors.append($el)
+		animation($el, true, true, true)
+	}
+
+	function success(data) {
+		const $el = $('<div>', {
+			'class': 'container alert success',
+			text: data.description,
+			css: {display: 'none', opacity: 0}
+		})
+
+		$successes.append($el)
 		animation($el, true, true, true)
 	}
 
@@ -122,8 +135,17 @@ function Chat() {
 		typing = false
 	}
 
+	function sendCode() {
+		const code = prompt('Digite ou cole o código da sala...')
+		if (code && code.trim().length === 6 && /^[a-zA-Z]+$/.test(code.trim())) {
+			socket.sendChat({ text: $sendText.val(), code: code.trim() })
+		} else {
+			if (code !== null) error({description: 'Código inválido!'})
+		}
+	}
+
 	function genMsgEl(msg) {
-		const { sender, badge, text, dateTime } = msg
+		const { sender, badge, code, text, dateTime } = msg
 
 		const $messageArea = $('<div>', { 'class': 'messageArea' })
 		const $message = $('<div>', { 'class': 'message' })
@@ -135,6 +157,8 @@ function Chat() {
 		const $badge = $('<div>', { 'class': 'badge' })
 		const $dateTime = $('<div>', { 'class': 'dateTime' })
 		const $text = $('<div>', { 'class': 'text' })
+		const $code = $('<div>', { 'class': 'code' })
+		const $codeCaption = $('<div>', { 'class': 'codeCaption' })
 
 		$dateTime.data('time', dateTime)
 
@@ -146,13 +170,15 @@ function Chat() {
 		$sender.text(sender.userName)
 		$text.html(helpers.replaceLinks(helpers.escapeHTML(text)))
 		$dateTime.text(moment(dateTime).fromNow())
-		if (badge) {
-			$badge.html(`<i class="fas fa-${badge.icon}"></i> ${helpers.escapeHTML(badge.text)}`).css('color', badge.color)
+		if (badge) { $badge.html(`<i class="fas fa-${badge.icon}"></i> ${helpers.escapeHTML(badge.text)}`).css('color', badge.color) }
+		if (code) {
+			$code.text(code).click(function () { helpers.copy($(this).text()) })
+			$codeCaption.text('Código da sala')
 		}
 
 		$picture.append($pic)
 		$messageData.append($sender, $badge, $dateTime)
-		$content.append($messageData, $text)
+		$content.append($messageData, $code, $codeCaption, $text)
 		$message.append($content)
 		$message.prepend($picture)
 
@@ -194,6 +220,7 @@ function Chat() {
 		userConnect,
 		userDisconnect,
 		error,
+		success,
 		banned,
 		connected,
 		disconnected,

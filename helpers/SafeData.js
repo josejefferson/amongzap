@@ -5,6 +5,7 @@ function message(msg) {
 		id: msg.id,
 		dateTime: msg.dateTime,
 		text: msg.text,
+		...(msg.code && { code: msg.code }),
 		sender: {
 			userIDHash: sha1(msg.sender.userID),
 			userName: msg.sender.userName,
