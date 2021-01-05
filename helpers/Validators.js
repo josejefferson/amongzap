@@ -7,10 +7,16 @@ const MESSAGE_ID_LENGTH = 50
 const USER_ID_LENGTH = 30
 
 const { randomString } = require('./Helpers')
-const validate = require('validate.js')
+const Validator = require('jsonschema').Validator
+const v = new Validator()
 const chat = require('./Chat')
 const { adminUserName } = require('./Chat')
 const authenticate = require('./admin/AdminAuth')
+const cons = {
+	blockedUser: require('./validators/blockedUser'),
+	message: require('./validators/message'),
+	messageSend: require('./validators/messageSend')
+}
 
 function validateUser(socket) {
 	let { userID, userName, userColor } = socket.handshake.query
@@ -63,24 +69,7 @@ function validateUser(socket) {
 
 
 function validateMessageText(socket, data) {
-	let hasCode = false
-	if (data && data.code) hasCode = true
-
-	const CONSTRAINTS = {
-		'text': {
-			...(!hasCode && { presence: { allowEmpty: false } }),
-			type: 'string',
-			length: { maximum: MAX_LENGTH_MESSAGE }
-		},
-		'code': {
-			...(hasCode && { presence: { allowEmpty: false } }),
-			type: 'string',
-			length: { is: MESSAGE_CODE_LENGTH },
-			format: { pattern: '[A-Za-z]+'}
-		}
-	}
-
-	if (validate(data, CONSTRAINTS) !== undefined) {
+	if (!v.validate(data, cons.messageSend).valid) {
 		socket.emit('error', {
 			code: 'INVALID_MESSAGE_TEXT',
 			description: 'Mensagem inválida!'
@@ -88,11 +77,12 @@ function validateMessageText(socket, data) {
 		return false
 	}
 
+	// ===== Não é função do validador =====
 	return {
-		text: data.text ? data.text.trim() : '',
+		...(data.text && { text: data.text.trim() }),
+		...(data.code && { code: data.code.toUpperCase() }),
 		id: randomString(50),
 		dateTime: Date.now(),
-		...(data.code && { code: data.code.toUpperCase() }),
 		sender: {
 			userID: socket.userID,
 			userName: socket.userName,
@@ -106,63 +96,19 @@ function validateMessageText(socket, data) {
 			}
 		})
 	}
+	// =====================================
 }
 
 
 function validateMessage(data) {
-	const ACCEPTED_COLORS = [
-		'red',
-		'blue',
-		'green',
-		'pink',
-		'orange',
-		'yellow',
-		'gray',
-		'white',
-		'purple',
-		'brown',
-		'cyan',
-		'lime'
-	]
-
-	const constraints = {
-		'text': { type: 'string', length: { maximum: MAX_LENGTH_MESSAGE } },
-		'code': { type: 'string', length: { is: MESSAGE_CODE_LENGTH } },
-		'dateTime': { presence: { allowEmpty: false }, type: 'number' },
-		'id': { presence: { allowEmpty: false }, type: 'string', length: { is: MESSAGE_ID_LENGTH } },
-		'sender': { presence: { allowEmpty: false } },
-		'sender.userID': { presence: { allowEmpty: false }, type: 'string', length: { is: USER_ID_LENGTH } },
-		'sender.userName': { presence: { allowEmpty: false }, type: 'string' },
-		'sender.userColor': { presence: { allowEmpty: false }, type: 'string', inclusion: ACCEPTED_COLORS },
-		'badge.icon': { type: 'string' },
-		'badge.text': { type: 'string' },
-		'badge.color': { type: 'string' }
-	}
-
-	if (validate(data, constraints) === undefined) return true
-	else return false
+	if (v.validate(data, cons.message).valid) return true
+	return false
 }
 
 
 function validateBlockedUser(data) {
-	let constraints
-
-	if (data && data.type && data.type === 'ID') {
-		constraints = {
-			'userID': { presence: { allowEmpty: false }, type: 'string', length: { is: USER_ID_LENGTH } },
-			'userIP': { type: 'string' },
-			'reason': { type: 'string' }
-		}
-	} else if (data && data.type && data.type === 'IP') {
-		constraints = {
-			'userIP': { presence: { allowEmpty: false }, type: 'string' },
-			'userID': { type: 'string', length: { is: USER_ID_LENGTH } },
-			'reason': { type: 'string' }
-		}
-	} else { return false }
-
-	if (validate(data, constraints) === undefined) return true
-	else return false
+	if (v.validate(data, cons.blockedUser).valid) return true
+	return false
 }
 
 module.exports = {
