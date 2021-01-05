@@ -1,11 +1,16 @@
 module.exports = {
 	type: 'object',
 	properties: {
-		'text': { type: 'string', minLength: 1, maxLength: 500 },
+		'text': { type: 'string', maxLength: 500 },
 		'code': { type: 'string', pattern: '[A-Za-z]+', minLength: 6, maxLength: 6 }
 	},
-	anyOf: [
-		{ required: ['text'] },
-		{ required: ['code'] }
-	]
+	if: {
+		required: ['code']
+	},
+	then: {
+		properties: { 'text': { minLength: 0 } },
+	},
+	else: {
+		properties: { 'text': { minLength: 1 } }
+	}
 }

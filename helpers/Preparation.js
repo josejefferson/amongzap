@@ -23,8 +23,9 @@ async function preparation() {
 	}
 
 	setInterval(() => {
-		uploadData('MESSAGES', chat.messages)
-		uploadData('BLOCKED_USERS', chat.blockedUsers)
+		// TODO: ativar o backup
+		// uploadData('MESSAGES', chat.messages)
+		// uploadData('BLOCKED_USERS', chat.blockedUsers)
 	}, BACKUP_TIME)
 	
 	// uploadData('MESSAGES', [])

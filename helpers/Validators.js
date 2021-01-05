@@ -1,10 +1,6 @@
 const ACCEPTED_COLORS = [
 	'red', 'blue', 'green', 'pink', 'orange', 'yellow', 'gray', 'white', 'purple', 'brown', 'cyan', 'lime'
 ]
-const MAX_LENGTH_MESSAGE = 500
-const MESSAGE_CODE_LENGTH = 6
-const MESSAGE_ID_LENGTH = 50
-const USER_ID_LENGTH = 30
 
 const { randomString } = require('./Helpers')
 const Validator = require('jsonschema').Validator
@@ -79,7 +75,7 @@ function validateMessageText(socket, data) {
 
 	// ===== Não é função do validador =====
 	return {
-		...(data.text && { text: data.text.trim() }),
+		text: data.text.trim() || '',
 		...(data.code && { code: data.code.toUpperCase() }),
 		id: randomString(50),
 		dateTime: Date.now(),
