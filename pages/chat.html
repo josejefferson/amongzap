@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" ng-app="amongUsChat">
 
 <head>
+	<!-- ERUDA -->
 	<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init()</script>
+	<script>eruda.init()</script>
+	<!-- ----- -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chat do Among Us</title>
 	<link rel="shortcut icon" href="favicon.png" type="image/png">
 	<link rel="manifest" href="/manifest.json">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<link rel="stylesheet" href="/lib/css/font-awesome.all.min.css">
 	<link rel="stylesheet" href="/lib/css/bootstrap-grid.min.css">
 	<link rel="stylesheet" href="/css/chat.css">
 </head>
 
-<body>
+<body ng-controller="amongUsChat-chatCtrl">
 	<header>
 		<div class="title">
 			<button class="fas fa-cog" title="Configurações"></button>
@@ -23,11 +25,38 @@
 		</div>
 	</header>
 
-	<div class="chat container"></div>
-	
+	<div class="chat container">
+		<div class="messageArea"
+			ng-class="::{'sent': chat.sender.userName === userName && chat.sender.userIDHash === userIDHash}"
+			ng-repeat="chat in chats track by chat.id">
+			<div class="message">
+				<div class="picture">
+					<div class="pic" ng-style="::{'background-image':'url(/img/players/{{ ::chat.sender.userColor }}.png)'}"></div>
+				</div>
+				<div class="content">
+					<div class="messageData">
+						<div class="sender">{{ ::chat.sender.userName }}</div>
+						<div class="badge" ng-if="::chat.badge" ng-style="::{'color': '{{ ::chat.badge.color }}'}">
+							<i ng-class="'fas fa-{{ ::chat.badge.icon }}'"></i>
+							{{ ::chat.badge.text }}
+						</div>
+						<div class="dateTime" data-time="{{ ::chat.dateTime }}">{{ ::moment(chat.dateTime).fromNow() }}</div>
+					</div>
+					<div class="code" ng-if="::chat.code">{{ ::chat.code }}</div>
+					<div class="codeCaption" ng-if="::chat.code">Código da sala</div>
+					<div class="text" ng-if="::chat.text">{{ ::chat.text }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="floating">
 		<div class="typing noOne"></div>
-		<div class="container alert status connecting">Conectando</div>
+		<div class="container alert status {{status}}" ng-switch on="status">
+			<div ng-switch-when="connecting">Conectando...</div>
+			<div ng-switch-when="connected">Conectado</div>
+			<div ng-switch-when="disconnected">Desconectado!</div>
+		</div>
 		<div class="container alert loadingMessages" style="display: none; opacity: 0">Carregando mensagens...</div>
 		<div class="successes"></div>
 		<div class="errors"></div>
@@ -36,14 +65,15 @@
 
 	<div class="bottom">
 		<div class="sendArea container">
-			<input type="text" class="sendText" placeholder="Digite aqui...">
-			<button class="sendCodeButton"></button>
-			<button class="sendButton"></button>
+			<input type="text" class="sendText" placeholder="Digite aqui..." ng-model="sendText">
+			<button class="sendCodeButton" ng-click="sendCode(sendText)"></button>
+			<button class="sendButton" ng-click="send(sendText)"></button>
 		</div>
 	</div>
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script> <!-- TODO -->
 	<script src="/socket.io/socket.io.min.js"></script>
+	<script src="/lib/js/jquery.min.js"></script>
+	<script src="/lib/js/angular.min.js"></script>
 	<script src="/lib/js/moment.min.js"></script>
 	<script src="/lib/js/sha1.min.js"></script>
 	<script src="/js/Helpers.js"></script>

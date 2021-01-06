@@ -28,6 +28,7 @@ function Chat() {
 	})
 
 	function chat(data, initial = false) {
+		console.log(data)
 		const scroll = $(window).scrollTop() + $(window).height() >= $(document).height() - 100
 		$chat.append(genMsgEl(data))
 		if (scroll) $('html, body').scrollTop($(document).height())
@@ -102,13 +103,13 @@ function Chat() {
 	}
 
 	function connected() {
-		$status.removeClass('disconnected').addClass('connected').text('Conectado')
+		$status.removeClass('connecting disconnected').addClass('connected').text('Conectado')
 		animation($status, true, true)
 		animation($loadingMessages, true, false)
 	}
 
 	function disconnected() {
-		$status.removeClass('connected').addClass('disconnected').text('Desconectado')
+		$status.removeClass('connecting connected').addClass('disconnected').text('Desconectado')
 		animation($status, true, false)
 	}
 
