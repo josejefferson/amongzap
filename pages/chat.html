@@ -28,7 +28,7 @@
 	<div class="chat container">
 		<button ng-click="errors.push({ description: 'text' })">ADD error</button>
 		<button ng-click="successes.push({ description: 'text' })">ADD success</button>
-		<input ng-model="statuse">
+		<input ng-model="statuse" ng-init="statuse='connected'">
 		<button ng-click="status=statuse">SET</button>
 
 		<div class="messageArea"
@@ -57,7 +57,7 @@
 	</div>
 
 	<div class="floating">
-		<div class="typing noOne" ng-class="{'noOne': !typingUsers.length}">{{ typing() }}</div>
+		<div class="typing" ng-class="{'noOne': !typingUsers.filter(e => e.userIDHash !== userIDHash).length}">{{ typing() }}</div>
 		<div class="container alert status {{ status }}" ng-switch on="status">
 			<div ng-switch-when="connecting">Conectando...</div>
 			<div ng-switch-when="connected">Conectado</div>

@@ -9,10 +9,10 @@ function Socket($scope) {
 		}
 	})
 
-	socket.on('connect', () => { $scope.status = 'connected'; $scope.$apply() })
-	socket.on('disconnect', () => { $scope.status = 'disconnected'; $scope.$apply() })
+	socket.on('connect', () => { $scope.status = 'connected'; $scope.loadingMessages = true; $scope.$apply() })
+	socket.on('disconnect', () => { $scope.status = 'disconnected'; $scope.loadingMessages = false; $scope.$apply() })
 	socket.on('error', error => { $scope.errors.push(error); $scope.$apply() })
-	socket.on('initialChat', chats => { $scope.chats = chats; $scope.$apply(); $('html, body').scrollTop($(document).height()) })
+	socket.on('initialChat', chats => { $scope.chats = chats; $scope.loadingMessages = false; $scope.$apply(); $('html, body').scrollTop($(document).height()) })
 	socket.on('chat', chat => {
 		$scope.chats.push(chat); $scope.$apply();
 		if (chat.sender.userIDHash !== userIDHash || chat.sender.userName !== userName)

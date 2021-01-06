@@ -1,5 +1,5 @@
-const { userIDHash, userName } = UserData()
 const helpers = Helpers()
+const { userIDHash, userName } = UserData()
 const sounds = Sounds()
 // const chat = Chat()
 let socket
@@ -108,10 +108,11 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 		if (code === null) return
 		else code = code.trim()
 		if (code.length === 6 && /^[a-zA-Z]+$/.test(code)) socket.sendChat({ text, code })
-		else error({ description: 'Código inválido!' })
+		else $scope.errors.push({ description: 'Código inválido!' })
 	}
 
 	const socket = Socket($scope)
+	$scope.socket = socket
 
 	$scope.connectionAnimation
 	$scope.timeout = (msg, group) => $timeout(() => group.splice(group.indexOf(msg), 1), 5000)
@@ -120,36 +121,24 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 angular.module('amongUsChat').animation('.error', animation)
 angular.module('amongUsChat').animation('.success', animation)
 angular.module('amongUsChat').animation('.status', animation)
+angular.module('amongUsChat').animation('.loadingMessages', animation)
 
 function animation() {
 	return {
 		enter: (el, done) => {
-			el
-				.stop(true, false)
-				.css({ opacity: 0, display: 'none' })
-				.slideDown(100)
-				.fadeTo(500, 1, done)
+			el.stop(true, false).css({ opacity: 0, display: 'none' }).slideDown(100).fadeTo(500, 1, done)
 			return done
 		},
 		leave: (el, done) => {
-			el
-				.stop(true, false)
-				.fadeTo(500, 0)
-				.slideUp(100, done)
+			el.stop(true, false).fadeTo(500, 0).slideUp(100, done)
 			return done
 		},
 		addClass: (el, className, done) => {
 			console.log([el, className, done])
-				el
-					.stop(true, false)
-					// .css({ opacity: 0, display: 'none' })
-					.slideDown(100)
-				.fadeTo(500, 1, done)
+				el.stop(true, false).slideDown(100).fadeTo(500, 1, done)
 			
-			if (className === 'connected') el.delay(5000).fadeOut()
-		},
-		removeClass: (el, className, done) => {
-			console.log([el, className, done])
+			if (className === 'connected')
+				el.delay(3000).fadeTo(500, 0).slideUp(100, done)
 		}
 	}
 }
