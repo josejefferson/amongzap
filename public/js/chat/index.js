@@ -1,7 +1,9 @@
-// const helpers = Helpers()
-// const sounds = Sounds()
+const { userIDHash, userName } = UserData()
+const helpers = Helpers()
+const sounds = Sounds()
 // const chat = Chat()
-// const socket = Socket()
+let socket
+// window.onload = () => socket = Socket()
 
 window.setInterval(() => {
 	const dateTimes = $('.dateTime')
@@ -73,6 +75,7 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', ($sc
 	$scope.loadingMessages = false
 	$scope.successes = []
 	$scope.errors = []
+	$scope.usersLog = []
 	$scope.sendText = ''
 
 	$scope.test = () => { console.log('test'); return 0 } ///////////////////////////////////////////////
@@ -107,6 +110,8 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', ($sc
 		if (code.length === 6 && /^[a-zA-Z]+$/.test(code)) socket.sendChat({ text, code })
 		else error({ description: 'Código inválido!' })
 	}
+
+	const socket = Socket($scope)
 }])
 
 let $scope
