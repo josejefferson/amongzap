@@ -12,8 +12,8 @@ window.setInterval(() => {
 	})
 }, 5000)
 
-angular.module('amongUsChat', [])
-angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', ($scope) => {
+angular.module('amongUsChat', ['ngAnimate'])
+angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
 	$scope.userName = UserData().userName
 	$scope.userIDHash = UserData().userIDHash
 	$scope.moment = window.moment
@@ -80,7 +80,7 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', ($sc
 
 	$scope.test = () => { console.log('test'); return 0 } ///////////////////////////////////////////////
 	$scope.typing = () => {
-		const {userIDHash, userName, typingUsers} = $scope
+		const { userIDHash, userName, typingUsers } = $scope
 		const me = typingUsers.findIndex(e => e.userIDHash === userIDHash && e.userName === userName)
 		if (me !== -1) typingUsers.splice(me, 1)
 
@@ -112,7 +112,45 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', ($sc
 	}
 
 	const socket = Socket($scope)
+
+	$scope.connectionAnimation
+	$scope.timeout = (msg, group) => $timeout(() => group.splice(group.indexOf(msg), 1), 5000)
 }])
+
+angular.module('amongUsChat').animation('.error', animation)
+angular.module('amongUsChat').animation('.success', animation)
+angular.module('amongUsChat').animation('.status', animation)
+
+function animation() {
+	return {
+		enter: (el, done) => {
+			el
+				.stop(true, false)
+				.css({ opacity: 0, display: 'none' })
+				.slideDown(100)
+				.fadeTo(500, 1, done)
+			return done
+		},
+		leave: (el, done) => {
+			el
+				.stop(true, false)
+				.fadeTo(500, 0)
+				.slideUp(100, done)
+			return done
+		},
+		addClass: (el, className, done) => {
+			console.log([el, className, done])
+				el
+					.stop(true, false)
+					.css({ opacity: 0, display: 'none' })
+					.slideDown(100)
+					.fadeTo(500, 1, done)
+		},
+		removeClass: (el, className, done) => {
+			console.log([el, className, done])
+		}
+	}
+}
 
 let $scope
 window.onload = () => $scope = angular.element(document.body).scope()

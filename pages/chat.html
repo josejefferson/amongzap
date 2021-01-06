@@ -26,6 +26,11 @@
 	</header>
 
 	<div class="chat container">
+		<button ng-click="errors.push({ description: 'text' })">ADD error</button>
+		<button ng-click="successes.push({ description: 'text' })">ADD success</button>
+		<input ng-model="statuse">
+		<button ng-click="status=statuse">SET</button>
+
 		<div class="messageArea"
 			ng-class="::{'sent': chat.sender.userName === userName && chat.sender.userIDHash === userIDHash}"
 			ng-repeat="chat in chats track by chat.id">
@@ -59,11 +64,11 @@
 			<div ng-switch-when="disconnected">Desconectado!</div>
 		</div>
 		<div class="container alert loadingMessages" ng-show="loadingMessages">Carregando mensagens...</div>
-		<div class="successes" ng-repeat="msg in successes track by $index">
-			<div class="container alert success">{{ ::msg.description }}</div>
+		<div class="successes">
+			<div class="container alert success" ng-repeat="msg in successes track by $index" ng-init="timeout(msg, successes)">{{ ::msg.description }}</div>
 		</div>
-		<div class="errors" ng-repeat="msg in errors track by $index">
-			<div class="container alert error">{{ ::msg.description }}</div>
+		<div class="errors">
+			<div class="container alert error" ng-repeat="msg in errors track by $index" ng-init="timeout(msg, errors)">{{ ::msg.description }}</div>
 		</div>
 	</div>
 	<div class="usersLog">
@@ -81,6 +86,7 @@
 	<script src="/socket.io/socket.io.min.js"></script>
 	<script src="/lib/js/jquery.min.js"></script>
 	<script src="/lib/js/angular.min.js"></script>
+	<script src="/lib/js/angular-animate.min.js"></script>
 	<script src="/lib/js/moment.min.js"></script>
 	<script src="/lib/js/sha1.min.js"></script>
 	<script src="/js/Helpers.js"></script>
