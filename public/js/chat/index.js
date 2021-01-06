@@ -142,9 +142,11 @@ function animation() {
 			console.log([el, className, done])
 				el
 					.stop(true, false)
-					.css({ opacity: 0, display: 'none' })
+					// .css({ opacity: 0, display: 'none' })
 					.slideDown(100)
-					.fadeTo(500, 1, done)
+				.fadeTo(500, 1, done)
+			
+			if (className === 'connected') el.delay(5000).fadeOut()
 		},
 		removeClass: (el, className, done) => {
 			console.log([el, className, done])
