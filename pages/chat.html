@@ -31,7 +31,8 @@
 			ng-repeat="chat in chats track by chat.id">
 			<div class="message">
 				<div class="picture">
-					<div class="pic" ng-style="::{'background-image':'url(/img/players/{{ ::chat.sender.userColor }}.png)'}"></div>
+					<div class="pic" ng-style="::{'background-image':'url(/img/players/{{ ::chat.sender.userColor }}.png)'}">
+					</div>
 				</div>
 				<div class="content">
 					<div class="messageData">
@@ -42,7 +43,7 @@
 						</div>
 						<div class="dateTime" data-time="{{ ::chat.dateTime }}">{{ ::moment(chat.dateTime).fromNow() }}</div>
 					</div>
-					<div class="code" ng-if="::chat.code">{{ ::chat.code }}</div>
+					<div class="code" ng-if="::chat.code">{{ ::chat.code }}</div> <!-- Click Copy -->
 					<div class="codeCaption" ng-if="::chat.code">Código da sala</div>
 					<div class="text" ng-if="::chat.text">{{ ::chat.text }}</div>
 				</div>
@@ -51,17 +52,23 @@
 	</div>
 
 	<div class="floating">
-		<div class="typing noOne"></div>
-		<div class="container alert status {{status}}" ng-switch on="status">
+		<div class="typing noOne" ng-class="{'noOne': !typingUsers.length}">{{ typing() }}</div>
+		<div class="container alert status {{ status }}" ng-switch on="status">
 			<div ng-switch-when="connecting">Conectando...</div>
 			<div ng-switch-when="connected">Conectado</div>
 			<div ng-switch-when="disconnected">Desconectado!</div>
 		</div>
-		<div class="container alert loadingMessages" style="display: none; opacity: 0">Carregando mensagens...</div>
-		<div class="successes"></div>
-		<div class="errors"></div>
+		<div class="container alert loadingMessages" ng-show="loadingMessages">Carregando mensagens...</div>
+		<div class="successes" ng-repeat="msg in successes track by $index">
+			<div class="container alert success">{{ ::msg.description }}</div>
+		</div>
+		<div class="errors" ng-repeat="msg in errors track by $index">
+			<div class="container alert error">{{ ::msg.description }}</div>
+		</div>
 	</div>
-	<div class="usersLog"></div>
+	<div class="usersLog">
+		<div ng-repeat="log in usersLog track by $index">{{ ::log }}</div>
+	</div>
 
 	<div class="bottom">
 		<div class="sendArea container">

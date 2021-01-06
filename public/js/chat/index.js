@@ -68,9 +68,29 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', ($sc
 			"text": "Admin"
 		}
 	}]
+	$scope.status = 'connecting'
+	$scope.typingUsers = []
+	$scope.loadingMessages = false
+	$scope.successes = []
+	$scope.errors = []
 	$scope.sendText = ''
 
-	$scope.test = () => { console.log('test'); return 0}
+	$scope.test = () => { console.log('test'); return 0 } ///////////////////////////////////////////////
+	$scope.typing = () => {
+		const {userIDHash, userName, typingUsers} = $scope
+		const me = typingUsers.findIndex(e => e.userIDHash === userIDHash && e.userName === userName)
+		if (me !== -1) typingUsers.splice(me, 1)
+
+		let text
+		switch (typingUsers.length) {
+			case 0: break
+			case 1: text = `${typingUsers[0].userName} está digitando`; break
+			case 2: text = `${typingUsers[0].userName} e ${typingUsers[1].userName} estão digitando`; break
+			case 3: text = `${typingUsers[0].userName}, ${typingUsers[1].userName} e ${typingUsers[2].userName} estão digitando`; break
+			default: text = `${typingUsers[0].userName}, ${typingUsers[1].userName}, ${typingUsers[2].userName} e outros estão digitando`; break
+		}
+		return text
+	}
 	$scope.send = (text) => {
 		text = text.trim()
 		$scope.sendText = ''
