@@ -19,7 +19,7 @@ function Socket($scope) {
 			sounds.play(`NEW_MESSAGE_0${1 + Math.floor(Math.random() * 2)}`)
 		$('html, body').animate({scrollTop: $(document).height()})
 	})
-	socket.on('typing', users => { $scope.typingUsers = users; $scope.$apply() })
+	socket.on('typing', users => { $scope.typingUsersList = users; $scope.$apply() })
 	socket.on('userConnected', user => { $scope.usersLog.push({ text: user.userName + ' entrou' }); $scope.$apply(); sounds.play('PLAYER_SPAWN') })
 	socket.on('userDisconnected', user => { $scope.usersLog.push({ text: user.userName + ' saiu' }); $scope.$apply(); sounds.play('PLAYER_LEFT') })
 	socket.on('setID', console.log) // todo:

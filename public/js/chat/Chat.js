@@ -27,91 +27,91 @@ function Chat() {
 		}
 	})
 
-	// function chat(data, initial = false) {
-	// 	console.log(data)
-	// 	const scroll = $(window).scrollTop() + $(window).height() >= $(document).height() - 100
-	// 	$chat.append(genMsgEl(data))
-	// 	if (scroll) $('html, body').scrollTop($(document).height())
-	// 	if (!initial && (data.sender.userIDHash !== userIDHash || data.sender.userName !== userName))
-	// 		sounds.play(`NEW_MESSAGE_0${1 + Math.floor(Math.random() * 2)}`)
-	// }
+	function chat(data, initial = false) {
+		console.log(data)
+		const scroll = $(window).scrollTop() + $(window).height() >= $(document).height() - 100
+		$chat.append(genMsgEl(data))
+		if (scroll) $('html, body').scrollTop($(document).height())
+		if (!initial && (data.sender.userIDHash !== userIDHash || data.sender.userName !== userName))
+			sounds.play(`NEW_MESSAGE_0${1 + Math.floor(Math.random() * 2)}`)
+	}
 
-	// function initialChat(data) {
-	// 	$chat.html('')
-	// 	data.forEach(d => chat(d, true))
-	// 	animation($loadingMessages, false, true, true)
-	// }
+	function initialChat(data) {
+		$chat.html('')
+		data.forEach(d => chat(d, true))
+		animation($loadingMessages, false, true, true)
+	}
 
-	// function userConnect(data) {
-	// 	const $el = $('<div>', {
-	// 		text: data.userName + ' entrou',
-	// 		css: { display: 'none', opacity: 0 }
-	// 	})
+	function userConnect(data) {
+		const $el = $('<div>', {
+			text: data.userName + ' entrou',
+			css: { display: 'none', opacity: 0 }
+		})
 
-	// 	$usersLog.append($el)
-	// 	animation($el, true, true)
-	// 	sounds.play('PLAYER_SPAWN')
-	// }
+		$usersLog.append($el)
+		animation($el, true, true)
+		sounds.play('PLAYER_SPAWN')
+	}
 
-	// function userDisconnect(data) {
-	// 	const $el = $('<div>', {
-	// 		text: data.userName + ' saiu',
-	// 		css: { display: 'none', opacity: 0 }
-	// 	})
+	function userDisconnect(data) {
+		const $el = $('<div>', {
+			text: data.userName + ' saiu',
+			css: { display: 'none', opacity: 0 }
+		})
 
-	// 	$usersLog.append($el)
-	// 	animation($el, true, true)
-	// 	sounds.play('PLAYER_LEFT')
-	// }
+		$usersLog.append($el)
+		animation($el, true, true)
+		sounds.play('PLAYER_LEFT')
+	}
 
-	// function error(data) {
-	// 	const $el = $('<div>', {
-	// 		'class': 'container alert error',
-	// 		text: data.description,
-	// 		css: { display: 'none', opacity: 0 }
-	// 	})
+	function error(data) {
+		const $el = $('<div>', {
+			'class': 'container alert error',
+			text: data.description,
+			css: { display: 'none', opacity: 0 }
+		})
 
-	// 	$errors.append($el)
-	// 	animation($el, true, true, true)
-	// }
+		$errors.append($el)
+		animation($el, true, true, true)
+	}
 
-	// function success(data) {
-	// 	const $el = $('<div>', {
-	// 		'class': 'container alert success',
-	// 		text: data.description,
-	// 		css: {display: 'none', opacity: 0}
-	// 	})
+	function success(data) {
+		const $el = $('<div>', {
+			'class': 'container alert success',
+			text: data.description,
+			css: {display: 'none', opacity: 0}
+		})
 
-	// 	$successes.append($el)
-	// 	animation($el, true, true, true)
-	// }
+		$successes.append($el)
+		animation($el, true, true, true)
+	}
 
-	// function typingUsers(data) {
-	// 	const me = data.findIndex(e => e.userIDHash === userIDHash && e.userName === userName)
-	// 	if (me !== -1) data.splice(me, 1)
+	function typingUsers(data) {
+		const me = data.findIndex(e => e.userIDHash === userIDHash && e.userName === userName)
+		if (me !== -1) data.splice(me, 1)
 
-	// 	let text
-	// 	switch (data.length) {
-	// 		case 0: break
-	// 		case 1: text = `${data[0].userName} está digitando`; break
-	// 		case 2: text = `${data[0].userName} e ${data[1].userName} estão digitando`; break
-	// 		case 3: text = `${data[0].userName}, ${data[1].userName} e ${data[2].userName} estão digitando`; break
-	// 		default: text = `${data[0].userName}, ${data[1].userName}, ${data[2].userName} e outros estão digitando`; break
-	// 	}
-	// 	if (data.length) $typing.removeClass('noOne').text(text)
-	// 	else $typing.addClass('noOne')
-	// }
+		let text
+		switch (data.length) {
+			case 0: break
+			case 1: text = `${data[0].userName} está digitando`; break
+			case 2: text = `${data[0].userName} e ${data[1].userName} estão digitando`; break
+			case 3: text = `${data[0].userName}, ${data[1].userName} e ${data[2].userName} estão digitando`; break
+			default: text = `${data[0].userName}, ${data[1].userName}, ${data[2].userName} e outros estão digitando`; break
+		}
+		if (data.length) $typing.removeClass('noOne').text(text)
+		else $typing.addClass('noOne')
+	}
 
-	// function connected() {
-	// 	$status.removeClass('connecting disconnected').addClass('connected').text('Conectado')
-	// 	animation($status, true, true)
-	// 	animation($loadingMessages, true, false)
-	// }
+	function connected() {
+		$status.removeClass('connecting disconnected').addClass('connected').text('Conectado')
+		animation($status, true, true)
+		animation($loadingMessages, true, false)
+	}
 
-	// function disconnected() {
-	// 	$status.removeClass('connecting connected').addClass('disconnected').text('Desconectado')
-	// 	animation($status, true, false)
-	// }
+	function disconnected() {
+		$status.removeClass('connecting connected').addClass('disconnected').text('Desconectado')
+		animation($status, true, false)
+	}
 
 	function banned(data) {
 		const $el = $('<div>', {
@@ -128,65 +128,65 @@ function Chat() {
 		window.location.href = `/banned?${urlParams.toString()}`
 	}
 
-	// function sendMsg() {
-	// 	if ($sendText.val().trim() === '') return
-	// 	socket.sendChat({ text: $sendText.val() })
-	// 	$sendText.val('')
-	// 	$sendText.focus()
-	// 	typing = false
-	// }
+	function sendMsg() {
+		if ($sendText.val().trim() === '') return
+		socket.sendChat({ text: $sendText.val() })
+		$sendText.val('')
+		$sendText.focus()
+		typing = false
+	}
 
-	// function sendCode() {
-	// 	const code = prompt('Digite ou cole o código da sala...')
-	// 	if (code && code.trim().length === 6 && /^[a-zA-Z]+$/.test(code.trim())) {
-	// 		socket.sendChat({ text: $sendText.val(), code: code.trim() })
-	// 	} else {
-	// 		if (code !== null) error({description: 'Código inválido!'})
-	// 	}
-	// }
+	function sendCode() {
+		const code = prompt('Digite ou cole o código da sala...')
+		if (code && code.trim().length === 6 && /^[a-zA-Z]+$/.test(code.trim())) {
+			socket.sendChat({ text: $sendText.val(), code: code.trim() })
+		} else {
+			if (code !== null) error({description: 'Código inválido!'})
+		}
+	}
 
-	// function genMsgEl(msg) {
-	// 	const { sender, badge, code, text, dateTime } = msg
+	function genMsgEl(msg) {
+		const { sender, badge, code, text, dateTime } = msg
 
-	// 	const $messageArea = $('<div>', { 'class': 'messageArea' })
-	// 	const $message = $('<div>', { 'class': 'message' })
-	// 	const $picture = $('<div>', { 'class': 'picture' })
-	// 	const $pic = $('<div>', { 'class': 'pic' })
-	// 	const $content = $('<div>', { 'class': 'content' })
-	// 	const $messageData = $('<div>', { 'class': 'messageData' })
-	// 	const $sender = $('<div>', { 'class': 'sender' })
-	// 	const $badge = $('<div>', { 'class': 'badge' })
-	// 	const $dateTime = $('<div>', { 'class': 'dateTime' })
-	// 	const $text = $('<div>', { 'class': 'text' })
-	// 	const $code = $('<div>', { 'class': 'code' })
-	// 	const $codeCaption = $('<div>', { 'class': 'codeCaption' })
+		const $messageArea = $('<div>', { 'class': 'messageArea' })
+		const $message = $('<div>', { 'class': 'message' })
+		const $picture = $('<div>', { 'class': 'picture' })
+		const $pic = $('<div>', { 'class': 'pic' })
+		const $content = $('<div>', { 'class': 'content' })
+		const $messageData = $('<div>', { 'class': 'messageData' })
+		const $sender = $('<div>', { 'class': 'sender' })
+		const $badge = $('<div>', { 'class': 'badge' })
+		const $dateTime = $('<div>', { 'class': 'dateTime' })
+		const $text = $('<div>', { 'class': 'text' })
+		const $code = $('<div>', { 'class': 'code' })
+		const $codeCaption = $('<div>', { 'class': 'codeCaption' })
 
-	// 	$dateTime.data('time', dateTime)
+		$dateTime.data('time', dateTime)
 
-	// 	if (userIDHash == sender.userIDHash && userName == sender.userName) {
-	// 		$messageArea.addClass('sent')
-	// 	}
+		if (userIDHash == sender.userIDHash && userName == sender.userName) {
+			$messageArea.addClass('sent')
+		}
 
-	// 	$pic.css('backgroundImage', `url(/img/players/${sender.userColor}.png)`)
-	// 	$sender.text(sender.userName)
-	// 	$text.html(helpers.replaceLinks(helpers.escapeHTML(text)))
-	// 	$dateTime.text(moment(dateTime).fromNow())
-	// 	if (badge) { $badge.html(`<i class="fas fa-${badge.icon}"></i> ${helpers.escapeHTML(badge.text)}`).css('color', badge.color) }
-	// 	if (code) {
-	// 		$code.text(code).click(function () { helpers.copy($(this).text()) })
-	// 		$codeCaption.text('Código da sala')
-	// 	}
+		$pic.css('backgroundImage', `url(/img/players/${sender.userColor}.png)`)
+		$sender.text(sender.userName)
+		$text.html(helpers.replaceLinks(helpers.escapeHTML(text)))
+		$dateTime.text(moment(dateTime).fromNow())
+		if (badge) { $badge.html(`<i class="fas fa-${badge.icon}"></i> ${helpers.escapeHTML(badge.text)}`).css('color', badge.color) }
+		if (code) {
+			$code.text(code).click(function () { helpers.copy($(this).text()) })
+			$codeCaption.text('Código da sala')
+		}
 
-	// 	$picture.append($pic)
-	// 	$messageData.append($sender, $badge, $dateTime)
-	// 	$content.append($messageData, $code, $codeCaption, $text)
-	// 	$message.append($content)
-	// 	$message.prepend($picture)
+		$picture.append($pic)
+		$messageData.append($sender, $badge, $dateTime)
+		$content.append($messageData, $code, $codeCaption, $text)
+		$message.append($content)
+		$message.prepend($picture)
 
-	// 	$messageArea.append($message)
+		$messageArea.append($message)
 
-	// 	return $messageArea
-	// }
+		return $messageArea
+	}
 
 	function animation(el, open = false, close = false, remove = false) {
 		if (open && close)
@@ -216,15 +216,15 @@ function Chat() {
 	}
 
 	return {
-		// chat,
-		// initialChat,
-		// userConnect,
-		// userDisconnect,
-		// error,
-		// success,
+		chat,
+		initialChat,
+		userConnect,
+		userDisconnect,
+		error,
+		success,
 		banned,
-		// connected,
-		// disconnected,
-		// typingUsers
+		connected,
+		disconnected,
+		typingUsers
 	}
 }

@@ -25,59 +25,8 @@
 		</div>
 	</header>
 
-	<div class="chat container">
-		<button ng-click="errors.push({ description: aaa })">ADD error</button>
-		<input ng-model="aaa">
-		<button ng-click="successes.push({ description: 'text' })">ADD success</button>
-		<input ng-model="statuse" ng-init="statuse='connected'">
-		<button ng-click="status=statuse">SET</button>
-
-		<div class="messageArea" ng-repeat="chat in chats track by chat.id" ng-class="::{'sent': isSent(chat)}">
-			<div class="message">
-				<div class="picture">
-					<div class="pic" ng-style="::{'background-image':'url(/img/players/{{ ::chat.sender.userColor }}.png)'}">
-					</div>
-				</div>
-				<div class="content">
-					<div class="messageData">
-						<div class="sender">{{ ::chat.sender.userName }}</div>
-						<div class="badge" ng-if="::chat.badge" ng-style="::{'color': '{{ ::chat.badge.color }}'}">
-							<i ng-class="'fas fa-{{ ::chat.badge.icon }}'"></i>
-							<span>{{ ::chat.badge.text }}</span>
-						</div>
-						<div class="dateTime" data-time="{{ ::chat.dateTime }}">{{ ::moment(chat.dateTime).fromNow() }}</div>
-					</div>
-					<div class="code" ng-if="::chat.code">
-						<div ng-click="copy(chat.code)">{{ ::chat.code }}</div>
-						<div class="codeCaption">Código da sala</div>
-					</div>
-					<!--Click Copy-->
-					<div class="text" ng-class="::{'ng-hide': !chat.text}">{{ ::chat.text }}</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="typing" ng-class="{'noOne': hasTyping()}">{{ typing() }}</div>
-	<div class="floating">
-		<div class="container alert status {{ status }}" ng-switch on="status">
-			<div ng-switch-when="connecting">Conectando...</div>
-			<div ng-switch-when="connected">Conectado</div>
-			<div ng-switch-when="disconnected">Desconectado!</div>
-		</div>
-		<div class="container alert loadingMessages" ng-show="loadingMessages">Carregando mensagens...</div>
-		<div class="successes">
-			<div class="container alert success" ng-repeat="msg in successes" ng-init="timeout(successes)"
-				style="display:none;opacity:0">{{ ::msg.description }}</div>
-		</div>
-		<div class="errors">
-			<div class="container alert error" ng-repeat="msg in errors" ng-init="timeout(errors)"
-				style="display:none;opacity:0">{{ ::msg.description }}</div>
-		</div>
-	</div>
-	<div class="usersLog">
-		<div class="log" ng-repeat="log in usersLog" ng-init="timeout(usersLog)" style="opacity:0">{{ ::log.text }}</div>
-	</div>
+	<ng-include src="'templates/chat.html'"></ng-include>
+	<ng-include src="'templates/info.html'"></ng-include>
 
 	<div class="bottom">
 		<div class="sendArea container">

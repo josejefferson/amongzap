@@ -6,7 +6,7 @@ angular.module('amongUsChat').animation('.log', () => ({ enter: anim.fadeIn, lea
 
 const anim = {
 	open: (el, done) => {
-		el.stop(true, false).slideDown(100).fadeTo(500, 1, done)
+		el.stop(true, false).css({ display: 'none', opacity: 0 }).slideDown(100).fadeTo(300, 1, done)
 		return done
 	},
 
@@ -16,13 +16,13 @@ const anim = {
 	},
 
 	statusChange: (el, className, done) => {
-		el.stop(true, false).slideDown(100).fadeTo(500, 1, done)
+		el.stop(true, false).slideDown(100).fadeTo(300, 1, done)
 		if (className === 'connected') el.delay(2000).fadeTo(500, 0).slideUp(100, done)
 		return done
 	},
 
 	show: (el, className, done) => {
-		if (className === 'ng-hide') el.stop(true, false).slideDown(100).fadeTo(500, 1, done)
+		if (className === 'ng-hide') el.stop(true, false).slideDown(100).fadeTo(300, 1, done)
 		return done
 	},
 
@@ -32,10 +32,12 @@ const anim = {
 	},
 
 	fadeIn: (el, done) => {
-		el.stop(true, false).fadeTo(500, 1, done)
+		el.stop(true, false).css({ opacity: 0 }).fadeTo(300, 1, done)
+		return done
 	},
 
 	slideClose: (el, done) => {
-		el.stop(true, false).animate({left: '-200px'}).slideUp(100, done)
+		el.stop(true, false).animate({ left: '-200px' }).slideUp(100, done)
+		return done
 	}
 }

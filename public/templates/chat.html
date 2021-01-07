@@ -1,0 +1,25 @@
+<div class="chat container">
+	<div class="messageArea" ng-repeat="chat in chats track by chat.id" ng-class="::{'sent': isSent(chat)}">
+		<div class="message">
+			<div class="picture">
+				<div class="pic" ng-style="::{'background-image':'url(/img/players/{{ ::chat.sender.userColor }}.png)'}">
+				</div>
+			</div>
+			<div class="content">
+				<div class="messageData">
+					<div class="sender">{{ ::chat.sender.userName }}</div>
+					<div class="badge" ng-if="::chat.badge" ng-style="::{'color': '{{ ::chat.badge.color }}'}">
+						<i ng-class="'fas fa-{{ ::chat.badge.icon }}'"></i>
+						<span>{{ ::chat.badge.text }}</span>
+					</div>
+					<div class="dateTime" data-time="{{ ::chat.dateTime }}">{{ ::moment(chat.dateTime).fromNow() }}</div>
+				</div>
+				<div class="code" ng-if="::chat.code">
+					<div ng-click="copy(chat.code)">{{ ::chat.code }}</div>
+					<div class="codeCaption">Código da sala</div>
+				</div>
+				<div class="text" ng-class="::{'ng-hide': !chat.text}">{{ ::chat.text }}</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,10 +1,8 @@
-angular.module('amongUsChat').directive('ngEnter', function () {
-	return function (scope, el, attrs) {
-		el.bind('keydown keypress', function (e) {
+angular.module('amongUsChat').directive('ngEnter', () => {
+	return (scope, el, attrs) => {
+		el.bind('keydown keypress', e => {
 			if (e.key === 'Enter') {
-				scope.$apply(function () {
-					scope.$eval(attrs.ngEnter)
-				})
+				scope.$apply(() => scope.$eval(attrs.ngEnter))
 				e.preventDefault()
 			}
 		})

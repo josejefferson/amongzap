@@ -1,0 +1,2 @@
+Não rolar página se ela não estiver no final
+Banned
