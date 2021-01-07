@@ -171,6 +171,7 @@ header .title .logo {
   font-size: 10px;
   color: #777;
   margin-bottom: 6px;
+  font-weight: normal;
 }
 .chat .messageArea .message .picture {
   display: flex;
@@ -188,19 +189,19 @@ header .title .logo {
   position: fixed;
   top: 66px;
   left: 10px;
-  width: 100%;
+  width: 200px;
   color: #ff4040;
   text-shadow: 0 0 2px black;
 }
+.usersLog .log {
+  position: relative;
+}
 
-.floating {
+.typing {
   position: fixed;
   top: 56px;
   left: 0;
   width: 100%;
-  justify-content: center;
-}
-.floating .typing {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -214,8 +215,16 @@ header .title .logo {
   text-align: center;
   transition: transform 0.1s ease-in;
 }
-.floating .typing.noOne {
+.typing.noOne {
   transform: translateY(-100%);
+}
+
+.floating {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  justify-content: center;
 }
 .floating .alert {
   border: 3px solid;
@@ -223,34 +232,37 @@ header .title .logo {
   border-radius: 6px;
   padding: 10px 15px;
 }
+.floating .alert.status {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
 .floating .alert.status.connecting {
   border-color: #222222;
-  background-color: #aaaaaa;
+  background-color: rgba(170, 170, 170, 0.9);
   color: #333333;
 }
 .floating .alert.status.connected {
   border-color: #16482e;
-  background-color: #addbb2;
+  background-color: rgba(173, 219, 178, 0.9);
   color: #12871a;
 }
 .floating .alert.status.disconnected {
-  border-color: #555500;
-  background-color: #ffff99;
-  color: #777700;
+  border-color: #572b00;
+  background-color: rgba(255, 204, 153, 0.9);
+  color: #753b00;
 }
 .floating .alert.error {
   border-color: #5d0000;
-  background-color: #ffb1b1;
+  background-color: rgba(255, 177, 177, 0.9);
   color: #bb1616;
 }
 .floating .alert.success {
   border-color: #16482e;
-  background-color: #addbb2;
+  background-color: rgba(173, 219, 178, 0.9);
   color: #12871a;
 }
 .floating .alert.loadingMessages {
   border-color: #222222;
-  background-color: #aaaaaa;
+  background-color: rgba(170, 170, 170, 0.9);
   color: #333333;
 }
 
@@ -287,15 +299,28 @@ header .title .logo {
 }
 .sendArea .sendButton {
   display: flex;
-  background-image: url(/img/sendIcon.png);
+  background-image: url(/img/sendIcon.svg);
   background-size: cover;
   background-position: center;
   border: none;
   background-color: transparent;
   height: 100%;
-  width: 30px;
-  flex: 0 0 30px;
+  flex: 0 0 35px;
   outline: none;
+  cursor: pointer;
+}
+.sendArea .sendCodeButton {
+  display: flex;
+  background-image: url(/img/codeIcon.svg);
+  background-size: cover;
+  background-position: center;
+  border: none;
+  background-color: transparent;
+  height: 100%;
+  flex: 0 0 35px;
+  outline: none;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=chat.css.map */

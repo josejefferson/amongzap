@@ -26,14 +26,13 @@
 	</header>
 
 	<div class="chat container">
-		<button ng-click="errors.push({ description: 'text' })">ADD error</button>
+		<button ng-click="errors.push({ description: aaa })">ADD error</button>
+		<input ng-model="aaa">
 		<button ng-click="successes.push({ description: 'text' })">ADD success</button>
 		<input ng-model="statuse" ng-init="statuse='connected'">
 		<button ng-click="status=statuse">SET</button>
 
-		<div class="messageArea"
-			ng-class="::{'sent': chat.sender.userName === userName && chat.sender.userIDHash === userIDHash}"
-			ng-repeat="chat in chats track by chat.id">
+		<div class="messageArea" ng-repeat="chat in chats track by chat.id" ng-class="::{'sent': isSent(chat)}">
 			<div class="message">
 				<div class="picture">
 					<div class="pic" ng-style="::{'background-image':'url(/img/players/{{ ::chat.sender.userColor }}.png)'}">
@@ -44,20 +43,23 @@
 						<div class="sender">{{ ::chat.sender.userName }}</div>
 						<div class="badge" ng-if="::chat.badge" ng-style="::{'color': '{{ ::chat.badge.color }}'}">
 							<i ng-class="'fas fa-{{ ::chat.badge.icon }}'"></i>
-							{{ ::chat.badge.text }}
+							<span>{{ ::chat.badge.text }}</span>
 						</div>
 						<div class="dateTime" data-time="{{ ::chat.dateTime }}">{{ ::moment(chat.dateTime).fromNow() }}</div>
 					</div>
-					<div class="code" ng-if="::chat.code">{{ ::chat.code }}</div> <!-- Click Copy -->
-					<div class="codeCaption" ng-if="::chat.code">Código da sala</div>
-					<div class="text" ng-if="::chat.text">{{ ::chat.text }}</div>
+					<div class="code" ng-if="::chat.code">
+						<div ng-click="copy(chat.code)">{{ ::chat.code }}</div>
+						<div class="codeCaption">Código da sala</div>
+					</div>
+					<!--Click Copy-->
+					<div class="text" ng-class="::{'ng-hide': !chat.text}">{{ ::chat.text }}</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<div class="typing" ng-class="{'noOne': hasTyping()}">{{ typing() }}</div>
 	<div class="floating">
-		<div class="typing" ng-class="{'noOne': !typingUsers.filter(e => e.userIDHash !== userIDHash).length}">{{ typing() }}</div>
 		<div class="container alert status {{ status }}" ng-switch on="status">
 			<div ng-switch-when="connecting">Conectando...</div>
 			<div ng-switch-when="connected">Conectado</div>
@@ -65,19 +67,21 @@
 		</div>
 		<div class="container alert loadingMessages" ng-show="loadingMessages">Carregando mensagens...</div>
 		<div class="successes">
-			<div class="container alert success" ng-repeat="msg in successes track by $index" ng-init="timeout(msg, successes)">{{ ::msg.description }}</div>
+			<div class="container alert success" ng-repeat="msg in successes" ng-init="timeout(successes)"
+				style="display:none;opacity:0">{{ ::msg.description }}</div>
 		</div>
 		<div class="errors">
-			<div class="container alert error" ng-repeat="msg in errors track by $index" ng-init="timeout(msg, errors)">{{ ::msg.description }}</div>
+			<div class="container alert error" ng-repeat="msg in errors" ng-init="timeout(errors)"
+				style="display:none;opacity:0">{{ ::msg.description }}</div>
 		</div>
 	</div>
 	<div class="usersLog">
-		<div ng-repeat="log in usersLog track by $index">{{ ::log }}</div>
+		<div class="log" ng-repeat="log in usersLog" ng-init="timeout(usersLog)" style="opacity:0">{{ ::log.text }}</div>
 	</div>
 
 	<div class="bottom">
 		<div class="sendArea container">
-			<input type="text" class="sendText" placeholder="Digite aqui..." ng-model="sendText">
+			<input type="text" class="sendText" placeholder="Digite aqui..." ng-model="sendText" ng-enter="send(sendText)">
 			<button class="sendCodeButton" ng-click="sendCode(sendText)"></button>
 			<button class="sendButton" ng-click="send(sendText)"></button>
 		</div>
@@ -95,6 +99,8 @@
 	<script src="/js/chat/Chat.js"></script>
 	<script src="/js/chat/Socket.js"></script>
 	<script src="/js/chat/index.js"></script>
+	<script src="/js/chat/animations.js"></script>
+	<script src="/js/chat/ngEnter.js"></script>
 </body>
 
 </html>

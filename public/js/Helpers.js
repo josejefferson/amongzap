@@ -35,7 +35,6 @@ function Helpers() {
 		el.select()
 		document.execCommand('copy')
 		document.body.removeChild(el)
-		chat.success({description: 'Código copiado'})
 	}
 
 	return {

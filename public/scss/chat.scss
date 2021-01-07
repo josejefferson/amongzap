@@ -85,6 +85,7 @@ body {
 					font-size: 10px;
 					color: #777;
 					margin-bottom: 6px;
+					font-weight: normal;
 				}
 			}
 
@@ -108,9 +109,36 @@ body {
 	position: fixed;
 	top: 66px;
 	left: 10px;
-	width: 100%;
+	width: 200px;
 	color: #ff4040;
 	text-shadow: 0 0 2px black;
+
+	.log {
+		position: relative;
+	}
+}
+
+.typing {
+	position: fixed;
+	top: 56px;
+	left: 0;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: 0;
+	border-radius: 0 0 8px 8px;
+	background-color: black;
+	border: none;
+	padding: 3px 8px;
+	color: #888888;
+	font-size: 12px;
+	text-align: center;
+	transition: transform .1s ease-in;
+
+	&.noOne {
+		transform: translateY(-100%);
+	}
 }
 
 .floating {
@@ -119,25 +147,6 @@ body {
 	left: 0;
 	width: 100%;
 	justify-content: center;
-	
-	.typing {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		margin-top: 0;
-		border-radius: 0 0 8px 8px;
-		background-color: black;
-		border: none;
-		padding: 3px 8px;
-		color: #888888;
-		font-size: 12px;
-		text-align: center;
-		transition: transform .1s ease-in;
-
-		&.noOne {
-			transform: translateY(-100%);
-		}
-	}
 
 	.alert {
 		border: 3px solid;
@@ -148,38 +157,40 @@ body {
 		padding: 10px 15px;
 		
 		&.status {
+			transition: background-color .5s ease, color .5s ease, border-color .5s ease;
+			
 			&.connecting {
 				border-color: #222222;
-				background-color: #aaaaaa;
+				background-color: rgba(#aaaaaa, 0.9);
 				color: #333333;
 			}
 			&.connected {
 				border-color: #16482e;
-				background-color: #addbb2;
+				background-color: rgba(#addbb2, 0.9);
 				color: #12871a;
 			}
 			&.disconnected {
-				border-color: #555500;
-				background-color: #ffff99;
-				color: #777700;
+				border-color: #572b00;
+				background-color: rgba(#ffcc99, 0.9);
+				color: #753b00;
 			}
 		}
 
 		&.error {
 			border-color: #5d0000;
-			background-color: #ffb1b1;
+			background-color: rgba(#ffb1b1, 0.9);
 			color: #bb1616;
 		}
 		
 		&.success {	
 			border-color: #16482e;
-			background-color: #addbb2;
+			background-color: rgba(#addbb2, 0.9);
 			color: #12871a;
 		}
 		
 		&.loadingMessages {
 			border-color: #222222;
-			background-color: #aaaaaa;
+			background-color: rgba(#aaaaaa, 0.9);
 			color: #333333;
 		}
 	}
@@ -219,14 +230,28 @@ body {
 
 	.sendButton {
 		display: flex;
-		background-image: url(/img/sendIcon.png);
+		background-image: url(/img/sendIcon.svg);
 		background-size: cover;
 		background-position: center;
 		border: none;
 		background-color: transparent;
 		height: 100%;
-		width: 30px;
-		flex: 0 0 30px;
+		flex: 0 0 35px;
 		outline: none;
+		cursor: pointer;
+	}
+
+	.sendCodeButton {
+		display: flex;
+		background-image: url(/img/codeIcon.svg);
+		background-size: cover;
+		background-position: center;
+		border: none;
+		background-color: transparent;
+		height: 100%;
+		flex: 0 0 35px;
+		outline: none;
+		margin-right: 10px;
+		cursor: pointer;
 	}
 }
