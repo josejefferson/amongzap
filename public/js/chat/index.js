@@ -75,8 +75,9 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 		if (val === '') $scope.iamtyping = false
 		else $scope.iamtyping = true
 	})
-	$scope.$watch('iamtyping', (val) => $scope.socket.typing(val))
+	$scope.$watch('iamtyping', (val) => $scope.socket.sendTyping(val))
 }])
 
-// let $scope
-// window.onload = () => $scope = angular.element(document.body).scope()
+///////////////// DEBUG ///////////////////
+let $scope
+window.onload = () => $scope = angular.element(document.body).scope()

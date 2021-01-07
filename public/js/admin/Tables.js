@@ -140,34 +140,25 @@ const messagesTable = new Tabulator('.messages', {
 		sharedColumns.selection,
 		{
 			title: 'Texto',
-			field: 'messageText',
+			field: 'text',
 			headerFilter: 'input',
-			formatter: cell => {
-				cell.getElement().style.color = cell.getRow().getData().userColor; return cell.getValue()
-			}
 		},
 		{
 			title: 'Tempo',
-			field: 'messageDateTime',
+			field: 'dateTime',
 			headerFilter: 'input',
-			formatter: cell => {
-				cell.getElement().style.color = cell.getRow().getData().userColor; return cell.getValue()
-			}
 		},
 		{
 			title: 'ID',
-			field: 'messageID',
+			field: 'id',
 			headerFilter: 'input',
-			formatter: cell => {
-				cell.getElement().style.color = cell.getRow().getData().userColor; return cell.getValue()
-			}
 		},
 		{
 			title: 'Nome do remetente',
 			field: 'sender.userName',
 			headerFilter: 'input',
 			formatter: cell => {
-				cell.getElement().style.color = cell.getRow().getData().userColor; return cell.getValue()
+				cell.getElement().style.color = cell.getRow().getData().sender.userColor; return cell.getValue()
 			}
 		},
 		{
@@ -196,7 +187,7 @@ const messagesTable = new Tabulator('.messages', {
 				banIDBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'mr-1')
 				banIPBtn.classList.add('btn', 'btn-sm', 'btn-danger')
 
-				deleteBtn.onclick = () => alert(cell.getData().messageID)
+				deleteBtn.onclick = () => alert(cell.getData().id)
 				banIDBtn.onclick = () => alert(cell.getData().sender.userID)
 				banIPBtn.onclick = () => alert(cell.getData().sender.userIP)
 
@@ -269,11 +260,19 @@ const bannedUsersTable = new Tabulator('.bannedUsers', {
 		sharedColumns.selection,
 		{
 			title: 'Banido por',
-			field: 'bannedBy',
+			field: 'type',
 			headerFilter: 'input'
 		},
-		sharedColumns.userID,
-		sharedColumns.userIP,
+		{
+			title: 'ID',
+			field: 'user.id',
+			headerFilter: 'input'
+		},
+		{
+			title: 'IP',
+			field: 'user.ip',
+			headerFilter: 'input'
+		},
 		{
 			title: 'Motivo',
 			field: 'reason',
@@ -289,7 +288,10 @@ const bannedUsersTable = new Tabulator('.bannedUsers', {
 
 				undoBanBtn.classList.add('btn', 'btn-sm', 'btn-primary', 'mr-1')
 
-				undoBanBtn.onclick = () => alert(cell.getData().userID)
+				undoBanBtn.onclick = () => socket.emit('unban', {
+					type: cell.getData().type,
+					user: cell.getData().user.id
+				})
 
 				const el = document.createElement('div')
 				el.appendChild(undoBanBtn)

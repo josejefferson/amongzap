@@ -13,5 +13,6 @@ module.exports = io => {
 		}
 
 		socket.on('ban', data => actions.ban(socket, data))
+		socket.on('unban', data => actions.unBan(socket, data))
 	})
 }

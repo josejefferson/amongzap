@@ -1,6 +1,6 @@
 <div class="typing" ng-class="{'noOne': isTyping()}">{{ typingUsers() }}</div>
 <div class="floating">
-	<div class="container alert status {{ status }}" ng-switch on="status">
+	<div class="container alert status {{ status }}" ng-hide="status === 'connected'" ng-switch on="status">
 		<div ng-switch-when="connecting">Conectando...</div>
 		<div ng-switch-when="connected">Conectado</div>
 		<div ng-switch-when="disconnected">Desconectado!</div>

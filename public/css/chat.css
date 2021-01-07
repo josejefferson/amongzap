@@ -163,6 +163,7 @@ header .title .logo {
   padding-top: 5px;
 }
 .chat .messageArea .message .content .code:not(:empty) {
+  cursor: pointer;
   font-size: 24px;
   margin-top: 6px;
   font-weight: bold;

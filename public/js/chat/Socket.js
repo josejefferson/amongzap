@@ -9,33 +9,97 @@ function Socket($scope) {
 		}
 	})
 
-	socket.on('connect', () => { $scope.status = 'connected'; $scope.loadingMessages = true; $scope.$apply() })
-	socket.on('disconnect', () => { $scope.status = 'disconnected'; $scope.loadingMessages = false; $scope.$apply() })
-	socket.on('error', error => { $scope.errors.push(error); $scope.$apply() })
-	socket.on('initialChat', chats => { $scope.chats = chats; $scope.loadingMessages = false; $scope.$apply(); $('html, body').animate({scrollTop: $(document).height()}) })
-	socket.on('chat', chat => {
-		$scope.chats.push(chat); $scope.$apply();
+	socket.on('connect', connect)
+	socket.on('disconnect', disconnect)
+	socket.on('error', error)
+	socket.on('initialChat', initialChat)
+	socket.on('chat', chat)
+	socket.on('typing', typing)
+	socket.on('userConnected', userConnected)
+	socket.on('userDisconnected', userDisconnected)
+	socket.on('setID', setID)
+	socket.on('setColor', setColor)
+	socket.on('banned', banned)
+
+
+	function connect() {
+		$scope.status = 'connected'
+		$scope.loadingMessages = true
+		$scope.$apply()
+	}
+
+	function disconnect() {
+		$scope.status = 'disconnected'
+		$scope.loadingMessages = false
+		$scope.$apply()
+	}
+
+	function error(err) {
+		$scope.errors.push(err)
+		$scope.$apply()
+	}
+
+	function initialChat(chats) {
+		$scope.chats = chats
+		$scope.loadingMessages = false
+		$scope.$apply()
+		$('html, body').animate({
+			scrollTop: $(document).height()
+		})
+	}
+
+	function chat(chat) {
+		$scope.chats.push(chat)
+		$scope.$apply()
+		$('html, body').animate({
+			scrollTop: $(document).height()
+		})
 		if (chat.sender.userIDHash !== userIDHash || chat.sender.userName !== userName)
 			sounds.play(`NEW_MESSAGE_0${1 + Math.floor(Math.random() * 2)}`)
-		$('html, body').animate({scrollTop: $(document).height()})
-	})
-	socket.on('typing', users => { $scope.typingUsersList = users; $scope.$apply() })
-	socket.on('userConnected', user => { $scope.usersLog.push({ text: user.userName + ' entrou' }); $scope.$apply(); sounds.play('PLAYER_SPAWN') })
-	socket.on('userDisconnected', user => { $scope.usersLog.push({ text: user.userName + ' saiu' }); $scope.$apply(); sounds.play('PLAYER_LEFT') })
-	socket.on('setID', console.log) // todo:
-	socket.on('setColor', console.log) // todo:
-	// socket.on('banned', chat.banned)
+	}
 
-	const sendChat = data => {
+	function typing(users) {
+		$scope.typingUsersList = users
+		$scope.$apply()
+	}
+
+	function userConnected(user) {
+		$scope.usersLog.push({ text: user.userName + ' entrou' })
+		$scope.$apply()
+		sounds.play('PLAYER_SPAWN')
+	}
+
+	function userDisconnected(user) {
+		$scope.usersLog.push({ text: user.userName + ' saiu' })
+		$scope.$apply()
+		sounds.play('PLAYER_LEFT')
+	}
+
+	function setID() { }
+	function setColor() { }
+
+	function banned(data) {
+		console.log(data)
+		$scope.errors.push({
+			description: 'Você foi banido! Motivo: ' + data.reason || 'Não especificado'
+		})
+		$scope.$apply()
+		const urlParams = new URLSearchParams()
+		urlParams.set('reason', data.reason || '')
+		window.location.href = `/banned?${urlParams.toString()}`
+	}
+
+
+	function sendChat(data) {
 		socket.emit('chat', data)
 	}
 
-	const typing = data => {
+	function sendTyping(data) {
 		socket.emit('typing', data)
 	}
 
 	return {
 		sendChat,
-		typing
+		sendTyping
 	}
 }

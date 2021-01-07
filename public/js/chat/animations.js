@@ -16,8 +16,11 @@ const anim = {
 	},
 
 	statusChange: (el, className, done) => {
-		el.stop(true, false).slideDown(100).fadeTo(300, 1, done)
-		if (className === 'connected') el.delay(2000).fadeTo(500, 0).slideUp(100, done)
+		if (className === 'connected' || className === 'connected ng-hide') {
+			el.delay(2000).fadeTo(500, 0).slideUp(100, done)
+		} else {
+			el.stop(true, false).slideDown(100).fadeTo(300, 1, done)
+		}
 		return done
 	},
 

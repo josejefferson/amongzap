@@ -76,6 +76,7 @@ body {
 				}
 
 				.code:not(:empty) {
+					cursor: pointer;
 					font-size: 24px;
 					margin-top: 6px;
 					font-weight: bold;

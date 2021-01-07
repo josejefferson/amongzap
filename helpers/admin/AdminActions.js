@@ -16,6 +16,8 @@ module.exports = io => ({
 					e.socket.emit('banned', { reason })
 					e.socket.disconnect()
 				})
+		
+		io.of('/admin').emit('ban', data)
 	},
 	
 	unBan: (socket, data) => {
@@ -24,5 +26,6 @@ module.exports = io => ({
 			case 'ID': blockedUsers.splice(blockedUsers.findIndex(el => el.userID === user), 1); break
 			case 'IP': blockedUsers.splice(blockedUsers.findIndex(el => el.userIP === user), 1); break
 		}
+		io.of('/admin').emit('unban', data)
 	}
 })
