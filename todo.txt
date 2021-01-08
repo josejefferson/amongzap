@@ -1,2 +1,11 @@
 Não rolar página se ela não estiver no final
-Banned
+Bloquear zoom
+Bloquear puxar para atualizar
+Colocar regras
+Sistema de novidades de acordo com a versão
+Criar PWA
+Deixar créditos
+Adicionar opção de desativar o envio de mensagens
+Ao redimensionar tela (ao abrir teclado no celular) tentar verificar se o chat estava no fim e rolar para o fim
+Iniciar o site em PWA direto no chat
+
