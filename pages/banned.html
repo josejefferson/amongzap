@@ -1,7 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+</head>
+<body style="background:red;color:white">
+
 <h1>Você foi banido!</h1>
-Motivo: <span class="reason">Não especificado</span>
+Motivo: <b class="reason">Não especificado</b>
 
 <script>
 	const $reason = document.querySelector('.reason')
 	$reason.innerText = new URLSearchParams(location.search).get('reason') || 'Não especificado'
 </script>
+
+</body>
+</html>

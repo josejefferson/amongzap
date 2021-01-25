@@ -68,7 +68,15 @@ const onlineUsersTable = new Tabulator('.onlineUsers', {
 				banIPBtn.classList.add('btn', 'btn-sm', 'btn-danger')
 
 				disconnectBtn.onclick = () => alert(cell.getData().socketID)
-				banIDBtn.onclick = () => alert(cell.getData().userID)
+				//banIDBtn.onclick = () => alert(cell.getData().userID)
+				banIDBtn.onclick = () => {
+					const reason = prompt('Motivo:')
+					if (reason) socket.emit('ban', {
+						type: 'ID',
+						user: { id: cell.getData().userID },
+						reason
+					})
+				}
 				banIPBtn.onclick = () => alert(cell.getData().userIP)
 
 				const el = document.createElement('div')
