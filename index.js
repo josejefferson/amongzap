@@ -9,7 +9,7 @@
 	await require('./helpers/Preparation')
 	require('./helpers/Sockets')(io)
 	require('./helpers/admin/AdminSockets')(io)
-	
+
 	app.use('/', routes)
 	app.use('/', adminRoutes)
 
