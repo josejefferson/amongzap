@@ -12,6 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "helmet": "^4.4.1",
     "js-sha1": "^0.6.0",
     "jsonschema": "^1.4.0",
     "node-fetch": "^2.6.1",
