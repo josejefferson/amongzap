@@ -1,20 +1,26 @@
-const DEFAULT_NAME_LS = 'amongUsChat.defaultName'
-const DEFAULT_COLOR_LS = 'amongUsChat.defaultColor'
+const ADMIN_NAME = 'Seu José'
+const NAME_LS = 'amongZap.name'
+const COLOR_LS = 'amongZap.color'
 const $name = document.querySelector('.input')
 const $colors = document.querySelectorAll('.color')
 const $form = document.querySelector('.playerData')
 const helpers = Helpers()
 
-$form.onsubmit = () => {
-	localStorage.setItem(DEFAULT_NAME_LS, $name.value)
-	localStorage.setItem(DEFAULT_COLOR_LS, document.querySelector('.color:checked').value)
+$form.onsubmit = e => {
+	localStorage.setItem(NAME_LS, $name.value)
+	localStorage.setItem(COLOR_LS, document.querySelector('.color:checked').value)
+	if ($name.value === ADMIN_NAME) {
+		e.preventDefault()
+		return window.location.href = '/auth'
+	}
+	window.location.href = '/chat'
 }
 
-if (!localStorage.getItem(DEFAULT_COLOR_LS)) {
+if (!localStorage.getItem(COLOR_LS)) {
 	const generatedColor = $colors[helpers.randomNumber(0, 11)]
 	generatedColor.checked = true
 } else {
-	document.querySelector(`#${localStorage.getItem(DEFAULT_COLOR_LS)}`).checked = true
+	document.querySelector(`#${localStorage.getItem(COLOR_LS)}`).checked = true
 }
 
-$name.value = localStorage.getItem(DEFAULT_NAME_LS) || `Player${helpers.randomNumber(1000, 9999)}`
+$name.value = localStorage.getItem(NAME_LS) || `Player${helpers.randomNumber(1000, 9999)}`

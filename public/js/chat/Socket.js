@@ -20,6 +20,7 @@ function Socket($scope) {
 	socket.on('setID', setID)
 	socket.on('setColor', setColor)
 	socket.on('banned', banned)
+	socket.on('reload', reload)
 
 
 	function connect() {
@@ -75,8 +76,13 @@ function Socket($scope) {
 		sounds.play('PLAYER_LEFT')
 	}
 
-	function setID() { }
-	function setColor() { }
+	function setID(id) {
+		localStorage.setItem('amongZap.userID', id)
+	}
+
+	function setColor(color) {
+		localStorage.setItem('amongZap.color', color)
+	}
 
 	function banned(data) {
 		console.log(data)
@@ -87,6 +93,10 @@ function Socket($scope) {
 		const urlParams = new URLSearchParams()
 		urlParams.set('reason', data.reason || '')
 		window.location.href = `/banned?${urlParams.toString()}`
+	}
+
+	function reload() {
+		window.location.reload()
 	}
 
 

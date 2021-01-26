@@ -1,5 +1,7 @@
 function UserData() {
-	const USER_ID_LS = 'amongUsChat.userID'
+	const USER_ID_LS = 'amongZap.userID'
+	const NAME_LS = 'amongZap.name'
+	const COLOR_LS = 'amongZap.color'
 
 	let userID
 	const currentUserID = localStorage.getItem(USER_ID_LS)
@@ -15,9 +17,10 @@ function UserData() {
 
 	let userIDHash = sha1(userID)
 
-	let userName = new URLSearchParams(location.search).get('user') ?
-		new URLSearchParams(location.search).get('user').trim().slice(0, 10) : ''
-	let userColor = new URLSearchParams(location.search).get('color')
+	let userName = localStorage.getItem(NAME_LS) ?
+		localStorage.getItem(NAME_LS).trim().slice(0, 10) : ''
+	let userColor = localStorage.getItem(COLOR_LS)
+	if (!userName) window.location.href = '/'
 
 	return {
 		userID,

@@ -47,12 +47,14 @@ function validateUser(socket) {
 				errorCode: 'ADMIN_USER_NAME',
 				description: 'Nome de usuário já é usado pelo administrador!'
 			})
+			socket.disconnect()
 			return false
 		}
 	}
 
 	if (!ACCEPTED_COLORS.includes(userColor)) {
 		userColor = ACCEPTED_COLORS[Math.floor(Math.random() * 12)]
+		socket.emit('setColor', userColor)
 	}
 
 	return {
