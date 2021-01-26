@@ -11,12 +11,15 @@
 
 	.input {
 		display: block;
-		width: 100%;
+		width: 50%;
+		min-width: 250px;
 		background: #000;
 		color: #fff;
 		border: 7px double;
 		border-radius: 8px;
 		padding: 3px;
+		margin-left: auto;
+		margin-right: auto;
 		margin-bottom: 26px;
 		outline: none;
 		text-align: center;

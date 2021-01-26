@@ -17,7 +17,8 @@ const cons = {
 function validateUser(socket) {
 	let { userID, userName, userColor } = socket.handshake.query
 	const userIP = socket.handshake.headers['x-forwarded-for']
-	const blockedUser = chat.blockedUsers.filter(e => e.type === 'ID' ? userID === e.userID : userIP === e.userIP)
+	const blockedUser = chat.blockedUsers.filter(e =>
+		(e.userID && e.userID === userID) || (e.userIP && e.userIP === userIP))
 
 	if (userID && userID.length === 30 && blockedUser.length) {
 		socket.emit('banned', { reason: blockedUser[0].reason })
