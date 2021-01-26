@@ -10,7 +10,7 @@ routes.get('/', (req, res) => {
 })
 
 routes.get('/chat', (req, res) => {
-	if (req.query.user.toLowerCase() === adminUserName.toLowerCase()) {
+	if (req.query.user && req.query.user.toLowerCase() === adminUserName.toLowerCase()) {
 		if (!authenticate(req.headers.authorization)) {
 			res.set('WWW-Authenticate', 'Basic realm="É necessária uma autenticação para acessar esta página"')
 			return res.status(401).sendFile('pages/adminUserName.html', { root: './' })
