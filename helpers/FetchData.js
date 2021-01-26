@@ -20,7 +20,7 @@ async function downloadData(type) {
 		result = await fetch(URL, {
 			headers: { 'x-apikey': API_KEY }
 		})
-			.then(async r => await r.json())
+			.then(r => { if (!r.ok) throw r; return r.json() })
 			.then(r => r.data)
 			.catch(err => {
 				console.error(err)
@@ -51,7 +51,7 @@ async function uploadData(type, data) {
 			body: JSON.stringify({ data }),
 			method: 'PUT'
 		})
-			.then(async r => await r.json())
+			.then(r => { if (!r.ok) throw r; return r.json() })
 			.catch(err => {
 				console.error(err)
 				return false

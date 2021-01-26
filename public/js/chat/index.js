@@ -76,6 +76,9 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 		else $scope.iamtyping = true
 	})
 	$scope.$watch('iamtyping', (val) => $scope.socket.sendTyping(val))
+
+	// Foco na barra de mensagens ao abrir o site
+	$('.sendText').focus()
 }])
 
 ///////////////// DEBUG ///////////////////

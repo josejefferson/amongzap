@@ -1,15 +1,20 @@
 {
-	"name": "Chat do Among Us",
-	"short_name": "Chat",
-	"description": "Chat do Among Us",
+	"name": "AmongZap",
+	"short_name": "AmongZap",
+	"description": "Um chat para jogadores de Among Us",
 	"icons": [
 		{
-			"src": "/img/icon.png",
+			"src": "/img/launcher_192.png",
 			"type": "image/png",
 			"sizes": "192x192"
+		},
+		{
+			"src": "/img/launcher_512.png",
+			"type": "image/png",
+			"sizes": "512x512"
 		}
 	],
-	"start_url": "/",
+	"start_url": "/chat",
 	"display": "standalone",
 	"background_color": "#000000",
 	"theme_color": "#000000"
