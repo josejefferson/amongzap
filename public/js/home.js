@@ -7,6 +7,7 @@ const $form = document.querySelector('.playerData')
 const helpers = Helpers()
 
 $form.onsubmit = e => {
+	e.preventDefault()
 	localStorage.setItem(NAME_LS, $name.value)
 	localStorage.setItem(COLOR_LS, document.querySelector('.color:checked').value)
 	if ($name.value === ADMIN_NAME) {
