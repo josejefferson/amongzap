@@ -11,7 +11,7 @@
 	require('./helpers/Sockets')(io)
 	require('./helpers/admin/AdminSockets')(io)
 
-	app.use(helmet())
+	app.use(helmet({ contentSecurityPolicy: false }))
 	app.use('/', routes)
 	app.use('/', adminRoutes)
 
