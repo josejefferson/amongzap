@@ -80,9 +80,7 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 	// Compartilhamento de texto de outros apps
 	const params = new URLSearchParams(location.search)
 	if (params.get('share_title') || params.get('share_text') || params.get('share_url')) {
-		$('.sendText').val(
-			`${params.get('share_title') || ''} ${params.get('share_text') || ''} ${params.get('share_url') || ''}`
-		)
+		$scope.sendText = `${params.get('share_title') || ''} ${params.get('share_text') || ''} ${params.get('share_url') || ''}`
 	}
 
 	// Foco na barra de mensagens ao abrir o site
