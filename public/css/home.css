@@ -59,6 +59,7 @@ header .title button {
   color: #ffffff;
   outline: none;
   cursor: pointer;
+  flex-basis: 45px;
 }
 header .title .logo {
   background-image: url(/img/logo.png);
