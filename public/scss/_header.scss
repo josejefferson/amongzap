@@ -41,4 +41,21 @@ header {
 			display: inline-block;
 		}
 	}
+
+	.onesignal-customlink-container {
+		button {
+			font-weight: 900 !important;
+			font-family: 'Font Awesome 5 Free' !important;
+			text-decoration: none !important;
+			transition: none !important;
+
+			&.state-subscribed::before {
+				content: '\f0f3'
+			}
+			
+			&.state-unsubscribed::before {
+				content: '\f1f6'
+			}
+		}
+	}
 }

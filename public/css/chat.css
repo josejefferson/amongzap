@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -70,6 +71,18 @@ header .title .logo {
   background-size: cover;
   background-position: center;
   display: inline-block;
+}
+header .onesignal-customlink-container button {
+  font-weight: 900 !important;
+  font-family: "Font Awesome 5 Free" !important;
+  text-decoration: none !important;
+  transition: none !important;
+}
+header .onesignal-customlink-container button.state-subscribed::before {
+  content: "";
+}
+header .onesignal-customlink-container button.state-unsubscribed::before {
+  content: "";
 }
 
 .chat {
