@@ -26,7 +26,7 @@
 			"url": "/",
 			"icons": [
 				{
-					"src": "/img/shortcut_edit.png",
+					"src": "/img/launcher_192.png",
 					"sizes": "192x192"
 				}
 			]
@@ -35,7 +35,9 @@
 	"share_target": {
 		"action": "/chat",
 		"params": {
-			"text": "text"
+			"title": "share_title",
+			"text": "share_text",
+			"url": "share_url"
 		}
 	}
 }
