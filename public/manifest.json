@@ -17,5 +17,25 @@
 	"start_url": "/chat",
 	"display": "standalone",
 	"background_color": "#FEDE29",
-	"theme_color": "#EFCB01"
+	"theme_color": "#EFCB01",
+	"shortcuts": [
+		{
+			"name": "Editar nome/cor",
+			"short_name": "Editar dados",
+			"description": "Edita as informações que serão exibidas no chat",
+			"url": "/",
+			"icons": [
+				{
+					"src": "/img/shortcut_edit.png",
+					"sizes": "192x192"
+				}
+			]
+		}
+	],
+	"share_target": {
+		"action": "/chat",
+		"params": {
+			"text": "text"
+		}
+	}
 }
