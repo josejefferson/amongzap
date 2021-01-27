@@ -2,6 +2,8 @@
 <html lang="pt-br">
 
 <head>
+	<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+	<script>eruda.init()</script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<meta name="theme-color" content="#000000">
@@ -22,6 +24,7 @@
 	</header>
 
 	<div class="content">
+		<div class='onesignal-customlink-container'></div>
 		<form action="/chat" method="GET" class="playerData">
 			<h3>Digite seu nome</h3>
 			<input type="text" class="input" minlength="1" maxlength="10" autocomplete="off"
@@ -67,6 +70,8 @@
 		<!-- <p>Em breve</p> -->
 	</div>
 
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+	<script src="/js/shared.js"></script>
 	<script src="/js/Helpers.js"></script>
 	<script src="/js/home.js"></script>
 </body>
