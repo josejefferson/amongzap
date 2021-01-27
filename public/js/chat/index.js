@@ -8,14 +8,17 @@ window.setInterval(() => {
 	})
 }, 5000)
 
-angular.module('amongUsChat', ['ngAnimate'])
+angular.module('amongUsChat', ['ngAnimate', 'ngSanitize', 'ngEnter'])
 angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
+	// Compartilhamento de texto de outros apps
+	const query = new URLSearchParams(location.search)
+	const share = [query.get('share_title'), query.get('share_text'), query.get('share_url')].filter(e => e).join(' ')
+
 	// Variáveis
 	$scope.userName = userName
 	$scope.userIDHash = userIDHash
 	$scope.moment = window.moment
 	$scope.socket = Socket($scope)
-
 	$scope.loadingMessages = false
 	$scope.status = 'connecting'
 	$scope.typing = 'Ninguém está digitando'
@@ -24,8 +27,8 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 	$scope.errors = []
 	$scope.usersLog = []
 	$scope.chats = []
-	$scope.sendText = ''
 	$scope.iamtyping = false
+	$scope.sendText = share
 
 	// Funções
 	$scope.send = text => {
@@ -76,12 +79,6 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 		else $scope.iamtyping = true
 	})
 	$scope.$watch('iamtyping', (val) => $scope.socket.sendTyping(val))
-
-	// Compartilhamento de texto de outros apps
-	const params = new URLSearchParams(location.search)
-	if (params.get('share_title') || params.get('share_text') || params.get('share_url')) {
-		$scope.sendText = `${params.get('share_title') || ''} ${params.get('share_text') || ''} ${params.get('share_url') || ''}`
-	}
 
 	// Foco na barra de mensagens ao abrir o site
 	$('.sendText').focus()
