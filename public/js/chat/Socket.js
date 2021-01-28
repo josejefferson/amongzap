@@ -19,7 +19,10 @@ function Socket($scope) {
 	socket.on('userDisconnected', userDisconnected)
 	socket.on('setID', setID)
 	socket.on('setColor', setColor)
+	socket.on('deleteMsg', deleteMsg)
+	socket.on('clearMsgs', clearMsgs)
 	socket.on('banned', banned)
+	socket.on('sendEnabled', sendEnabled)
 	socket.on('reload', reload)
 
 
@@ -52,7 +55,7 @@ function Socket($scope) {
 	function chat(chat) {
 		$scope.chats.push(chat)
 		$scope.$apply()
-		$('html, body').animate({
+		$('html, body').stop().animate({
 			scrollTop: $(document).height()
 		})
 		if (chat.sender.userIDHash !== userIDHash || chat.sender.userName !== userName)
@@ -84,6 +87,17 @@ function Socket($scope) {
 		localStorage.setItem('amongZap.color', color)
 	}
 
+	function deleteMsg(msgId) {
+		const index = $scope.chats.findIndex(m => m.id === msgId)
+		if (index >= 0) $scope.chats.splice(index, 1)
+		$scope.$apply()
+	}
+
+	function clearMsgs() {
+		$scope.chats = []
+		$scope.$apply()
+	}
+
 	function banned(data) {
 		console.log(data)
 		$scope.errors.push({
@@ -93,6 +107,14 @@ function Socket($scope) {
 		const urlParams = new URLSearchParams()
 		urlParams.set('reason', data.reason || '')
 		window.location.href = `/banned?${urlParams.toString()}`
+	}
+
+	function sendEnabled(enabled) {
+		if (!enabled) $scope.errors.push({
+			description: 'O envio de mensagens foi desativado temporariamente pelo administrador'
+		})
+		$scope.sendEnabled = enabled
+		$scope.$apply()
 	}
 
 	function reload() {

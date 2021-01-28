@@ -68,6 +68,14 @@ function validateUser(socket) {
 
 
 function validateMessageText(socket, data) {
+	if (!chat.sendEnabled) {
+		socket.emit('error', {
+			code: 'MESSAGES_DISABLED',
+			description: 'O envio de mensagens foi desativado temporariamente pelo administrador'
+		})
+		return false
+	}
+
 	if (!v.validate(data, cons.messageSend).valid) {
 		socket.emit('error', {
 			code: 'INVALID_MESSAGE_TEXT',

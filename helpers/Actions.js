@@ -9,6 +9,7 @@ function Actions(io) {
 		Object.assign(socket, user)
 		chat.onlineUsers.push(user)
 		socket.emit('initialChat', safeData.messages(chat.messages))
+		socket.emit('sendEnabled', chat.sendEnabled)
 		socket.emit('typing', safeData.users(typingUsers))
 		socket.broadcast.emit('userConnected', safeData.user(user))
 		io.of('/admin').emit('userConnected', {

@@ -5,5 +5,6 @@ module.exports = {
 	blockedUsers: [],
 	adminUserName: 'Seu José',
 	userHistory: [],
-	logs: []
+	logs: [],
+	sendEnabled: true
 }

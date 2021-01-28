@@ -227,6 +227,7 @@ body {
 		outline: none;
 		font-size: 14px;
 		font-family: Arial, sans-serif;
+		background-color: inherit;
 	}
 
 	.sendButton {
@@ -254,5 +255,13 @@ body {
 		outline: none;
 		margin-right: 10px;
 		cursor: pointer;
+	}
+
+	&.disabled {
+		background-color: #ddd;
+
+		.sendButton, .sendCodeButton {
+			opacity: 0.5;
+		}
 	}
 }

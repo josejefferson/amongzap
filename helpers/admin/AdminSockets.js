@@ -12,7 +12,9 @@ module.exports = io => {
 			return
 		}
 
-		socket.on('ban', data => actions.ban(socket, data))
-		socket.on('unban', data => actions.unBan(socket, data))
+		socket.on('ban', actions.ban)
+		socket.on('unban', actions.unBan)
+		socket.on('sendEnabled', actions.sendEnabled)
+		socket.on('deleteMsg', actions.deleteMsg)
 	})
 }

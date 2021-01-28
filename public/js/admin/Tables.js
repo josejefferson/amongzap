@@ -195,8 +195,15 @@ const messagesTable = new Tabulator('.messages', {
 				banIDBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'mr-1')
 				banIPBtn.classList.add('btn', 'btn-sm', 'btn-danger')
 
-				deleteBtn.onclick = () => alert(cell.getData().id)
-				banIDBtn.onclick = () => alert(cell.getData().sender.userID)
+				deleteBtn.onclick = () => socket.emit('deleteMsg', cell.getData().id)
+				banIDBtn.onclick = () => {
+					const reason = prompt('Motivo:')
+					if (reason) socket.emit('ban', {
+						type: 'ID',
+						user: { id: cell.getData().sender.userID },
+						reason
+					})
+				}
 				banIPBtn.onclick = () => alert(cell.getData().sender.userIP)
 
 				const el = document.createElement('div')

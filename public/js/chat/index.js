@@ -29,12 +29,15 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 	$scope.chats = []
 	$scope.iamtyping = false
 	$scope.sendText = share
+	$scope.sendEnabled = true
 
 	// Funções
 	$scope.send = text => {
 		text = text.trim()
 		$('.sendText').focus()
+		console.log(text)
 		if (text.trim() === '') return
+		console.log('aaa')
 		$scope.socket.sendChat({ text })
 		$scope.sendText = ''
 	}

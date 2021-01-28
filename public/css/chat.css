@@ -304,6 +304,7 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   outline: none;
   font-size: 14px;
   font-family: Arial, sans-serif;
+  background-color: inherit;
 }
 .sendArea .sendButton {
   display: flex;
@@ -329,6 +330,12 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   outline: none;
   margin-right: 10px;
   cursor: pointer;
+}
+.sendArea.disabled {
+  background-color: #ddd;
+}
+.sendArea.disabled .sendButton, .sendArea.disabled .sendCodeButton {
+  opacity: 0.5;
 }
 
 /*# sourceMappingURL=chat.css.map */

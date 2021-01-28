@@ -57,3 +57,9 @@ function unban(user) {
 	bannedUsersTable.setData(bannedUsers)
 	$bannedUsersCount.innerText = bannedUsers.length
 }
+
+function deleteMsg(msgId) {
+	const index = messages.findIndex(m => m.id === msgId)
+	if (index >= 0) messages.splice(index, 1)
+	messagesTable.setData(messages)
+}

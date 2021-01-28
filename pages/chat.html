@@ -26,10 +26,13 @@
 	<ng-include src="'templates/info.html'"></ng-include>
 
 	<div class="bottom">
-		<div class="sendArea container">
-			<input type="text" class="sendText" placeholder="Digite aqui..." ng-model="sendText" ng-enter="send(sendText)">
-			<button class="sendCodeButton" ng-click="sendCode(sendText)" title="Enviar código"></button>
-			<button class="sendButton" ng-click="send(sendText)" title="Enviar"></button>
+		<div class="sendArea container" ng-class="{'disabled': !sendEnabled}">
+			<input type="text" class="sendText"
+				placeholder="{{sendEnabled ? 'Digite aqui...' : 'O envio de mensagens foi desativado'}}" ng-model="sendText"
+				ng-disabled="!sendEnabled" ng-enter="send(sendText)">
+			<button class="sendCodeButton" ng-disabled="!sendEnabled" ng-click="sendCode(sendText)"
+				title="Enviar código"></button>
+			<button class="sendButton" ng-disabled="!sendEnabled" ng-click="send(sendText)" title="Enviar"></button>
 		</div>
 	</div>
 
