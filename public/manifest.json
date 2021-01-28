@@ -3,8 +3,8 @@
 	"short_name": "AmongZap",
 	"description": "Um chat para jogadores de Among Us",
 	"display": "standalone",
-	"background_color": "#FEDE29",
-	"theme_color": "#EFCB01",
+	"background_color": "#323250",
+	"theme_color": "#212135",
 	"start_url": "/chat",
 	"icons": [
 		{
