@@ -99,7 +99,6 @@ function Socket($scope) {
 	}
 
 	function banned(data) {
-		console.log(data)
 		$scope.errors.push({
 			description: 'Você foi banido! Motivo: ' + data.reason || 'Não especificado'
 		})
