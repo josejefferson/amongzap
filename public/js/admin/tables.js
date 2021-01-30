@@ -77,7 +77,14 @@ var onlineUsersTable = new Tabulator('.onlineUsers', {
 						reason
 					})
 				}
-				banIPBtn.onclick = () => alert(cell.getData().userIP)
+				banIPBtn.onclick = () => {
+					const reason = prompt('Motivo:')
+					if (reason) socket.emit('ban', {
+						type: 'IP',
+						user: { ip: cell.getData().userIP },
+						reason
+					})
+				}
 
 				const el = document.createElement('div')
 				el.appendChild(disconnectBtn)
@@ -135,7 +142,14 @@ var userHistoryTable = new Tabulator('.userHistory', {
 						reason
 					})
 				}
-				banIPBtn.onclick = () => alert(cell.getData().userIP)
+				banIPBtn.onclick = () => {
+					const reason = prompt('Motivo:')
+					if (reason) socket.emit('ban', {
+						type: 'IP',
+						user: { ip: cell.getData().userIP },
+						reason
+					})
+				}
 
 				const el = document.createElement('div')
 				el.appendChild(banIDBtn)
@@ -267,7 +281,14 @@ var typingUsersTable = new Tabulator('.typingUsers', {
 						reason
 					})
 				}
-				banIPBtn.onclick = () => alert(cell.getData().userIP)
+				banIPBtn.onclick = () => {
+					const reason = prompt('Motivo:')
+					if (reason) socket.emit('ban', {
+						type: 'IP',
+						user: { ip: cell.getData().userIP },
+						reason
+					})
+				}
 
 				const el = document.createElement('div')
 				el.appendChild(stopBtn)
