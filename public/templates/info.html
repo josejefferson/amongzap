@@ -8,12 +8,12 @@
 	<div class="container alert loadingMessages" ng-show="loadingMessages">Carregando mensagens...</div>
 	<div class="successes">
 		<div class="container alert success" ng-repeat="msg in successes" ng-init="timeout(successes)">
-			{{ ::msg.description }}
+			{{ ::msg }}
 		</div>
 	</div>
 	<div class="errors">
 		<div class="container alert error" ng-repeat="msg in errors" ng-init="timeout(errors)">
-			{{ ::msg.description }}
+			{{ ::msg }}
 		</div>
 	</div>
 </div>

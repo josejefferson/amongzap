@@ -1,13 +1,27 @@
-const $logs = document.querySelector('.logs')
-const $onlineUsersCount = document.querySelector('.onlineUsersCount')
-const $userHistoryCount = document.querySelector('.userHistoryCount')
-const $messagesCount = document.querySelector('.messagesCount')
-const $typingUsersCount = document.querySelector('.typingUsersCount')
-const $bannedUsersCount = document.querySelector('.bannedUsersCount')
+function compareObjs(obj1, obj2) {
+	function replacer(key, value) {
+		if (key === undefined) return undefined
+		else return value
+	}
+	return JSON.stringify(obj1, replacer) === JSON.stringify(obj2, replacer)	
+}
+
+var $logs = document.querySelector('.logs')
+var $logsCount = document.querySelector('.logsCount')
+var $onlineUsersCount = document.querySelector('.onlineUsersCount')
+var $userHistoryCount = document.querySelector('.userHistoryCount')
+var $messagesCount = document.querySelector('.messagesCount')
+var $typingUsersCount = document.querySelector('.typingUsersCount')
+var $blockedUsersCount = document.querySelector('.blockedUsersCount')
 // importante verificar se existe linhas selecionadas antes de atualizar (colocar botão para atualizar)
-let onlineUsers = []
-let userHistory = []
-let messages = []
-let typingUsers = []
-let bannedUsers = []
-let logs = []
+let freeze = false
+const state = {
+	messages: [],
+	onlineUsers: [],
+	typingUsers: [],
+	blockedUsers: [],
+	adminUserName: '',
+	userHistory: [],
+	sendEnabled: true
+}
+const logs = []

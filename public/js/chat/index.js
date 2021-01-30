@@ -46,13 +46,13 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 		else code = code.trim()
 
 		if (code.length !== 6 || !/^[a-zA-Z]+$/.test(code))
-			return $scope.errors.push({ description: 'Código inválido!' })
+			return $scope.errors.push('Código inválido!')
 		$scope.socket.sendChat({ text, code })
 		$scope.sendText = ''
 	}
 	$scope.copy = text => {
 		helpers.copy(text)
-		$scope.successes.push({ description: 'Código copiado' })
+		$scope.successes.push('Código copiado')
 	}
 
 	// Funções de renderização

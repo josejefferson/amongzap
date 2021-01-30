@@ -1,65 +1,46 @@
 const socket = io(`${window.location.origin}/admin`)
 
-socket.on('error', err => alert(err.description))
+socket.on('error', err => alert(err))
 socket.on('connect', () => console.log('Conectado'))
 socket.on('disconnect', () => console.log('Desconectado'))
-// socket.on('userConnected', data => {onlineUsers.push(data); onlineUsersTable.setData(onlineUsers)})
-//socket.on('chat')
 socket.onevent = e => {
+	if (freeze) return
 	const [event, data] = e.data
-	try { window[event](data) } catch { }
+	const special = event.startsWith('+') || event.startsWith('-') || event.startsWith('*')
 
-	logs.push(data)
-	const $log = document.createElement('div')
-	$log.innerText = `[${event}] ${JSON.stringify(data)}`
-	$logs.prepend($log)
-}
+	try {
+		if (special) var ev = event.substr(1)
+		if (event.startsWith('+')) state[ev].push(data)
+		else if (event.startsWith('-')) {
+			const i = state[ev].findIndex(o => compareObjs(o, data))
+			if (i >= 0) state[ev].splice(i, 1)
+		}
+		else if (event.startsWith('*')) state[ev] = data
+		else if (event === 'initialData') {
+			Object.assign(state, data)
 
+			onlineUsersTable.setData(state.onlineUsers)
+			userHistoryTable.setData(state.userHistory)
+			messagesTable.setData(state.messages)
+			typingUsersTable.setData(state.typingUsers)
+			blockedUsersTable.setData(state.blockedUsers)
 
-function typing(users) {
-	typingUsers = users
-	typingUsersTable.setData(users)
-	$typingUsersCount.innerText = typingUsers.length
-}
+			$onlineUsersCount.innerText = state.onlineUsers.length
+			$userHistoryCount.innerText = state.userHistory.length
+			$messagesCount.innerText = state.messages.length
+			$typingUsersCount.innerText = state.typingUsers.length
+			$blockedUsersCount.innerText = state.blockedUsers.length
+		}
 
-function userConnected(user) {
-	onlineUsers.push(user)
-	onlineUsersTable.setData(onlineUsers)
-	$onlineUsersCount.innerText = onlineUsers.length
-}
+		if (special) {
+			window[ev + 'Table'].setData(state[ev])
+			window['$' + ev + 'Count'].innerText = state[ev].length
+		}
 
-function userDisconnected(user) {
-	const onlineUser = onlineUsers.filter(e => e.userID === user.userID && e.userColor === user.userColor)
-	const index = onlineUsers.indexOf(onlineUser[0])
-	if (index !== -1) onlineUsers.splice(index, 1)
-	onlineUsersTable.setData(onlineUsers)
-	$onlineUsersCount.innerText = onlineUsers.length
-}
-
-function chat(msg) {
-	messages.push(msg)
-	messagesTable.setData(messages)
-	$messagesCount.innerText = messages.length
-}
-
-function ban(user) {
-	bannedUsers.push(user)
-	bannedUsersTable.setData(bannedUsers)
-	$bannedUsersCount.innerText = bannedUsers.length
-}
-
-function unban(user) {
-	let bannedUser
-	if (user.type === 'ID') bannedUser = bannedUsers.filter(e => e.user.id === user.user)
-	if (user.type === 'IP') bannedUser = bannedUsers.filter(e => e.user.ip === user.user)
-	const index = bannedUsers.indexOf(bannedUser[0])
-	if (index !== -1) bannedUsers.splice(index, 1)
-	bannedUsersTable.setData(bannedUsers)
-	$bannedUsersCount.innerText = bannedUsers.length
-}
-
-function deleteMsg(msgId) {
-	const index = messages.findIndex(m => m.id === msgId)
-	if (index >= 0) messages.splice(index, 1)
-	messagesTable.setData(messages)
+		logs.push(data)
+		const $log = document.createElement('div')
+		$log.innerText = `[${event}] ${JSON.stringify(data)}`
+		$logs.prepend($log)
+		$logsCount.innerText = logs.length
+	} catch (err) { console.log(err) }
 }

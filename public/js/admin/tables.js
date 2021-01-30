@@ -32,8 +32,8 @@ const sharedColumns = {
 	},
 }
 
-const onlineUsersTable = new Tabulator('.onlineUsers', {
-	data: onlineUsers,
+var onlineUsersTable = new Tabulator('.onlineUsers', {
+	data: state.onlineUsers,
 	placeholder: 'Nenhum usuário online',
 	...sharedOptions,
 	columns: [
@@ -90,8 +90,8 @@ const onlineUsersTable = new Tabulator('.onlineUsers', {
 	]
 })
 
-const userHistoryTable = new Tabulator('.userHistory', {
-	data: userHistory,
+var userHistoryTable = new Tabulator('.userHistory', {
+	data: state.userHistory,
 	placeholder: 'Nenhum usuário',
 	...sharedOptions,
 	columns: [
@@ -127,7 +127,14 @@ const userHistoryTable = new Tabulator('.userHistory', {
 				banIDBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'mr-1')
 				banIPBtn.classList.add('btn', 'btn-sm', 'btn-danger')
 
-				banIDBtn.onclick = () => alert(cell.getData().userID)
+				banIDBtn.onclick = () => {
+					const reason = prompt('Motivo:')
+					if (reason) socket.emit('ban', {
+						type: 'ID',
+						user: { id: cell.getData().userID },
+						reason
+					})
+				}
 				banIPBtn.onclick = () => alert(cell.getData().userIP)
 
 				const el = document.createElement('div')
@@ -140,8 +147,8 @@ const userHistoryTable = new Tabulator('.userHistory', {
 	]
 })
 
-const messagesTable = new Tabulator('.messages', {
-	data: messages,
+var messagesTable = new Tabulator('.messages', {
+	data: state.messages,
 	placeholder: 'Nenhuma mensagem',
 	...sharedOptions,
 	columns: [
@@ -217,8 +224,8 @@ const messagesTable = new Tabulator('.messages', {
 	]
 })
 
-const typingUsersTable = new Tabulator('.typingUsers', {
-	data: typingUsers,
+var typingUsersTable = new Tabulator('.typingUsers', {
+	data: state.typingUsers,
 	placeholder: 'Ninguém digitando',
 	...sharedOptions,
 	columns: [
@@ -252,7 +259,14 @@ const typingUsersTable = new Tabulator('.typingUsers', {
 
 				stopBtn.onclick = () => alert(cell.getData().userID)
 				disconnectBtn.onclick = () => alert(cell.getData().socketID)
-				banIDBtn.onclick = () => alert(cell.getData().userID)
+				banIDBtn.onclick = () => {
+					const reason = prompt('Motivo:')
+					if (reason) socket.emit('ban', {
+						type: 'ID',
+						user: { id: cell.getData().userID },
+						reason
+					})
+				}
 				banIPBtn.onclick = () => alert(cell.getData().userIP)
 
 				const el = document.createElement('div')
@@ -267,8 +281,8 @@ const typingUsersTable = new Tabulator('.typingUsers', {
 	]
 })
 
-const bannedUsersTable = new Tabulator('.bannedUsers', {
-	data: bannedUsers,
+var blockedUsersTable = new Tabulator('.blockedUsers', {
+	data: state.blockedUsers,
 	placeholder: 'Ninguém banido',
 	...sharedOptions,
 	columns: [
@@ -304,8 +318,8 @@ const bannedUsersTable = new Tabulator('.bannedUsers', {
 				undoBanBtn.classList.add('btn', 'btn-sm', 'btn-primary', 'mr-1')
 
 				undoBanBtn.onclick = () => socket.emit('unban', {
-					type: cell.getData().type,
-					user: cell.getData().user.id
+					type: cell.getData().type || 'ID', // TODO:
+					user: cell.getData().userID
 				})
 
 				const el = document.createElement('div')

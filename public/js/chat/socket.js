@@ -99,9 +99,7 @@ function Socket($scope) {
 	}
 
 	function banned(data) {
-		$scope.errors.push({
-			description: 'Você foi banido! Motivo: ' + data.reason || 'Não especificado'
-		})
+		$scope.errors.push('Você foi banido! Motivo: ' + data.reason || 'Não especificado')
 		$scope.$apply()
 		const urlParams = new URLSearchParams()
 		urlParams.set('reason', data.reason || '')
@@ -109,9 +107,7 @@ function Socket($scope) {
 	}
 
 	function sendEnabled(enabled) {
-		if (!enabled) $scope.errors.push({
-			description: 'O envio de mensagens foi desativado temporariamente pelo administrador'
-		})
+		if (!enabled) $scope.errors.push('O envio de mensagens foi desativado temporariamente pelo administrador')
 		$scope.sendEnabled = enabled
 		$scope.$apply()
 	}

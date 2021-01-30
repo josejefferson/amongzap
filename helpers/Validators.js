@@ -27,60 +27,48 @@ function validateUser(socket) {
 	}
 
 	if (!userID || userID.length !== 30) {
-		userID = randomString(30)
-		socket.emit('setID', userID)
+		socket.emit('setID', userID = randomString(30))
 	}
 
-	if (!userName) {
-		socket.emit('error', {
-			errorCode: 'INVALID_USER_NAME',
-			description: 'Nome de usuário inválido!'
-		})
+	if (!/^[A-Za-z0-9 ]+$/.test(userName)) {
+		socket.emit('error', 'Nome de usuário inválido!')
 		socket.disconnect()
 		return false
 	}
 
 	userName = userName.trim().slice(0, 10)
-
 	if (userName.toLowerCase() === adminUserName.toLowerCase()) {
 		if (!authenticate(socket.handshake.headers.authorization)) {
-			socket.emit('error', {
-				errorCode: 'ADMIN_USER_NAME',
-				description: 'Nome de usuário já é usado pelo administrador!'
-			})
+			socket.emit('error', 'Este nome de usuário já é usado pelo administrador!')
 			socket.disconnect()
 			return false
 		}
 	}
 
 	if (!ACCEPTED_COLORS.includes(userColor)) {
-		userColor = ACCEPTED_COLORS[Math.floor(Math.random() * 12)]
-		socket.emit('setColor', userColor)
+		socket.emit('setColor', userColor = ACCEPTED_COLORS[Math.floor(Math.random() * 12)])
 	}
 
 	return {
-		socket,
+		__proto__: { socket },
 		userID: userID,
+		userIP: userIP,
 		userName: userName,
-		userColor: userColor
+		userColor: userColor,
+		socketID: undefined,
+		onlineTime: undefined
 	}
 }
 
 
 function validateMessageText(socket, data) {
 	if (!chat.sendEnabled) {
-		socket.emit('error', {
-			code: 'MESSAGES_DISABLED',
-			description: 'O envio de mensagens foi desativado temporariamente pelo administrador'
-		})
+		socket.emit('error', 'O envio de mensagens foi desativado temporariamente pelo administrador')
 		return false
 	}
 
 	if (!v.validate(data, cons.messageSend).valid) {
-		socket.emit('error', {
-			code: 'INVALID_MESSAGE_TEXT',
-			description: 'Mensagem inválida!'
-		})
+		socket.emit('error', 'Mensagem inválida!')
 		return false
 	}
 

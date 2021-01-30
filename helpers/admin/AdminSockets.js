@@ -1,19 +1,16 @@
 const authenticate = require('./AdminAuth')
+const chat = require('../Chat')
 
 module.exports = io => {
 	const actions = require('./AdminActions')(io)
 
 	io.of('/admin').on('connection', function (socket) {
-		if (!authenticate(socket.handshake.headers.authorization)) {
-			socket.emit('error', {
-				code: 'UNAUTHENTICATED_USER',
-				description: 'Usuário não autenticado'
-			})
-			return
-		}
+		if (!authenticate(socket.handshake.headers.authorization)) return socket.disconnect()
 
+		socket.emit('initialData', chat)
 		socket.on('ban', actions.ban)
 		socket.on('unban', actions.unBan)
+		// socket.on('disconnect', actions.disconnect)
 		socket.on('sendEnabled', actions.sendEnabled)
 		socket.on('deleteMsg', actions.deleteMsg)
 	})

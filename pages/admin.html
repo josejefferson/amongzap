@@ -19,7 +19,9 @@
 
 	<div class="container my-3">
 		<h2>Chat do Among Us</h2>
-		
+
+		<button class="btn btn-sm btn-info" onclick="freeze = !freeze">Congelar resultados</button>
+
 		<button class="btn btn-sm btn-danger" onclick="socket.emit('sendEnabled', false)">Bloquear mensagens</button>
 		<button class="btn btn-sm btn-success" onclick="socket.emit('sendEnabled', true)">Desbloquear mensagens</button>
 		<h4 class="mt-3">Usuários online (<span class="onlineUsersCount">0</span>)</h4>
@@ -40,7 +42,8 @@
 		<h4 class="mt-3">Mensagens (<span class="messagesCount">0</span>)</h4>
 		<div class="messages">Carregando...</div>
 		<div class="messagesActions mt-2">
-			<button class="btn btn-sm btn-danger" onclick="messagesTable.getSelectedData().forEach(m => socket.emit('deleteMsg', m.id))">Excluir</button>
+			<button class="btn btn-sm btn-danger"
+				onclick="messagesTable.getSelectedData().forEach(m => socket.emit('deleteMsg', m.id))">Excluir</button>
 			<button class="btn btn-sm btn-danger">Banir ID</button>
 			<button class="btn btn-sm btn-danger">Banir IP</button>
 		</div>
@@ -54,9 +57,9 @@
 			<button class="btn btn-sm btn-danger">Banir IP</button>
 		</div>
 
-		<h4 class="mt-3">Usuários banidos (<span class="bannedUsersCount">0</span>)</h4>
-		<div class="bannedUsers">Carregando...</div>
-		<div class="bannedUsersActions mt-2">
+		<h4 class="mt-3">Usuários banidos (<span class="blockedUsersCount">0</span>)</h4>
+		<div class="blockedUsers">Carregando...</div>
+		<div class="blockedUsersActions mt-2">
 			<button class="btn btn-sm btn-primary">Desfazer</button>
 		</div>
 
@@ -65,6 +68,7 @@
 
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 	<script src="/lib/js/moment.min.js"></script>
 	<script src="/lib/js/tabulator.min.js"></script>
 	<script src="/socket.io/socket.io.min.js"></script>
