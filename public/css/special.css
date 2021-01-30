@@ -9,6 +9,7 @@
 }
 
 body {
+  animation: bg 50s linear infinite;
   background-color: black;
   font-family: Arial, sans-serif;
   background-image: url(/img/stars.png);
@@ -68,6 +69,15 @@ header .title .logo {
   text-align: center;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+@keyframes bg {
+  0% {
+    background-position: 0vw;
+  }
+  100% {
+    background-position: 100vw;
+  }
 }
 
 /*# sourceMappingURL=special.css.map */
