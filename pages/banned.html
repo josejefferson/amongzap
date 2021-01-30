@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
 <head>
-<meta name="viewport" content="width=device-width">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>Você foi banido</title>
+	<link rel="shortcut icon" href="/favicon.png" type="image/png">
+	<link rel="manifest" href="/manifest.json">
+	<link rel="stylesheet" href="/css/special.css">
 </head>
-<body style="background:red;color:white">
 
-<h1>Você foi banido!</h1>
-Motivo: <b class="reason">Não especificado</b>
+<body style="background-color:#200">
+	<header>
+		<div class="title">
+			<a href="/" class="logo"></a>
+		</div>
+	</header>
+	<div class="container">
+		<div class="infoTitle">Você foi banido</div>
+		<div class="infoText">Motivo: <b class="reason"></b></div>
+	</div>
 
-<script>
-	const $reason = document.querySelector('.reason')
-	$reason.innerText = new URLSearchParams(location.search).get('reason') || 'Não especificado'
-</script>
-
+	<script>
+		const $reason = document.querySelector('.reason')
+		$reason.innerText = new URLSearchParams(location.search).get('reason') || 'Não especificado'
+	</script>
 </body>
+
 </html>

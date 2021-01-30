@@ -32,7 +32,9 @@ routes.get('/banned', (req, res) => {
 function auth(req, res, next) {
 	if (!authenticate(req.headers.authorization)) {
 		res.set('WWW-Authenticate', 'Basic realm="É necessária uma autenticação para acessar esta página"')
-		return res.status(401).sendFile('pages/adminUserName.html', { root: './' })
+		if (req.route.path === '/auth')
+			return res.status(401).sendFile('pages/adminName.html', { root: './' })
+		return res.status(401).sendFile('pages/401.html', { root: './' })
 	} else { return next() }
 }
 

@@ -30,7 +30,7 @@ function validateUser(socket) {
 		socket.emit('setID', userID = randomString(30))
 	}
 
-	if (!/^[A-Za-z0-9 ]+$/.test(userName)) {
+	if (!/^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/.test(userName)) {
 		socket.emit('error', 'Nome de usuário inválido!')
 		socket.disconnect()
 		return false

@@ -12,6 +12,9 @@
 
 	app.use(helmet({ contentSecurityPolicy: false }))
 	app.use('/', routes)
+	app.use((req, res) => {
+		res.status(404).sendFile('pages/404.html', { root: './' })
+	})
 
 	http.listen(process.env.PORT || 3000, () => {
 		console.log('[SERVIDOR] Iniciado na porta 3000')

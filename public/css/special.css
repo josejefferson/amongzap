@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "VCR OSD MONO";
+  src: url(/fonts/VCR_OSD_MONO.ttf);
+}
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+}
+
+body {
+  background-color: black;
+  font-family: Arial, sans-serif;
+  background-image: url(/img/stars.png);
+  background-repeat: repeat;
+  background-size: 100%;
+  background-attachment: fixed;
+  overscroll-behavior: contain;
+  height: 100vh;
+  padding-top: 56px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  background: #000;
+  padding: 5px 15px;
+  z-index: 1;
+}
+header .title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+header .title .logo {
+  background-image: url(/img/logo.png);
+  width: 139.23px;
+  height: 38px;
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 56px);
+  flex-direction: column;
+}
+
+.infoTitle {
+  font-family: "VCR OSD MONO";
+  color: #FF000B;
+  font-size: 8vw;
+  margin-bottom: 40px;
+}
+
+.infoText {
+  color: white;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/*# sourceMappingURL=special.css.map */
