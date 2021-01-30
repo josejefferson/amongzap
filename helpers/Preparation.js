@@ -4,7 +4,7 @@ const chat = require('./Chat')
 const { downloadData, uploadData } = require('./FetchData')
 const { validateMessage, validateBlockedUser } = require('./Validators')
 
-async function preparation() {
+async function preparation() { return
 	let messages = downloadData('MESSAGES')
 	let blockedUsers = downloadData('BLOCKED_USERS')
 

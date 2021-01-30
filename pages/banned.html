@@ -18,12 +18,27 @@
 	</header>
 	<div class="container">
 		<div class="infoTitle">Você foi banido</div>
-		<div class="infoText">Motivo: <b class="reason"></b></div>
+		<div class="infoText">
+			Motivo:
+			<div><b class="reason"></b></div>
+		</div>
 	</div>
 
 	<script>
+		const sound = new Audio('/sounds/eject_text.wav')
 		const $reason = document.querySelector('.reason')
-		$reason.innerText = new URLSearchParams(location.search).get('reason') || 'Não especificado'
+		const reason = new URLSearchParams(location.search).get('reason') || 'Não especificado';
+		
+		(async function() {
+			for (let i = 0, text = ''; i < reason.length; i++) {
+				text += reason.charAt(i)
+				$reason.innerText = text
+				sound.pause()
+				sound.currentTime = 0
+				sound.play()
+				await new Promise(r => setTimeout(r, 50))
+			}
+		})()
 	</script>
 </body>
 
