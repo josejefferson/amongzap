@@ -3,8 +3,7 @@ module.exports = {
 	onlineUsers: [],
 	typingUsers: [],
 	blockedUsers: [],
-	adminUserName: 'Seu José',
 	userHistory: [],
-	logs: [],
+	adminUserName: 'Seu José',
 	sendEnabled: true
 }
