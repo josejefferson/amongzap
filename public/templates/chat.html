@@ -18,7 +18,7 @@
 					<div ng-click="copy(chat.code)">{{ ::chat.code }} <i class="far fa-copy ml-1"></i></div>
 					<div class="codeCaption">Código da sala</div>
 				</div>
-				<div class="text" ng-class="::{'ng-hide': !chat.text}" ng-bind-html="::chat.text | linky:'_blank'"></div>
+				<div class="text" ng-class="::{'ng-hide': !chat.text}" ng-bind-html="::chat.text | linky:'_blank' | inlineFmt"></div>
 			</div>
 		</div>
 	</div>

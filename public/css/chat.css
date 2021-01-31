@@ -180,6 +180,9 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   margin-bottom: 6px;
   font-weight: normal;
 }
+.chat .messageArea .message .content .text {
+  word-break: break-all;
+}
 .chat .messageArea .message .picture {
   display: flex;
   align-items: flex-end;

@@ -8,7 +8,7 @@ window.setInterval(() => {
 	})
 }, 5000)
 
-angular.module('amongUsChat', ['ngAnimate', 'ngSanitize', 'ngEnter'])
+angular.module('amongUsChat', ['ngAnimate', 'ngSanitize', 'ngInlineFmt', 'ngEnter'])
 angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
 	// Compartilhamento de texto de outros apps
 	const query = new URLSearchParams(location.search)
