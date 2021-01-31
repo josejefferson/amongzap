@@ -181,7 +181,7 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   font-weight: normal;
 }
 .chat .messageArea .message .content .text {
-  word-break: break-all;
+  word-break: break-word;
 }
 .chat .messageArea .message .picture {
   display: flex;
