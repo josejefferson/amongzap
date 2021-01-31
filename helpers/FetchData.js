@@ -33,6 +33,7 @@ async function downloadData(type) {
 }
 
 async function uploadData(type, data) {
+	console.log('[Backup]')
 	let URL
 	let result = false
 	switch (type) {

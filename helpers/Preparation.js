@@ -4,7 +4,7 @@ const chat = require('./Chat')
 const { downloadData, uploadData } = require('./FetchData')
 const { validateMessage, validateBlockedUser } = require('./Validators')
 
-async function preparation() { return
+async function preparation() {
 	let messages = downloadData('MESSAGES')
 	let blockedUsers = downloadData('BLOCKED_USERS')
 
@@ -24,8 +24,8 @@ async function preparation() { return
 
 	setInterval(() => {
 		// TODO: ativar o backup
-		// uploadData('MESSAGES', chat.messages)
-		// uploadData('BLOCKED_USERS', chat.blockedUsers)
+		uploadData('MESSAGES', chat.messages)
+		uploadData('BLOCKED_USERS', chat.blockedUsers)
 	}, BACKUP_TIME)
 	
 	// uploadData('MESSAGES', [])
