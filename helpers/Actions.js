@@ -32,7 +32,7 @@ function Actions(io) {
 		typing(socket, message.sender, false)
 
 		// Notificação
-		if (chat.messages.length) {
+		if (production && chat.messages.length) {
 			let message = ''
 			chat.messages.slice(-4).forEach((m, i) => {
 				if (i !== 0) message += '\n'

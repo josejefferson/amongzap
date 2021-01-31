@@ -1,12 +1,13 @@
 (async function () {
 	console.clear()
+	if (!('production' in global)) global.production = true
 	const express = require('express')
 	const app = express()
 	const http = require('http').Server(app)
 	const helmet = require('helmet')
 	const io = require('socket.io')(http)
 	const routes = require('./helpers/Routes')
-	await require('./helpers/Preparation')
+	production && await require('./helpers/Preparation')
 	require('./helpers/Sockets')(io)
 	require('./helpers/admin/AdminSockets')(io)
 
