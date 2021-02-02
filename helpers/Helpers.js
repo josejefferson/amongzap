@@ -13,6 +13,15 @@ module.exports = {
 	randomNumber: (min = 0, max = 10) => {
 		return Math.floor(Math.random() * (max - min + 1)) + min
 	},
+	
+	removeFormatChars: input => input
+		.replace(/\*(\**[^*\n]+\**)\*/g, '$1')
+		.replace(/\|(\|*[^\|\n]+\|*)\|/g, '$1')
+		.replace(/_(_*[^_\n]+_*)_/g, '$1')
+		.replace(/~(~*[^~\n]+~*)~/g, '$1')
+		.replace(/`{3}(`*[^`\n]+`*)`{3}/g, '$1')
+		.replace(/-{2}(-*[^-\n]+-*)-{2}/g, '$1')
+		.replace(/\^(\^*[^\^\n]+\^*)\^/g, '$1'),
 
 	convertLetters: input => {
 		const normal = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'

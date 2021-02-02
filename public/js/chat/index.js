@@ -9,7 +9,7 @@ window.setInterval(() => {
 }, 5000)
 
 angular.module('amongZap', ['ngAnimate', 'ngSanitize', 'ngInlineFmt', 'ngEnter', 'ngRightClick'])
-angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
+angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout', '$filter', ($scope, $timeout, $filter) => {
 	// Compartilhamento de texto de outros apps
 	const query = new URLSearchParams(location.search)
 	const share = [query.get('share_title'), query.get('share_text'), query.get('share_url')].filter(e => e).join(' ')
@@ -80,14 +80,7 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 		if (!text.trim()) return
 		Swal.fire({
 			title: 'Prévia da mensagem',
-			html: text
-				.replace(/\*(\**[^*\n]+\**)\*/g, '<b>$1</b>')
-				.replace(/\|(\|*[^\|\n]+\|*)\|/g, '<i>$1</i>')
-				.replace(/_(_*[^_\n]+_*)_/g, '<u>$1</u>')
-				.replace(/~(~*[^~\n]+~*)~/g, '<s>$1</s>')
-				.replace(/`{3}(`*[^`\n]+`*)`{3}/g, '<code>$1</code>')
-				.replace(/-{2}(-*[^-\n]+-*)-{2}/g, '<small>$1</small>')
-				.replace(/\^(\^*[^\^\n]+\^*)\^/g, '<big>$1</big>'),
+			html: $filter('inlineFmt')($filter('linky')(text, '_blank')),
 			toast: true,
 			position: 'top',
 			showCloseButton: true,
