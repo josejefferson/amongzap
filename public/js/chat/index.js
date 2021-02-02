@@ -1,14 +1,3 @@
-angular.module('socialbase.sweetAlert', [])
-	.factory('SweetAlert', ['$window', function SweetAlert($window) {
-		// var $swal = $window;
-
-		return $window.swal
-
-		// function swal(config) {
-		//   return $swal.swal
-		// }
-	}]);
-
 const helpers = Helpers()
 const sounds = Sounds()
 const { userIDHash, userName } = UserData()
@@ -19,8 +8,8 @@ window.setInterval(() => {
 	})
 }, 5000)
 
-angular.module('amongUsChat', ['ngAnimate', 'ngSanitize', 'ngInlineFmt', 'ngEnter', 'socialbase.sweetAlert'])
-angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$timeout', 'SweetAlert', ($scope, $timeout, SweetAlert) => {
+angular.module('amongZap', ['ngAnimate', 'ngSanitize', 'ngInlineFmt', 'ngEnter', 'ngRightClick'])
+angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
 	// Compartilhamento de texto de outros apps
 	const query = new URLSearchParams(location.search)
 	const share = [query.get('share_title'), query.get('share_text'), query.get('share_url')].filter(e => e).join(' ')
@@ -61,12 +50,16 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 						placeholder="Texto (opcional)">
 				</form>
 			`,
+			confirmButtonText: 'Enviar',
+			cancelButtonText: 'Cancelar',
 			showCloseButton: true,
 			showCancelButton: true,
 			didOpen: popup => popup.querySelector('#sendCode').focus(),
+			didClose: () => $('.sendText').focus(),
 			preConfirm: () => {
 				if (!document.querySelector('#sendCodeForm').checkValidity()) {
 					Swal.showValidationMessage('Código inválido')
+					document.querySelector('#sendCodeForm #sendCode').focus()
 				}
 
 				return {
@@ -80,6 +73,27 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 			$scope.socket.sendChat({ text, code })
 			$scope.sendText = ''
 			$('.sendText').focus()
+		})
+	}
+	$scope.previewChat = text => {
+		$('.sendText').focus()
+		if (!text.trim()) return
+		Swal.fire({
+			title: 'Prévia da mensagem',
+			html: text
+				.replace(/\*(\**[^*\n]+\**)\*/g, '<b>$1</b>')
+				.replace(/\|(\|*[^\|\n]+\|*)\|/g, '<i>$1</i>')
+				.replace(/_(_*[^_\n]+_*)_/g, '<u>$1</u>')
+				.replace(/~(~*[^~\n]+~*)~/g, '<s>$1</s>')
+				.replace(/`{3}(`*[^`\n]+`*)`{3}/g, '<code>$1</code>')
+				.replace(/-{2}(-*[^-\n]+-*)-{2}/g, '<small>$1</small>')
+				.replace(/\^(\^*[^\^\n]+\^*)\^/g, '<big>$1</big>'),
+			toast: true,
+			position: 'top',
+			showCloseButton: true,
+			showConfirmButton: false,
+			width: 'calc(100vw - 30px)',
+			willClose: () => $('.sendText').focus()
 		})
 	}
 	$scope.copy = text => {

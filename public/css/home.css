@@ -96,7 +96,7 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   min-width: 250px;
   background: #000;
   color: #fff;
-  border: 7px double;
+  border: 10px double;
   border-radius: 8px;
   padding: 3px;
   margin-left: auto;

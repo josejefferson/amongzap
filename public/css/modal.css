@@ -1,0 +1,64 @@
+.swal2-popup {
+  border: #fff 7px double !important;
+  background-color: #000 !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+.swal2-content {
+  color: #fff;
+}
+
+.swal2-input {
+  padding: 3px;
+  border: #fff 7px double;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 20px;
+  height: auto;
+}
+.swal2-input:focus {
+  border: #fff 7px double;
+  box-shadow: none;
+}
+.swal2-input::placeholder {
+  color: #888;
+}
+
+.swal2-styled {
+  background: none !important;
+  border: #fff 2px solid !important;
+  padding: 3px 7px;
+}
+.swal2-styled:focus {
+  box-shadow: none;
+}
+.swal2-styled.swal2-confirm {
+  border-color: lime !important;
+}
+
+.swal2-title {
+  color: #fff;
+  font-size: 22px;
+}
+
+.swal2-close,
+.swal2-close:hover {
+  background-image: url(/img/close.png);
+  background-position: center;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  color: transparent;
+}
+.swal2-close:focus,
+.swal2-close:hover:focus {
+  box-shadow: none;
+}
+
+.swal2-validation-message {
+  background: none;
+  color: #fdd;
+  font-size: 16px;
+}
+
+/*# sourceMappingURL=modal.css.map */

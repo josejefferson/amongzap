@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" ng-app="amongUsChat">
+<html lang="pt-br" ng-app="amongZap">
 
 <head>
 	<meta charset="UTF-8">
@@ -11,10 +11,11 @@
 	<link rel="stylesheet" href="/lib/css/font-awesome.all.min.css">
 	<link rel="stylesheet" href="/lib/css/bootstrap-grid.min.css">
 	<link rel="stylesheet" href="/lib/css/sweetalert2.min.css">
+	<link rel="stylesheet" href="/css/modal.css">
 	<link rel="stylesheet" href="/css/chat.css">
 </head>
 
-<body ng-controller="amongUsChat-chatCtrl">
+<body ng-controller="amongZap-chatCtrl">
 	<header>
 		<div class="title">
 			<button class="fas fa-cogdddd" title="Configurações"></button>
@@ -33,7 +34,8 @@
 				ng-disabled="!sendEnabled" ng-enter="send(sendText)">
 			<button class="sendCodeButton" ng-disabled="!sendEnabled" ng-click="sendCode(sendText)"
 				title="Enviar código"></button>
-			<button class="sendButton" ng-disabled="!sendEnabled" ng-click="send(sendText)" title="Enviar"></button>
+			<button class="sendButton" ng-disabled="!sendEnabled" ng-click="send(sendText)"
+				ng-right-click="previewChat(sendText)" title="Enviar"></button>
 		</div>
 	</div>
 
@@ -45,6 +47,7 @@
 	<script src="/lib/js/angular-sanitize.min.js"></script>
 	<script src="/lib/js/ngInlineFmt.js"></script>
 	<script src="/lib/js/ngEnter.js"></script>
+	<script src="/lib/js/ngRightClick.js"></script>
 	<script src="/lib/js/moment.min.js"></script>
 	<script src="/lib/js/sha1.min.js"></script>
 	<script src="/lib/js/sweetalert2.min.js"></script>

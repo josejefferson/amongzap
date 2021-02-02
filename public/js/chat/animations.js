@@ -1,8 +1,8 @@
-angular.module('amongUsChat').animation('.error', () => ({ enter: anim.open, leave: anim.close }))
-angular.module('amongUsChat').animation('.success', () => ({ enter: anim.open, leave: anim.close }))
-angular.module('amongUsChat').animation('.status', () => ({ addClass: anim.statusChange }))
-angular.module('amongUsChat').animation('.loadingMessages', () => ({ addClass: anim.hide, removeClass: anim.show }))
-angular.module('amongUsChat').animation('.log', () => ({ enter: anim.fadeIn, leave: anim.slideClose }))
+angular.module('amongZap').animation('.error', () => ({ enter: anim.open, leave: anim.close }))
+angular.module('amongZap').animation('.success', () => ({ enter: anim.open, leave: anim.close }))
+angular.module('amongZap').animation('.status', () => ({ addClass: anim.statusChange }))
+angular.module('amongZap').animation('.loadingMessages', () => ({ addClass: anim.hide, removeClass: anim.show }))
+angular.module('amongZap').animation('.log', () => ({ enter: anim.fadeIn, leave: anim.slideClose }))
 
 const anim = {
 	open: (el, done) => {
