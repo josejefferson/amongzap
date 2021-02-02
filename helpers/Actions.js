@@ -1,8 +1,12 @@
 const MAX_MESSAGES = 300
+const { convertLetters } = require('./Helpers')
 const { typingUsers } = require('./Chat')
 const chat = require('./Chat')
 const safeData = require('./SafeData')
 const fetch = require('node-fetch')
+const AbortController = require('abort-controller')
+let controller = new AbortController()
+let codeController = new AbortController()
 
 function Actions(io) {
 	function userConnected(socket, user) {
@@ -30,28 +34,7 @@ function Actions(io) {
 		io.of('/chat').emit('chat', safeData.message(message))
 		io.of('/admin').emit('+messages', message)
 		typing(socket, message.sender, false)
-
-		// Notificação
-		if (production && chat.messages.length) {
-			let message = ''
-			chat.messages.slice(-4).forEach((m, i) => {
-				if (i !== 0) message += '\n'
-				message += `"${m.sender.userName}": ${m.text}`
-			})
-			fetch('https://onesignal.com/api/v1/notifications', {
-				method: 'POST',
-				headers: {
-					'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'included_segments': ['Subscribed Users'],
-					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
-					'contents': { en: message },
-					'template_id': '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d'
-				})
-			})
-		}
+		notify(message)
 	}
 
 	function typing(socket, user, typing) {
@@ -66,6 +49,56 @@ function Actions(io) {
 			typingUsers.splice(typingUsers.findIndex(e => e.userID === userInfo.userID), 1)
 		io.of('/chat').emit('typing', safeData.users(typingUsers))
 		io.of('/admin').emit('*typingUsers', typingUsers)
+	}
+
+	function notify(message) {
+		if (!production && chat.messages.length) {
+			let text = ''
+			chat.messages.slice(-4).forEach((m, i) => {
+				if (i !== 0) text += '\n'
+				text += `"${m.sender.userName}": ${m.text || ''} ${m.code || ''}`
+			})
+			controller.abort()
+			controller = new AbortController()
+			fetch('https://onesignal.com/api/v1/notifications', {
+				signal: controller.signal,
+				method: 'POST',
+				headers: {
+					'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					'included_segments': ['Subscribed Users'],
+					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
+					'contents': { en: text },
+					'template_id': '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d'
+				})
+			})
+		}
+
+		if (message.code) {
+			let text = `"${message.sender.userName}" convidou para jogar AmongUs!\n` +
+				`🔵 Código da sala:\n` +
+				`${message.code.split('').join('   ')}\n` +
+				`${convertLetters(message.code)}`
+			codeController.abort()
+			codeController = new AbortController()
+			fetch('https://onesignal.com/api/v1/notifications', {
+				signal: codeController.signal,
+				method: 'POST',
+				headers: {
+					'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					'included_segments': ['Subscribed Users'],
+					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
+					'contents': { en: text },
+					'template_id': '1859dd1c-5949-4c86-a4cf-c52cbbd1c6f4',
+					'web_push_topic': 'codes'
+				})
+			})
+		}
 	}
 
 	return {
