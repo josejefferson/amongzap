@@ -1,3 +1,14 @@
+angular.module('socialbase.sweetAlert', [])
+	.factory('SweetAlert', ['$window', function SweetAlert($window) {
+		// var $swal = $window;
+
+		return $window.swal
+
+		// function swal(config) {
+		//   return $swal.swal
+		// }
+	}]);
+
 const helpers = Helpers()
 const sounds = Sounds()
 const { userIDHash, userName } = UserData()
@@ -8,8 +19,8 @@ window.setInterval(() => {
 	})
 }, 5000)
 
-angular.module('amongUsChat', ['ngAnimate', 'ngSanitize', 'ngInlineFmt', 'ngEnter'])
-angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$timeout', ($scope, $timeout) => {
+angular.module('amongUsChat', ['ngAnimate', 'ngSanitize', 'ngInlineFmt', 'ngEnter', 'socialbase.sweetAlert'])
+angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$timeout', 'SweetAlert', ($scope, $timeout, SweetAlert) => {
 	// Compartilhamento de texto de outros apps
 	const query = new URLSearchParams(location.search)
 	const share = [query.get('share_title'), query.get('share_text'), query.get('share_url')].filter(e => e).join(' ')
@@ -40,15 +51,36 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 		$scope.sendText = ''
 	}
 	$scope.sendCode = (text, code) => {
-		code = code || prompt('Digite ou cole o código da sala...')
-		$('.sendText').focus()
-		if (code === null) return
-		else code = code.trim()
+		Swal.fire({
+			title: 'Enviar código',
+			html: `
+				<form id="sendCodeForm">
+					<input class="swal2-input my-1" type="text" id="sendCode" minlength="6" maxlength="6"
+						pattern="^[a-zA-Z]+$" value="${code || ''}" placeholder="Código" required>
+					<input class="swal2-input my-1" type="text" id="sendText" value="${text || ''}"
+						placeholder="Texto (opcional)">
+				</form>
+			`,
+			showCloseButton: true,
+			showCancelButton: true,
+			didOpen: popup => popup.querySelector('#sendCode').focus(),
+			preConfirm: () => {
+				if (!document.querySelector('#sendCodeForm').checkValidity()) {
+					Swal.showValidationMessage('Código inválido')
+				}
 
-		if (code.length !== 6 || !/^[a-zA-Z]+$/.test(code))
-			return $scope.errors.push('Código inválido!')
-		$scope.socket.sendChat({ text, code })
-		$scope.sendText = ''
+				return {
+					code: document.querySelector('#sendCode').value,
+					text: document.querySelector('#sendText').value.trim()
+				}
+			}
+		}).then(r => {
+			if (!r.isConfirmed) return
+			const { text, code } = r.value
+			$scope.socket.sendChat({ text, code })
+			$scope.sendText = ''
+			$('.sendText').focus()
+		})
 	}
 	$scope.copy = text => {
 		helpers.copy(text)
@@ -60,16 +92,16 @@ angular.module('amongUsChat').controller('amongUsChat-chatCtrl', ['$scope', '$ti
 	$scope.isSent = c => c.sender.userName === userName && c.sender.userIDHash === userIDHash
 	$scope.timeout = (group) => $timeout(() => group.splice(0, 1), 5000)
 	$scope.typingUsers = () => {
-		const { userIDHash, userName, typingUsersList: typ } = $scope
-		const me = typ.findIndex(e => e.userIDHash === userIDHash && e.userName === userName)
-		if (me !== -1) typ.splice(me, 1)
+		const { userIDHash, userName, typingUsersList: t } = $scope
+		const me = t.findIndex(e => e.userIDHash === userIDHash && e.userName === userName)
+		if (me !== -1) t.splice(me, 1)
 
-		switch (typ.length) {
+		switch (t.length) {
 			case 0: return $scope.typing
-			case 1: return `${typ[0].userName} está digitando`
-			case 2: return `${typ[0].userName} e ${typ[1].userName} estão digitando`
-			case 3: return `${typ[0].userName}, ${typ[1].userName} e ${typ[2].userName} estão digitando`
-			default: return `${typ[0].userName}, ${typ[1].userName}, ${typ[2].userName} e outros estão digitando`
+			case 1: return `${t[0].userName} está digitando`
+			case 2: return `${t[0].userName} e ${t[1].userName} estão digitando`
+			case 3: return `${t[0].userName}, ${t[1].userName} e ${t[2].userName} estão digitando`
+			default: return `${t[0].userName}, ${t[1].userName}, ${t[2].userName} e outros estão digitando`
 		}
 	}
 

@@ -10,6 +10,7 @@
 	<link rel="manifest" href="/manifest.json">
 	<link rel="stylesheet" href="/lib/css/font-awesome.all.min.css">
 	<link rel="stylesheet" href="/lib/css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="/lib/css/sweetalert2.min.css">
 	<link rel="stylesheet" href="/css/chat.css">
 </head>
 
@@ -27,8 +28,8 @@
 
 	<div class="bottom">
 		<div class="sendArea container" ng-class="{'disabled': !sendEnabled}">
-			<input type="text" class="sendText"
-				placeholder="{{sendEnabled ? 'Digite aqui...' : 'O envio de mensagens foi desativado'}}" ng-model="sendText"
+			<input type="text" class="sendText" maxlength="500" ng-model="sendText"
+				placeholder="{{sendEnabled ? 'Digite aqui...' : 'O envio de mensagens foi desativado'}}"
 				ng-disabled="!sendEnabled" ng-enter="send(sendText)">
 			<button class="sendCodeButton" ng-disabled="!sendEnabled" ng-click="sendCode(sendText)"
 				title="Enviar código"></button>
@@ -46,6 +47,7 @@
 	<script src="/lib/js/ngEnter.js"></script>
 	<script src="/lib/js/moment.min.js"></script>
 	<script src="/lib/js/sha1.min.js"></script>
+	<script src="/lib/js/sweetalert2.min.js"></script>
 	<script src="/js/helpers.js"></script>
 	<script src="/js/sounds.js"></script>
 	<script src="/js/user-data.js"></script>
