@@ -19,12 +19,14 @@ body {
 }
 
 button:hover,
-label:hover {
+label:hover,
+a:hover {
   filter: brightness(90%);
 }
 
 button:active,
-label:active {
+label:active,
+a:active {
   filter: brightness(80%);
 }
 

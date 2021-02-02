@@ -71,6 +71,18 @@ header .title .logo {
   padding-right: 20px;
 }
 
+button:hover,
+label:hover,
+a:hover {
+  filter: brightness(90%);
+}
+
+button:active,
+label:active,
+a:active {
+  filter: brightness(80%);
+}
+
 @keyframes bg {
   0% {
     background-position: 0vw;
