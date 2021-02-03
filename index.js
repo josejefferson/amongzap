@@ -16,6 +16,11 @@
 	app.use((req, res) => {
 		res.status(404).sendFile('pages/404.html', { root: './' })
 	})
+	app.use((err, req, res, next) => {
+		if (err) return res.status(500)
+			.send('<h1>Erro do servidor</h1>')
+		next()
+	})
 
 	http.listen(process.env.PORT || 3000, () => {
 		console.log('[SERVIDOR] Iniciado na porta 3000')
