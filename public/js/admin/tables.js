@@ -67,22 +67,21 @@ var onlineUsersTable = new Tabulator('.onlineUsers', {
 				banIDBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'mr-1')
 				banIPBtn.classList.add('btn', 'btn-sm', 'btn-danger')
 
-				disconnectBtn.onclick = () => alert(cell.getData().socketID)
-				//banIDBtn.onclick = () => alert(cell.getData().userID)
-				banIDBtn.onclick = () => {
+				disconnectBtn.onclick = () => socket.emit('disconnectUser', cell.getData().socketID)
+				banIDBtn.onclick = () => {// TODO: REPLICAR
 					const reason = prompt('Motivo:')
 					if (reason) socket.emit('ban', {
 						type: 'ID',
-						user: { id: cell.getData().userID },
-						reason
+						user: cell.getData().userID,
+						reason: reason
 					})
 				}
 				banIPBtn.onclick = () => {
 					const reason = prompt('Motivo:')
 					if (reason) socket.emit('ban', {
 						type: 'IP',
-						user: { ip: cell.getData().userIP },
-						reason
+						user: cell.getData().userIP,
+						reason: reason
 					})
 				}
 
@@ -257,25 +256,20 @@ var typingUsersTable = new Tabulator('.typingUsers', {
 			headerSort: false,
 			formatter: (cell) => {
 				const stopBtn = document.createElement('button')
-				const disconnectBtn = document.createElement('button')
 				const banIDBtn = document.createElement('button')
 				const banIPBtn = document.createElement('button')
 
-				stopBtn.innerText = 'Parar'
-				disconnectBtn.innerText = 'Desconectar'
+				stopBtn.innerText = 'Parar';
 				banIDBtn.innerText = 'Banir ID'
 				banIPBtn.innerText = 'Banir IP'
 
 				stopBtn.classList.add('btn', 'btn-sm', 'btn-primary', 'mr-1')
-				disconnectBtn.classList.add('btn', 'btn-sm', 'btn-warning', 'mr-1')
 				banIDBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'mr-1')
 				banIPBtn.classList.add('btn', 'btn-sm', 'btn-danger')
 
-				stopBtn.onclick = () => alert(cell.getData().userID)
-				disconnectBtn.onclick = () => alert(cell.getData().socketID)
+				stopBtn.onclick = () => socket.emit('stopTyping', cell.getData().userID)
 				banIDBtn.onclick = () => {
-					const reason = prompt('Motivo:')
-					if (reason) socket.emit('ban', {
+					if (prompt('Motivo:')) socket.emit('ban', {
 						type: 'ID',
 						user: { id: cell.getData().userID },
 						reason
@@ -314,13 +308,8 @@ var blockedUsersTable = new Tabulator('.blockedUsers', {
 			headerFilter: 'input'
 		},
 		{
-			title: 'ID',
-			field: 'user.id',
-			headerFilter: 'input'
-		},
-		{
-			title: 'IP',
-			field: 'user.ip',
+			title: 'Usuário',
+			field: 'user',
 			headerFilter: 'input'
 		},
 		{
@@ -339,8 +328,8 @@ var blockedUsersTable = new Tabulator('.blockedUsers', {
 				undoBanBtn.classList.add('btn', 'btn-sm', 'btn-primary', 'mr-1')
 
 				undoBanBtn.onclick = () => socket.emit('unban', {
-					type: cell.getData().type || 'ID', // TODO:
-					user: cell.getData().userID
+					type: cell.getData().type,
+					user: cell.getData().user
 				})
 
 				const el = document.createElement('div')

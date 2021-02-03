@@ -18,16 +18,17 @@ function validateUser(socket) {
 	let { userID, userName, userColor } = socket.handshake.query
 	const userIP = socket.handshake.headers['x-forwarded-for']
 	const blockedUser = chat.blockedUsers.filter(e =>
-		(e.userID && e.userID === userID) || (e.userIP && e.userIP === userIP))
-
-	if (userID && userID.length === 30 && blockedUser.length) {
-		socket.emit('banned', { reason: blockedUser[0].reason })
-		socket.disconnect()
-		return false
-	}
+		(e.type === 'ID' && e.user === userID) ||
+		(e.type === 'IP' && e.user === userIP))
 
 	if (!userID || userID.length !== 30) {
 		socket.emit('setID', userID = randomString(30))
+	}
+
+	if (blockedUser.length) {
+		socket.emit('banned', blockedUser[0].reason)
+		socket.disconnect()
+		return false
 	}
 
 	if (!/^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/.test(userName)) {
@@ -55,8 +56,8 @@ function validateUser(socket) {
 		userIP: userIP,
 		userName: userName,
 		userColor: userColor,
-		socketID: undefined,
-		onlineTime: undefined
+		socketID: socket.id,
+		onlineTime: Date.now()
 	}
 }
 

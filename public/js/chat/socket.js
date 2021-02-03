@@ -98,11 +98,11 @@ function Socket($scope) {
 		$scope.$apply()
 	}
 
-	function banned(data) {
-		$scope.errors.push('Você foi banido! Motivo: ' + data.reason || 'Não especificado')
+	function banned(reason) {
+		$scope.errors.push('Você foi banido! Motivo: ' + reason || 'Não especificado')
 		$scope.$apply()
 		const urlParams = new URLSearchParams()
-		urlParams.set('reason', data.reason || '')
+		urlParams.set('reason', reason || '')
 		window.location.href = `/banned?${urlParams.toString()}`
 	}
 

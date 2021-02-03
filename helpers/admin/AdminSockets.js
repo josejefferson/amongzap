@@ -10,8 +10,9 @@ module.exports = io => {
 		socket.emit('initialData', chat)
 		socket.on('ban', actions.ban)
 		socket.on('unban', actions.unBan)
-		// socket.on('disconnect', actions.disconnect)
+		socket.on('disconnectUser', actions.disconnect)
 		socket.on('sendEnabled', actions.sendEnabled)
 		socket.on('deleteMsg', actions.deleteMsg)
+		socket.on('stopTyping', actions.stopTyping)
 	})
 }
