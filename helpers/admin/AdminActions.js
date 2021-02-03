@@ -1,5 +1,6 @@
 const chat = require('../Chat')
 const safeData = require('../SafeData')
+const { uploadData } = require('../FetchData')
 
 module.exports = io => ({
 	ban: data => {
@@ -45,5 +46,10 @@ module.exports = io => ({
 		if (i > -1) chat.typingUsers.splice(i, 1)
 		io.of('/chat').emit('typing', safeData.users(chat.typingUsers))
 		io.of('/admin').emit('*typingUsers', chat.typingUsers)
+	},
+	
+	backup: () => {
+		uploadData('MESSAGES', chat.messages)
+		uploadData('BLOCKED_USERS', chat.blockedUsers)
 	}
 })

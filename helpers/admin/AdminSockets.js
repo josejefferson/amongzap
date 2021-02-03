@@ -14,5 +14,6 @@ module.exports = io => {
 		socket.on('sendEnabled', actions.sendEnabled)
 		socket.on('deleteMsg', actions.deleteMsg)
 		socket.on('stopTyping', actions.stopTyping)
+		socket.on('backup', actions.backup)
 	})
 }

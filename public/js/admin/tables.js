@@ -286,7 +286,6 @@ var typingUsersTable = new Tabulator('.typingUsers', {
 
 				const el = document.createElement('div')
 				el.appendChild(stopBtn)
-				el.appendChild(disconnectBtn)
 				el.appendChild(banIDBtn)
 				el.appendChild(banIPBtn)
 

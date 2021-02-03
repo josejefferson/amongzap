@@ -4,8 +4,13 @@ socket.on('error', err => alert(err))
 socket.on('connect', () => console.log('Conectado'))
 socket.on('disconnect', () => console.log('Desconectado'))
 socket.onevent = e => {
-	if (freeze) return
 	const [event, data] = e.data
+	if (freeze) return pending.push({event, data})
+	ev({event, data})
+}
+
+function ev(e) {
+	const {event, data} = e
 	const special = event.startsWith('+') || event.startsWith('-') || event.startsWith('*')
 
 	try {

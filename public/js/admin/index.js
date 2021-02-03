@@ -6,6 +6,11 @@ function compareObjs(obj1, obj2) {
 	return JSON.stringify(obj1, replacer) === JSON.stringify(obj2, replacer)	
 }
 
+function freezeFn() {
+	freeze = !freeze
+	if (!freeze) pending.forEach(ev)
+}
+
 var $logs = document.querySelector('.logs')
 var $logsCount = document.querySelector('.logsCount')
 var $onlineUsersCount = document.querySelector('.onlineUsersCount')
@@ -15,6 +20,7 @@ var $typingUsersCount = document.querySelector('.typingUsersCount')
 var $blockedUsersCount = document.querySelector('.blockedUsersCount')
 // importante verificar se existe linhas selecionadas antes de atualizar (colocar botão para atualizar)
 let freeze = false
+const pending = []
 const state = {
 	messages: [],
 	onlineUsers: [],
