@@ -43,22 +43,29 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 		Swal.fire({
 			title: 'Enviar código',
 			html: `
-				<form id="sendCodeForm">
+				<form id="sendCodeForm" class="mt-3">
 					<input class="swal2-input my-1" type="text" id="sendCode" minlength="6" maxlength="6"
-						pattern="^[a-zA-Z]+$" value="${code || ''}" placeholder="Código" required>
-					<input class="swal2-input my-1" type="text" id="sendText" value="${text || ''}"
-						placeholder="Texto (opcional)">
+						style="font-size:26px;text-align:center;text-transform:uppercase" pattern="^[a-zA-Z]+$"
+						value="${code || ''}" placeholder="Código" autocomplete="off" required>
+					<textarea class="swal2-input my-1" type="text" id="sendText" value="${text || ''}"
+						placeholder="Texto (opcional)" autocomplete="off" style="resize:none"></textarea>
 				</form>
 			`,
 			confirmButtonText: 'Enviar',
 			cancelButtonText: 'Cancelar',
 			showCloseButton: true,
 			showCancelButton: true,
-			didOpen: popup => popup.querySelector('#sendCode').focus(),
+			didOpen: popup => {
+				popup.querySelector('#sendCodeForm').onsubmit = e => e.preventDefault()
+				const $code = popup.querySelector('#sendCode')
+				$code.onkeydown = e => { if (e.key === 'Enter') Swal.clickConfirm() }
+				$code.focus()
+			},
 			didClose: () => $('.sendText').focus(),
 			preConfirm: () => {
 				if (!document.querySelector('#sendCodeForm').checkValidity()) {
 					Swal.showValidationMessage('Código inválido')
+					document.querySelector('#sendCodeForm #sendCode').classList.add('validate')
 					document.querySelector('#sendCodeForm #sendCode').focus()
 				}
 
@@ -86,12 +93,13 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 			showCloseButton: true,
 			showConfirmButton: false,
 			width: 'calc(100vw - 30px)',
-			willClose: () => $('.sendText').focus()
+			willClose: () => $('.sendText').focus(),
+			customClass: {content: 'messagePreview'}
 		})
 	}
 	$scope.copy = text => {
 		helpers.copy(text)
-		$scope.successes.push('Código copiado')
+		$scope.successes.push({ msg: 'Código copiado' })
 	}
 
 	// Funções de renderização

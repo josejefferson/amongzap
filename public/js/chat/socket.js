@@ -38,8 +38,8 @@ function Socket($scope) {
 		$scope.$apply()
 	}
 
-	function error(err) {
-		$scope.errors.push(err)
+	function error(msg) {
+		$scope.errors.push({ msg })
 		$scope.$apply()
 	}
 
@@ -99,15 +99,16 @@ function Socket($scope) {
 	}
 
 	function banned(reason) {
-		$scope.errors.push('Você foi banido! Motivo: ' + reason || 'Não especificado')
+		error('Você foi banido! Motivo: ' + reason || 'Não especificado')
 		$scope.$apply()
 		const urlParams = new URLSearchParams()
 		urlParams.set('reason', reason || '')
+		OneSignal.setSubscription(false)
 		window.location.href = `/banned?${urlParams.toString()}`
 	}
 
 	function sendEnabled(enabled) {
-		if (!enabled) $scope.errors.push('O envio de mensagens foi desativado temporariamente pelo administrador')
+		if (!enabled) error('O envio de mensagens foi desativado temporariamente pelo administrador')
 		$scope.sendEnabled = enabled
 		$scope.$apply()
 	}

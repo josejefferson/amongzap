@@ -1,24 +1,27 @@
 <div class="typing" ng-class="{'noOne': isTyping()}">{{ typingUsers() }}</div>
 <div class="floating">
 	<div class="container alert status {{ status }}" ng-hide="status === 'connected'" ng-switch on="status">
-		<div ng-switch-when="connecting">Conectando...</div>
-		<div ng-switch-when="connected">Conectado</div>
-		<div ng-switch-when="disconnected">Desconectado!</div>
+		<div ng-switch-when="connecting"><i class="fas fa-spinner fa-spin"></i> Conectando...</div>
+		<div ng-switch-when="connected"><i class="far fa-check-circle"></i> Conectado</div>
+		<div ng-switch-when="disconnected"><i class="far fa-times-circle"></i> Desconectado!</div>
 	</div>
-	<div class="container alert loadingMessages" ng-show="loadingMessages">Carregando mensagens...</div>
+	<div class="container alert loadingMessages" ng-show="loadingMessages">
+		<i class="fas fa-spinner fa-spin"></i>
+		Carregando mensagens...
+	</div>
 	<div class="successes">
 		<div class="container alert success" ng-repeat="msg in successes" ng-init="timeout(successes)">
-			{{ ::msg }}
+			{{ ::msg.msg }}
 		</div>
 	</div>
 	<div class="errors">
 		<div class="container alert error" ng-repeat="msg in errors" ng-init="timeout(errors)">
-			{{ ::msg }}
+			{{ ::msg.msg }}
 		</div>
 	</div>
 </div>
 <div class="usersLog">
 	<div class="log" ng-repeat="log in usersLog" ng-init="timeout(usersLog)">
-		{{ ::log.text }}
+		<i class="fas fa-user"></i> {{ ::log.text }}
 	</div>
 </div>

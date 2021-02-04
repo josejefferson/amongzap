@@ -56,7 +56,19 @@ body {
 					.sender {
 						padding-top: 8px;
 						color: #fff;
-						text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.5136px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
+						text-shadow: #000 2px 0px 0px,
+							#000 1.75517px 0.958851px 0px,
+							#000 1.0806px 1.68294px 0px,
+							#000 0.141474px 1.99499px 0px,
+							#000 -0.832294px 1.81859px 0px,
+							#000 -1.60229px 1.19694px 0px,
+							#000 -1.97998px 0.28224px 0px,
+							#000 -1.87291px -0.701566px 0px,
+							#000 -1.30729px -1.5136px 0px,
+							#000 -0.421592px -1.95506px 0px,
+							#000 0.567324px -1.91785px 0px,
+							#000 1.41734px -1.41108px 0px,
+							#000 1.92034px -0.558831px 0px;
 					}
 
 					.badge {
@@ -113,10 +125,25 @@ body {
 .usersLog {
 	position: fixed;
 	top: 66px;
-	left: 10px;
-	width: 200px;
+	left: 0;
+	width: 100%;
 	color: #ff4040;
-	text-shadow: 0 0 2px black;
+	text-shadow: #fff 2px 0px 0px,
+		#fff 1.75517px 0.958851px 0px,
+		#fff 1.0806px 1.68294px 0px,
+		#fff 0.141474px 1.99499px 0px,
+		#fff -0.832294px 1.81859px 0px,
+		#fff -1.60229px 1.19694px 0px,
+		#fff -1.97998px 0.28224px 0px,
+		#fff -1.87291px -0.701566px 0px,
+		#fff -1.30729px -1.5136px 0px,
+		#fff -0.421592px -1.95506px 0px,
+		#fff 0.567324px -1.91785px 0px,
+		#fff 1.41734px -1.41108px 0px,
+		#fff 1.92034px -0.558831px 0px;
+	padding-left: 10px;
+	border-left: 5px solid;
+
 
 	.log {
 		position: relative;
@@ -156,8 +183,6 @@ body {
 	.alert {
 		border: 3px solid;
 		margin-top: 2px;
-		// margin-left: 18px;
-		// margin-right: 18px;
 		border-radius: 6px;
 		padding: 10px 15px;
 		
@@ -185,12 +210,22 @@ body {
 			border-color: #5d0000;
 			background-color: rgba(#ffb1b1, 0.9);
 			color: #bb1616;
+
+			&::before {
+				font-family: 'Font Awesome 5 Free';
+				content: '\f057'
+			}
 		}
-		
+
 		&.success {	
 			border-color: #16482e;
 			background-color: rgba(#addbb2, 0.9);
 			color: #12871a;
+
+			&::before {
+				font-family: 'Font Awesome 5 Free';
+				content: '\f058'
+			}
 		}
 		
 		&.loadingMessages {
@@ -268,4 +303,12 @@ body {
 			opacity: 0.5;
 		}
 	}
+}
+
+.messagePreview {
+	text-align: left;
+	margin: 10px;
+	border: #fff 2px solid;
+	border-radius: 5px;
+	padding: 5px 10px !important;
 }

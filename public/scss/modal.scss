@@ -1,5 +1,5 @@
 .swal2-popup {
-	border: #fff 7px double !important;
+	border: #fff 3px solid !important;
 	background-color: #000 !important;
 	border-radius: 10px !important;
 	box-shadow: none !important;
@@ -10,16 +10,27 @@
 }
 
 .swal2-input {
-	padding: 3px;
-	border: #fff 7px double;
+	padding: 5px 10px;
+	border: #fff 2px solid;
 	color: #fff;
-	border-radius: 10px;
+	border-radius: 5px;
 	font-size: 20px;
 	height: auto;
+	box-shadow: none;
+	transition: .3s ease;
+	font-family: sans-serif;
 
 	&:focus {
-		border: #fff 7px double;
-		box-shadow: none;
+		border: #eee 2px solid;
+		box-shadow: #eee 0 0 0 2px;
+	}
+
+	&.validate:not(:valid) {
+		border-color: orange;
+
+		&:focus {
+			box-shadow: orange 0 0 0 2px;
+		}
 	}
 
 	&::placeholder {
@@ -61,5 +72,6 @@
 .swal2-validation-message {
 	background: none;
 	color: #fdd;
-	font-size: 16px;
+	font-size: 20px;
+	font-weight: normal;
 }
