@@ -30,8 +30,8 @@
 	<div class="bottom">
 		<div class="sendArea container" ng-class="{'disabled': !sendEnabled}">
 			<input type="text" class="sendText" maxlength="500" ng-model="sendText"
-				placeholder="{{sendEnabled ? 'Digite aqui...' : 'O envio de mensagens foi desativado'}}"
-				ng-disabled="!sendEnabled" ng-enter="send(sendText)">
+				ng-attr-placeholder="{{sendEnabled ? 'Digite aqui...' : 'O envio de mensagens foi desativado'}}"
+				placeholder="Carregando..." ng-disabled="!sendEnabled" ng-enter="send(sendText)">
 			<button class="sendCodeButton" ng-disabled="!sendEnabled" ng-click="sendCode(sendText)"
 				title="Enviar código"></button>
 			<button class="sendButton" ng-disabled="!sendEnabled" ng-click="send(sendText)"
