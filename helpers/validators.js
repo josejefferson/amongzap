@@ -2,12 +2,12 @@ const ACCEPTED_COLORS = [
 	'red', 'blue', 'green', 'pink', 'orange', 'yellow', 'gray', 'white', 'purple', 'brown', 'cyan', 'lime'
 ]
 
-const { randomString } = require('./Helpers')
+const { randomString } = require('./helpers')
 const Validator = require('jsonschema').Validator
 const v = new Validator()
-const chat = require('./Chat')
-const { adminUserName } = require('./Chat')
-const authenticate = require('./admin/AdminAuth')
+const chat = require('./chat')
+const { adminUserName } = require('./chat')
+const authenticate = require('./admin/adminAuth')
 const cons = {
 	blockedUser: require('./validators/blockedUser'),
 	message: require('./validators/message'),

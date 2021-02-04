@@ -1,8 +1,8 @@
 const BACKUP_TIME = 10 * 60 * 1000
 
-const chat = require('./Chat')
-const { downloadData, uploadData } = require('./FetchData')
-const { validateMessage, validateBlockedUser } = require('./Validators')
+const chat = require('./chat')
+const { downloadData, uploadData } = require('./fetchData')
+const { validateMessage, validateBlockedUser } = require('./validators')
 
 async function preparation() {
 	let messages = downloadData('MESSAGES')

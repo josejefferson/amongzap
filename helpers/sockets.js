@@ -1,7 +1,7 @@
-const { validateUser, validateMessageText } = require('./Validators')
+const { validateUser, validateMessageText } = require('./validators')
 
 module.exports = io => {
-	const actions = require('./Actions')(io)
+	const actions = require('./actions')(io)
 
 	io.of('/chat').on('connection', socket => {
 		const user = validateUser(socket)

@@ -1,8 +1,8 @@
 const MAX_MESSAGES = 300
-const { removeFormatChars, convertLetters } = require('./Helpers')
-const { typingUsers } = require('./Chat')
-const chat = require('./Chat')
-const safeData = require('./SafeData')
+const { removeFormatChars, convertLetters } = require('./helpers')
+const { typingUsers } = require('./chat')
+const chat = require('./chat')
+const safeData = require('./safeData')
 const fetch = require('node-fetch')
 const AbortController = require('abort-controller')
 let controller = new AbortController()

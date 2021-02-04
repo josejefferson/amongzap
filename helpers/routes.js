@@ -1,7 +1,7 @@
 const express = require('express')
 const routes = express.Router()
-const authenticate = require('./admin/AdminAuth')
-const chat = require('./Chat')
+const authenticate = require('./admin/adminAuth')
+const chat = require('./chat')
 
 routes.use(express.static('public'))
 

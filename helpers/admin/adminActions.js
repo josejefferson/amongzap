@@ -1,6 +1,6 @@
-const chat = require('../Chat')
-const safeData = require('../SafeData')
-const { uploadData } = require('../FetchData')
+const chat = require('../chat')
+const safeData = require('../safeData')
+const { uploadData } = require('../fetchData')
 
 module.exports = io => ({
 	ban: data => {
