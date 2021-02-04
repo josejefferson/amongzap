@@ -26,3 +26,5 @@
 		console.log('[SERVIDOR] Iniciado na porta 3000')
 	})
 })()
+
+process.on('uncaughtException', console.error)
