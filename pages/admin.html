@@ -29,6 +29,7 @@
 		<h4 class="mt-3">Usuários online (<span class="onlineUsersCount">0</span>)</h4>
 		<div class="onlineUsers">Carregando...</div>
 		<div class="onlineUsersActions mt-2">
+			<button class="btn btn-sm btn-secondary" onclick="actions.clear('onlineUsers')">Limpar lista</button>
 			<button class="btn btn-sm btn-warning" onclick="acts(onlineUsersTable, 'disconnect')">Desconectar</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(onlineUsersTable, 'banID')">Banir ID</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(onlineUsersTable, 'banIP')">Banir IP</button>
@@ -37,6 +38,7 @@
 		<h4 class="mt-3">Histórico de usuários (<span class="userHistoryCount">0</span>)</h4>
 		<div class="userHistory">Carregando...</div>
 		<div class="userHistoryActions mt-2">
+			<button class="btn btn-sm btn-secondary" onclick="actions.clear('userHistory')">Limpar lista</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(userHistoryTable, 'banID')">Banir ID</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(userHistoryTable, 'banIP')">Banir IP</button>
 		</div>
@@ -44,6 +46,7 @@
 		<h4 class="mt-3">Mensagens (<span class="messagesCount">0</span>)</h4>
 		<div class="messages">Carregando...</div>
 		<div class="messagesActions mt-2">
+			<button class="btn btn-sm btn-secondary" onclick="actions.clear('messages')">Limpar lista</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(messagesTable, 'delete')">Excluir</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(messagesTable, 'banID')">Banir ID</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(messagesTable, 'banIP')">Banir IP</button>
@@ -52,6 +55,7 @@
 		<h4 class="mt-3">Digitando (<span class="typingUsersCount">0</span>)</h4>
 		<div class="typingUsers">Carregando...</div>
 		<div class="typingUsersActions mt-2">
+			<button class="btn btn-sm btn-secondary" onclick="actions.clear('typingUsers')">Limpar lista</button>
 			<button class="btn btn-sm btn-primary" onclick="acts(typingUsersTable, 'stop')">Parar</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(typingUsersTable, 'banID')">Banir ID</button>
 			<button class="btn btn-sm btn-danger" onclick="acts(typingUsersTable, 'banIP')">Banir IP</button>
@@ -60,11 +64,13 @@
 		<h4 class="mt-3">Usuários banidos (<span class="blockedUsersCount">0</span>)</h4>
 		<div class="blockedUsers">Carregando...</div>
 		<div class="blockedUsersActions mt-2">
+			<button class="btn btn-sm btn-secondary" onclick="actions.clear('blockedUsers')">Limpar lista</button>
 			<button class="btn btn-sm btn-primary" onclick="acts(blockedUsersTable, 'undoBan')">Desfazer</button>
 		</div>
 
 		<h4 class="mt-3">Logs (<span class="logsCount">0</span>)</h4>
 		<pre class="logs border"></pre>
+		<button class="btn btn-sm btn-secondary" onclick="actions.clearLogs()">Limpar logs</button>
 	</div>
 
 	<script src="/lib/js/moment.min.js"></script>

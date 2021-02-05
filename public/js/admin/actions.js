@@ -40,6 +40,18 @@ const actions = {
 
 	sendEnabled: (enabled) => {
 		socket.emit('sendEnabled', enabled)
+	},
+	
+	clear: (table) => {
+		console.log(table)
+		state[table] = []
+		window[table + 'Table'].setData([])
+		window['$' + table + 'Count'].innerText = 0
+	},
+	
+	clearLogs: () => {
+		$logs.innerHTML = ''
+		$logsCount.innerText = 0
 	}
 }
 
