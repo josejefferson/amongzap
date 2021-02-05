@@ -21,51 +21,50 @@
 		<h2>Chat do Among Us</h2>
 
 		<button class="btn btn-sm btn-info" onclick="freezeFn()">Congelar resultados</button>
-		<button class="btn btn-sm btn-secondary" onclick="if (confirm('Tem certeza?')) socket.emit('backup')">Fazer backup</button>
-		<button class="btn btn-sm btn-danger" onclick="socket.emit('sendEnabled', false)">Bloquear mensagens</button>
-		<button class="btn btn-sm btn-success" onclick="socket.emit('sendEnabled', true)">Desbloquear mensagens</button>
+		<button class="btn btn-sm btn-secondary" onclick="actions.backup()">Fazer
+			backup</button>
+		<button class="btn btn-sm btn-danger" onclick="actions.sendEnabled(false)">Bloquear mensagens</button>
+		<button class="btn btn-sm btn-success" onclick="actions.sendEnabled(true)">Desbloquear mensagens</button>
 
 		<h4 class="mt-3">Usuários online (<span class="onlineUsersCount">0</span>)</h4>
 		<div class="onlineUsers">Carregando...</div>
 		<div class="onlineUsersActions mt-2">
-			<button class="btn btn-sm btn-warning">Desconectar</button>
-			<button class="btn btn-sm btn-danger">Banir ID</button>
-			<button class="btn btn-sm btn-danger">Banir IP</button>
+			<button class="btn btn-sm btn-warning" onclick="acts(onlineUsersTable, 'disconnect')">Desconectar</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(onlineUsersTable, 'banID')">Banir ID</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(onlineUsersTable, 'banIP')">Banir IP</button>
 		</div>
 
 		<h4 class="mt-3">Histórico de usuários (<span class="userHistoryCount">0</span>)</h4>
 		<div class="userHistory">Carregando...</div>
 		<div class="userHistoryActions mt-2">
-			<button class="btn btn-sm btn-danger">Banir ID</button>
-			<button class="btn btn-sm btn-danger">Banir IP</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(userHistoryTable, 'banID')">Banir ID</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(userHistoryTable, 'banIP')">Banir IP</button>
 		</div>
 
 		<h4 class="mt-3">Mensagens (<span class="messagesCount">0</span>)</h4>
 		<div class="messages">Carregando...</div>
 		<div class="messagesActions mt-2">
-			<button class="btn btn-sm btn-danger"
-				onclick="messagesTable.getSelectedData().forEach(m => socket.emit('deleteMsg', m.id))">Excluir</button>
-			<button class="btn btn-sm btn-danger">Banir ID</button>
-			<button class="btn btn-sm btn-danger">Banir IP</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(messagesTable, 'delete')">Excluir</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(messagesTable, 'banID')">Banir ID</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(messagesTable, 'banIP')">Banir IP</button>
 		</div>
 
 		<h4 class="mt-3">Digitando (<span class="typingUsersCount">0</span>)</h4>
 		<div class="typingUsers">Carregando...</div>
 		<div class="typingUsersActions mt-2">
-			<button class="btn btn-sm btn-primary">Parar</button>
-			<button class="btn btn-sm btn-danger">Banir ID</button>
-			<button class="btn btn-sm btn-danger">Banir IP</button>
+			<button class="btn btn-sm btn-primary" onclick="acts(typingUsersTable, 'stop')">Parar</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(typingUsersTable, 'banID')">Banir ID</button>
+			<button class="btn btn-sm btn-danger" onclick="acts(typingUsersTable, 'banIP')">Banir IP</button>
 		</div>
 
 		<h4 class="mt-3">Usuários banidos (<span class="blockedUsersCount">0</span>)</h4>
 		<div class="blockedUsers">Carregando...</div>
 		<div class="blockedUsersActions mt-2">
-			<button class="btn btn-sm btn-primary">Desfazer</button>
+			<button class="btn btn-sm btn-primary" onclick="acts(blockedUsersTable, 'undoBan')">Desfazer</button>
 		</div>
 
 		<h4 class="mt-3">Logs (<span class="logsCount">0</span>)</h4>
 		<pre class="logs border"></pre>
-
 	</div>
 
 	<script src="/lib/js/moment.min.js"></script>
@@ -73,6 +72,9 @@
 	<script src="/socket.io/socket.io.min.js"></script>
 	<script src="/js/admin/index.js"></script>
 	<script src="/js/admin/socket.js"></script>
+	<script src="/js/admin/actions.js"></script>
+	<script src="/js/admin/tableButtons.js"></script>
+	<script src="/js/admin/tableColumns.js"></script>
 	<script src="/js/admin/tables.js"></script>
 </body>
 

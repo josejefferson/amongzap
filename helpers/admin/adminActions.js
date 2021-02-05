@@ -31,7 +31,7 @@ module.exports = io => ({
 
 	deleteMsg: data => {
 		const i = chat.messages.findIndex(m => m.id === data)
-		if (i > -1) msg = chat.messages.splice(index, 1)
+		if (i > -1) msg = chat.messages.splice(i, 1)
 		io.of('/chat').emit('deleteMsg', data)
 		io.of('/admin').emit('-messages', msg[0])
 	},

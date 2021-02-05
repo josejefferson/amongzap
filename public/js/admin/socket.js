@@ -47,5 +47,5 @@ function ev(e) {
 		$log.innerText = `[${event}] ${JSON.stringify(data)}`
 		$logs.prepend($log)
 		$logsCount.innerText = logs.length
-	} catch (err) { console.log(err) }
+	} catch (err) { console.warn(err) }
 }
