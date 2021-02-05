@@ -1,5 +1,4 @@
-const BUILD_ID = 352748017
-const staticCacheName = 'amongZap-static'
+const BUILD_ID = 234938674
 const filesToCache = [
 	"/",
 	"/chat",
@@ -52,10 +51,10 @@ const filesToCache = [
 	"lib/css/sweetalert2.min.css",
 	"lib/css/tabulator.min.css",
 	"lib/css/tabulator_bootstrap4.min.css",
+	"lib/fonts/VCR_OSD_MONO.ttf",
 	"lib/fonts/fa-brands-400.woff2",
 	"lib/fonts/fa-regular-400.woff2",
 	"lib/fonts/fa-solid-900.woff2",
-	"lib/fonts/VCR_OSD_MONO.ttf",
 	"lib/js/angular-animate.min.js",
 	"lib/js/angular-sanitize.min.js",
 	"lib/js/angular.min.js",
@@ -80,6 +79,7 @@ const filesToCache = [
 	"templates/info.html",
 	"templates/send.html"
 ]
+const staticCacheName = 'amongZap-static'
 
 self.addEventListener('install', e => {
 	console.log('[SW] Install')

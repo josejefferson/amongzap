@@ -23,42 +23,16 @@ const files = getAllFiles('./public').map(i => i
 	.replace(/public\//g, '')
 ).filter(i =>
 	i !== 'sw.js' &&
+	i !== 'sw.model.js' &&
 	!i.endsWith('.map') &&
 	!i.endsWith('.scss') &&
 	!i.includes('admin/') &&
 	!i.startsWith('OneSignalSDK')
 )
+
 const swModel = `const BUILD_ID = ${random}
-const staticCacheName = 'amongZap-static'
 const filesToCache = ${JSON.stringify(files, null, '\t')}
+`
 
-self.addEventListener('install', e => {
-	console.log('[SW] Install')
-	self.skipWaiting()
-
-	e.waitUntil(
-		caches.open(staticCacheName).then(cache => {
-			return cache.addAll(filesToCache)
-		})
-	)
-})
-
-self.addEventListener('activate', e => {
-	console.log('[SW] Activate')
-})
-
-self.addEventListener('fetch', e => {
-	console.log('[SW] Fetch')
-
-	e.respondWith(
-		caches.match(e.request, { ignoreSearch: true })
-			.then(response => {
-				return response || fetch(e.request)
-			})
-			.catch(() => {
-				return caches.match('/404')
-			})
-	)
-})`
-
-fs.writeFileSync('public/sw.js', swModel)
+const data = swModel + fs.readFileSync('public/sw.model.js', 'utf-8')
+fs.writeFileSync('public/sw.js', data)
