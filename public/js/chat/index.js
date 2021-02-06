@@ -30,6 +30,7 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 	$scope.iamtyping = false
 	$scope.sendText = share
 	$scope.sendEnabled = true
+	$scope.update = false
 
 	// Funções
 	$scope.send = text => {
@@ -131,24 +132,45 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 	// Foco na barra de mensagens ao abrir o site
 	$('.sendText').focus()
 
-	Swal.fire({
+	$('.openSettings').click(() => Swal.fire({
 		title: 'Configurações',
 		html: `
 			<ul class="list">
 				<li>
 					<label for="setting-sound">Sons</label>
-					<div><input type="checkbox" id="setting-sound" checked></div>
+					<div><input type="checkbox" id="setting-sound" ${localStorage.getItem('amongZap.settings.sound') === 'false' ? '':'checked'}></div>
 				</li>
 
 				<li><a href="/">Editar dados</a></li>
-				<li><button><span class="badge"></span> Atualizar</button></li>
+				<li>
+					<button onclick="window.location.reload()">
+						<span class="badge ${$scope.update ? '':'hidden'}"></span> Atualizar
+					</button>
+				</li>
 			</ul>
 		`,
 		confirmButtonText: 'Salvar',
 		cancelButtonText: 'Cancelar',
 		showCloseButton: true,
 		showCancelButton: true,
-	})
+		preConfirm: () => {
+			return {
+				sound: $('#setting-sound').prop('checked')
+			}
+		}
+	}).then(r => {
+		if (!r.isConfirmed) return
+		localStorage.setItem('amongZap.settings.sound', r.value.sound)
+	}))
+
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.addEventListener('message', m => {
+			if (m.data === 'update') {
+				$('.updateBadge').removeClass('hidden')
+				$scope.update = true
+			}
+		})
+	}
 }])
 
 ///////////////// DEBUG ///////////////////

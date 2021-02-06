@@ -9,7 +9,7 @@ function Sounds() {
 	}
 
 	function play(audioName) {
-		if (true /* COLOCAR CONDIÇÃO PARA AUDIO NAS OPÇÕES */) {
+		if (!(localStorage.getItem('amongZap.settings.sound') === 'false')) {
 			audios[audioName].pause()
 			audios[audioName].currentTime = 0
 			audios[audioName].play()

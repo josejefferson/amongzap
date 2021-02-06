@@ -5,7 +5,9 @@ if ('serviceWorker' in navigator &&
 ) {
 	navigator.serviceWorker.register('/sw.js')
 	navigator.serviceWorker.addEventListener('message', m => {
-		if (m.data === 'update') console.log('Nova atualização!')
+		if (m.data === 'update') {
+			document.querySelector('.updateBadge').classList.remove('hidden')
+		}
 	})
 }
 

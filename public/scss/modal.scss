@@ -90,7 +90,6 @@ ul.list {
 		height: 50px;
 		justify-content: space-between;
 		align-items: center;
-		// padding: 15px 0;
 
 		a, label, button {
 			color: inherit;
@@ -104,6 +103,7 @@ ul.list {
 			display: flex;
 			align-items: center;
 			cursor: pointer;
+			padding: 0;
 		}
 
 		.badge {
