@@ -1,4 +1,4 @@
-const BUILD_ID = 234938674
+const BUILD_ID = 506486970
 const filesToCache = [
 	"/",
 	"/chat",
@@ -14,9 +14,7 @@ const filesToCache = [
 	"favicon.png",
 	"img/close.png",
 	"img/codeIcon.svg",
-	"img/launcher_192.png",
 	"img/launcher_512.png",
-	"img/launcher_mask_192.png",
 	"img/launcher_mask_512.png",
 	"img/logo.png",
 	"img/notificationIcon.png",
@@ -51,10 +49,10 @@ const filesToCache = [
 	"lib/css/sweetalert2.min.css",
 	"lib/css/tabulator.min.css",
 	"lib/css/tabulator_bootstrap4.min.css",
-	"lib/fonts/VCR_OSD_MONO.ttf",
 	"lib/fonts/fa-brands-400.woff2",
 	"lib/fonts/fa-regular-400.woff2",
 	"lib/fonts/fa-solid-900.woff2",
+	"lib/fonts/VCR_OSD_MONO.ttf",
 	"lib/js/angular-animate.min.js",
 	"lib/js/angular-sanitize.min.js",
 	"lib/js/angular.min.js",
@@ -64,7 +62,6 @@ const filesToCache = [
 	"lib/js/ngEnter.js",
 	"lib/js/ngInlineFmt.js",
 	"lib/js/ngRightClick.js",
-	"lib/js/popper.min.js",
 	"lib/js/sha1.min.js",
 	"lib/js/sweetalert2.min.js",
 	"lib/js/tabulator.min.js",
@@ -94,6 +91,10 @@ self.addEventListener('install', e => {
 
 self.addEventListener('activate', e => {
 	console.log('[SW] Activate')
+
+	self.clients.matchAll().then(clients => {
+		clients.forEach(client => client.postMessage('update'))
+	})
 })
 
 self.addEventListener('fetch', e => {

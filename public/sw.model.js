@@ -13,6 +13,10 @@ self.addEventListener('install', e => {
 
 self.addEventListener('activate', e => {
 	console.log('[SW] Activate')
+
+	self.clients.matchAll().then(clients => {
+		clients.forEach(client => client.postMessage('update'))
+	})
 })
 
 self.addEventListener('fetch', e => {

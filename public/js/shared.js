@@ -4,12 +4,15 @@ if ('serviceWorker' in navigator &&
 	!location.hostname.startsWith('192.168.')
 ) {
 	navigator.serviceWorker.register('/sw.js')
+	navigator.serviceWorker.addEventListener('message', m => {
+		if (m.data === 'update') console.log('Nova atualização!')
+	})
 }
 
 window.OneSignal = window.OneSignal || []
 OneSignal.push(function () {
 	OneSignal.init({
-		appId: "816dc5a8-149a-4f41-a2e8-2bb933c59e56",
+		appId: '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
 		welcomeNotification: {
 			disable: true
 		},
