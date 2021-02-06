@@ -1,4 +1,4 @@
-const BUILD_ID = 506486970
+const BUILD_ID = 444455718
 const filesToCache = [
 	"/",
 	"/chat",
@@ -49,10 +49,10 @@ const filesToCache = [
 	"lib/css/sweetalert2.min.css",
 	"lib/css/tabulator.min.css",
 	"lib/css/tabulator_bootstrap4.min.css",
+	"lib/fonts/VCR_OSD_MONO.ttf",
 	"lib/fonts/fa-brands-400.woff2",
 	"lib/fonts/fa-regular-400.woff2",
 	"lib/fonts/fa-solid-900.woff2",
-	"lib/fonts/VCR_OSD_MONO.ttf",
 	"lib/js/angular-animate.min.js",
 	"lib/js/angular-sanitize.min.js",
 	"lib/js/angular.min.js",

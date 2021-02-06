@@ -6,7 +6,7 @@ if ('serviceWorker' in navigator &&
 	navigator.serviceWorker.register('/sw.js')
 	navigator.serviceWorker.addEventListener('message', m => {
 		if (m.data === 'update') {
-			document.querySelector('.updateBadge').classList.remove('hidden')
+			document.querySelectorAll('.updateBadge').forEach(e => e.classList.remove('hidden'))
 		}
 	})
 }

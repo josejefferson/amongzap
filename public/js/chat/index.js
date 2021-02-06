@@ -144,7 +144,7 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 				<li><a href="/">Editar dados</a></li>
 				<li>
 					<button onclick="window.location.reload()">
-						<span class="badge ${$scope.update ? '':'hidden'}"></span> Atualizar
+						<span class="badge updateBadge ${$scope.update ? '':'hidden'}"></span> Atualizar
 					</button>
 				</li>
 			</ul>
