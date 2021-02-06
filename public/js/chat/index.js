@@ -130,6 +130,25 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 
 	// Foco na barra de mensagens ao abrir o site
 	$('.sendText').focus()
+
+	Swal.fire({
+		title: 'Configurações',
+		html: `
+			<ul class="list">
+				<li>
+					<label for="setting-sound">Sons</label>
+					<div><input type="checkbox" id="setting-sound" checked></div>
+				</li>
+
+				<li><a href="/">Editar dados</a></li>
+				<li><button><span class="badge"></span> Atualizar</button></li>
+			</ul>
+		`,
+		confirmButtonText: 'Salvar',
+		cancelButtonText: 'Cancelar',
+		showCloseButton: true,
+		showCancelButton: true,
+	})
 }])
 
 ///////////////// DEBUG ///////////////////
