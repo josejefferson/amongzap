@@ -34,7 +34,6 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -44,17 +43,9 @@ header {
   color: #fff;
   padding: 5px 15px;
   z-index: 1;
-}
-header .title {
-  display: flex;
-  align-items: center;
-  font-size: 40px;
-  color: #fff;
-  text-decoration: none;
-  width: 100%;
   justify-content: space-between;
 }
-header .title button {
+header button {
   background: none;
   border: none;
   font-size: 24px;
@@ -63,7 +54,7 @@ header .title button {
   cursor: pointer;
   flex-basis: 45px;
 }
-header .title .logo {
+header .logo {
   background-image: url(/img/logo.png);
   width: 139.23px;
   height: 38px;
@@ -84,15 +75,14 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   content: "";
 }
 
-.content {
+main {
   margin-top: 56px;
-  margin-bottom: 48px;
   padding: 10px;
   color: #fff;
   text-align: center;
   display: block;
 }
-.content .input {
+main .input {
   display: block;
   width: 50%;
   min-width: 250px;
@@ -108,10 +98,10 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   text-align: center;
   font-size: 26px;
 }
-.content .color {
+main .color {
   display: none;
 }
-.content .colorLabel {
+main .colorLabel {
   width: 30px;
   height: 30px;
   display: inline-block;
@@ -119,50 +109,50 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   border-radius: 3px;
   cursor: pointer;
 }
-.content .colorSelect {
+main .colorSelect {
   margin-bottom: 26px;
 }
-.content .color:checked + .colorLabel {
+main .color:checked + .colorLabel {
   background-image: url(/img/selectedColor.png);
   background-size: cover;
 }
-.content .red {
+main .red {
   background: #C61111;
 }
-.content .blue {
+main .blue {
   background: #132ED2;
 }
-.content .green {
+main .green {
   background: #11802D;
 }
-.content .pink {
+main .pink {
   background: #EE54BB;
 }
-.content .orange {
+main .orange {
   background: #F07D0D;
 }
-.content .yellow {
+main .yellow {
   background: #F6F657;
 }
-.content .gray {
+main .gray {
   background: #3F474E;
 }
-.content .white {
+main .white {
   background: #D7E1F1;
 }
-.content .purple {
+main .purple {
   background: #6B2FBC;
 }
-.content .brown {
+main .brown {
   background: #71491E;
 }
-.content .cyan {
+main .cyan {
   background: #38FFDD;
 }
-.content .lime {
+main .lime {
   background: #50F039;
 }
-.content .startBtn {
+main .startBtn {
   background-image: url(/img/start.png);
   background-position: center;
   background-size: cover;
@@ -174,37 +164,10 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   cursor: pointer;
 }
 
-.sendArea {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: fixed;
-  bottom: 5px;
-  left: 5px;
-  width: calc(100% - 10px);
-  height: 56px;
-  background: white;
-  box-shadow: 0 10px 20px black;
-  border: black 2.5px solid;
-  border-radius: 7px;
-  padding: 8px;
-}
-.sendArea textarea {
-  display: flex;
-  width: 100%;
-  border: none;
-  resize: none;
-}
-.sendArea button {
-  display: flex;
-  background-image: url(/img/sendIcon.png);
-  background-size: cover;
-  background-position: center;
-  border: none;
-  background-color: transparent;
-  height: 100%;
-  width: 30px;
-  flex: 0 0 30px;
+footer {
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
 }
 
 /*# sourceMappingURL=home.css.map */

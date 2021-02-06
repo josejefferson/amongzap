@@ -8,20 +8,21 @@
 	<title>AmongZap</title>
 	<link rel="shortcut icon" href="/favicon.png" type="image/png">
 	<link rel="manifest" href="/manifest.json">
+	<link rel="stylesheet" href="/lib/css/bootstrap-grid.min.css">
 	<link rel="stylesheet" href="/lib/css/font-awesome.all.min.css">
+	<link rel="stylesheet" href="/css/modal.css">
+	<link rel="stylesheet" href="/lib/css/sweetalert2.min.css">
 	<link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
 	<header>
-		<div class="title">
-			<button class="fas fa-info-circle" title="Configurações"></button>
-			<a href="/" class="logo"></a>
-			<button></button>
-		</div>
+		<button class="fas fa-info-circle" title="Sobre"></button>
+		<a href="/" class="logo"></a>
+		<button class="fas fa-book showRules" title="Regras"></button>
 	</header>
 
-	<div class="content">
+	<main class="content container">
 		<form action="/chat" method="GET" class="playerData">
 			<h3>Digite seu nome</h3>
 			<input type="text" class="input" minlength="1" maxlength="10"
@@ -30,7 +31,7 @@
 
 			<div class="colorSelect">
 				<h3>Escolha sua cor</h3>
-				<div class="row">
+				<div>
 					<input type="radio" name="color" class="color" id="red" value="red">
 					<label for="red" class="colorLabel red" title="Vermelho"></label>
 					<input type="radio" name="color" class="color" id="blue" value="blue">
@@ -45,7 +46,7 @@
 					<label for="yellow" class="colorLabel yellow" title="Amarelo"></label>
 				</div>
 
-				<div class="row">
+				<div>
 					<input type="radio" name="color" class="color" id="gray" value="gray">
 					<label for="gray" class="colorLabel gray" title="Cinza"></label>
 					<input type="radio" name="color" class="color" id="white" value="white">
@@ -63,14 +64,17 @@
 
 			<button type="submit" class="startBtn" title="Clique para entrar no chat"></button>
 		</form>
+	</main>
 
-		<!-- <h4>Antes de participar leia as regras</h4> -->
-		<!-- <p>Em breve</p> -->
-	</div>
+	<footer class="mt-5">
+		<div>Este site NÃO possui nenhuma relação com a Innersloth LLC</div>
+		<div>Leia as regras clicando no <i class="fas fa-book"></i> na parte superior</div>
+	</footer>
 
 	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
 	<script src="/js/shared.js"></script>
 	<script src="/js/helpers.js"></script>
+	<script src="/lib/js/sweetalert2.min.js"></script>
 	<script src="/js/home/index.js"></script>
 </body>
 

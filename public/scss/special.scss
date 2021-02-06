@@ -35,20 +35,13 @@ header {
 	padding: 5px 15px;
 	z-index: 1;
 
-	.title {
-		display: flex;
-		align-items: center;
-		width: 100%;
-		justify-content: center;
-
-		.logo {
-			background-image: url(/img/logo.png);
-			width: 139.23px;
-			height: 38px;
-			background-size: cover;
-			background-position: center;
-			display: inline-block;
-		}
+	.logo {
+		background-image: url(/img/logo.png);
+		width: 139.23px;
+		height: 38px;
+		background-size: cover;
+		background-position: center;
+		display: inline-block;
 	}
 }
 

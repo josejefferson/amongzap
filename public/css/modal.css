@@ -5,8 +5,9 @@
   box-shadow: none !important;
 }
 
+.swal2-title,
 .swal2-content {
-  color: #fff;
+  color: #fff !important;
 }
 
 .swal2-input {

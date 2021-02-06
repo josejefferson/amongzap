@@ -12,9 +12,7 @@
 
 <body style="background-color:#200">
 	<header>
-		<div class="title">
-			<a href="/" class="logo"></a>
-		</div>
+		<a href="/" class="logo"></a>
 	</header>
 	<div class="container">
 		<div class="infoTitle">Você foi banido</div>
@@ -28,8 +26,8 @@
 		const sound = new Audio('/sounds/eject_text.wav')
 		const $reason = document.querySelector('.reason')
 		const reason = new URLSearchParams(location.search).get('reason') || 'Não especificado';
-		
-		(async function() {
+
+		(async function () {
 			for (let i = 0, text = ''; i < reason.length; i++) {
 				text += reason.charAt(i)
 				$reason.innerText = text

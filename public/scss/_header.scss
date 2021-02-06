@@ -2,7 +2,6 @@ header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -12,34 +11,26 @@ header {
 	color: #fff;
 	padding: 5px 15px;
 	z-index: 1;
+	justify-content: space-between;
 	
-	.title {
-		display: flex;
-		align-items: center;
-		font-size: 40px;
-		color: #fff;
-		text-decoration: none;
-		width: 100%;
-		justify-content: space-between;
 
-		button {
-			background: none;
-			border: none;
-			font-size: 24px;
-			color: #ffffff;
-			outline: none;
-			cursor: pointer;
-			flex-basis: 45px;
-		}
+	button {
+		background: none;
+		border: none;
+		font-size: 24px;
+		color: #ffffff;
+		outline: none;
+		cursor: pointer;
+		flex-basis: 45px;
+	}
 
-		.logo {
-			background-image: url(/img/logo.png);
-			width: 139.23px;
-			height: 38px;
-			background-size: cover;
-			background-position: center;
-			display: inline-block;
-		}
+	.logo {
+		background-image: url(/img/logo.png);
+		width: 139.23px;
+		height: 38px;
+		background-size: cover;
+		background-position: center;
+		display: inline-block;
 	}
 
 	.onesignal-customlink-container {

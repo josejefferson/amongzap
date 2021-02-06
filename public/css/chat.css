@@ -38,7 +38,6 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -48,17 +47,9 @@ header {
   color: #fff;
   padding: 5px 15px;
   z-index: 1;
-}
-header .title {
-  display: flex;
-  align-items: center;
-  font-size: 40px;
-  color: #fff;
-  text-decoration: none;
-  width: 100%;
   justify-content: space-between;
 }
-header .title button {
+header button {
   background: none;
   border: none;
   font-size: 24px;
@@ -67,7 +58,7 @@ header .title button {
   cursor: pointer;
   flex-basis: 45px;
 }
-header .title .logo {
+header .logo {
   background-image: url(/img/logo.png);
   width: 139.23px;
   height: 38px;
