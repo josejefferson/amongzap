@@ -80,6 +80,7 @@ header .onesignal-customlink-container button {
   font-family: "Font Awesome 5 Free" !important;
   text-decoration: none !important;
   transition: none !important;
+  font-size: inherit !important;
 }
 header .onesignal-customlink-container button.state-subscribed::before {
   content: "";

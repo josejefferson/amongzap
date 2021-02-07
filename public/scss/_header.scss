@@ -48,6 +48,7 @@ header {
 			font-family: 'Font Awesome 5 Free' !important;
 			text-decoration: none !important;
 			transition: none !important;
+			font-size: inherit !important;
 
 			&.state-subscribed::before {
 				content: '\f0f3'
