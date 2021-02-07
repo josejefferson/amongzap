@@ -195,6 +195,45 @@ header .onesignal-customlink-container button.state-unsubscribed::before {
   background-position: center;
   width: 100%;
   height: 46px;
+  background-image: url(/img/players.png);
+  background-size: 184px;
+  background-position: 0 0;
+}
+.chat .messageArea .message .picture .pic.player-blue {
+  background-position: calc(-46px * 0) calc(-46px * 0);
+}
+.chat .messageArea .message .picture .pic.player-brown {
+  background-position: calc(-46px * 1) calc(-46px * 0);
+}
+.chat .messageArea .message .picture .pic.player-cyan {
+  background-position: calc(-46px * 2) calc(-46px * 0);
+}
+.chat .messageArea .message .picture .pic.player-gray {
+  background-position: calc(-46px * 3) calc(-46px * 0);
+}
+.chat .messageArea .message .picture .pic.player-green {
+  background-position: calc(-46px * 0) calc(-46px * 1);
+}
+.chat .messageArea .message .picture .pic.player-lime {
+  background-position: calc(-46px * 1) calc(-46px * 1);
+}
+.chat .messageArea .message .picture .pic.player-orange {
+  background-position: calc(-46px * 2) calc(-46px * 1);
+}
+.chat .messageArea .message .picture .pic.player-pink {
+  background-position: calc(-46px * 3) calc(-46px * 1);
+}
+.chat .messageArea .message .picture .pic.player-purple {
+  background-position: calc(-46px * 0) calc(-46px * 2);
+}
+.chat .messageArea .message .picture .pic.player-red {
+  background-position: calc(-46px * 1) calc(-46px * 2);
+}
+.chat .messageArea .message .picture .pic.player-white {
+  background-position: calc(-46px * 2) calc(-46px * 2);
+}
+.chat .messageArea .message .picture .pic.player-yellow {
+  background-position: calc(-46px * 3) calc(-46px * 2);
 }
 
 .usersLog {
