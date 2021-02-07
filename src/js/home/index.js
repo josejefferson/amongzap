@@ -4,6 +4,7 @@ const COLOR_LS = 'amongZap.color'
 const $name = document.querySelector('.input')
 const $colors = document.querySelectorAll('.color')
 const $form = document.querySelector('.playerData')
+const $refresh = document.querySelector('.refresh')
 const $showRules = document.querySelector('.showRules')
 
 $form.onsubmit = e => {
@@ -26,6 +27,7 @@ if (!localStorage.getItem(COLOR_LS)) {
 
 $name.value = localStorage.getItem(NAME_LS) || `Player${helpers.randomNumber(1000, 9999)}`
 
+$refresh.onclick = () => window.location.reload()
 $showRules.onclick = () => Swal.fire({
 	title: 'Regras',
 	padding: '1.25em 0',
