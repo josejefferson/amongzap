@@ -3,7 +3,7 @@ if ('serviceWorker' in navigator &&
 	location.hostname !== '127.0.0.1' &&
 	!location.hostname.startsWith('192.168.')
 ) {
-	navigator.serviceWorker.register('/sw.js')
+	navigator.serviceWorker.register('/OneSignalSDKWorker.js')
 	navigator.serviceWorker.addEventListener('message', m => {
 		if (m.data === 'update') {
 			document.querySelectorAll('.updateBadge').forEach(e => e.classList.remove('hidden'))

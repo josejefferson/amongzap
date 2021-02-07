@@ -1,4 +1,5 @@
 function UserData() {
+	const ADMIN_NAME = 'Seu José'
 	const USER_ID_LS = 'amongZap.userID'
 	const NAME_LS = 'amongZap.name'
 	const COLOR_LS = 'amongZap.color'
@@ -21,6 +22,7 @@ function UserData() {
 		localStorage.getItem(NAME_LS).trim().slice(0, 10) : ''
 	let userColor = localStorage.getItem(COLOR_LS)
 	if (!userName) window.location.href = '/'
+	if (userName === ADMIN_NAME) window.location.href = '/auth'
 
 	return {
 		userID,

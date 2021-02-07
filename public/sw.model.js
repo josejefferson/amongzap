@@ -21,6 +21,8 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
 	console.log('[SW] Fetch')
+	const path = new URL(e.request.url).pathname
+	if (path === '/auth' || path === '/admin') return
 
 	e.respondWith(
 		caches.match(e.request, { ignoreSearch: true })
