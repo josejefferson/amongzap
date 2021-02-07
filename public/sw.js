@@ -1,4 +1,4 @@
-const BUILD_ID = 927114205
+const BUILD_ID = 465158775
 const filesToCache = [
 	"/",
 	"/chat",

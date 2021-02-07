@@ -96,6 +96,7 @@ ul.list li, ul.list a, ul.list label, ul.list button {
 }
 ul.list li .listIcon, ul.list a .listIcon, ul.list label .listIcon, ul.list button .listIcon {
   margin-right: 10px;
+  width: 20px;
 }
 ul.list li .listBadge, ul.list a .listBadge, ul.list label .listBadge, ul.list button .listBadge {
   background: red;

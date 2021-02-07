@@ -83,6 +83,13 @@ const modals = {
 						<div class="listText">Atualizar</div>
 					</button>
 				</li>
+
+				<li>
+					<button onclick="caches.keys().then(c=>c.filter(n=>n.startsWith('amongZap')).map(n=>caches.delete(n)))">
+						<i class="listIcon fas fa-trash-alt"></i> 
+						<div class="listText">Limpar cache</div>
+					</button>
+				</li>
 			</ul>
 		`,
 		confirmButtonText: 'Salvar',
