@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node dev.js",
-    "build": "npx sass public/scss:public/css && node build.js"
+    "build": "npx sass src/scss:src/css --no-source-map --style compressed && npx gulp"
   },
   "keywords": [],
   "author": "Jefferson Dantas",
@@ -20,5 +20,12 @@
     "jsonschema": "^1.4.0",
     "node-fetch": "^2.6.1",
     "socket.io": "^3.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-jsonminify": "^1.1.0",
+    "gulp-uglify-es": "^2.0.0"
   }
 }

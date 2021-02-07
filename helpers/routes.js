@@ -3,7 +3,7 @@ const routes = express.Router()
 const authenticate = require('./admin/adminAuth')
 const chat = require('./chat')
 
-routes.use(express.static('public'))
+routes.use(express.static(production ? 'dist' : 'src'))
 
 routes.get('/', (req, res) => {
 	res.sendFile('pages/home.html', { root: './' })
