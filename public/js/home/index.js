@@ -5,7 +5,6 @@ const $name = document.querySelector('.input')
 const $colors = document.querySelectorAll('.color')
 const $form = document.querySelector('.playerData')
 const $showRules = document.querySelector('.showRules')
-const helpers = Helpers()
 
 $form.onsubmit = e => {
 	e.preventDefault()

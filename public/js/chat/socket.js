@@ -1,5 +1,5 @@
 function Socket($scope) {
-	const { userID, userName, userColor } = UserData()
+	const { userID, userIDHash, userName, userColor } = UserData()
 
 	const socket = io(`${window.location.origin}/chat`, {
 		query: {
@@ -47,17 +47,13 @@ function Socket($scope) {
 		$scope.chats = chats
 		$scope.loadingMessages = false
 		$scope.$apply()
-		$('html, body').animate({
-			scrollTop: $(document).height()
-		})
+		helpers.scrollBottom()
 	}
 
 	function chat(chat) {
 		$scope.chats.push(chat)
 		$scope.$apply()
-		$('html, body').stop().animate({
-			scrollTop: $(document).height()
-		})
+		helpers.scrollBottom()
 		if (chat.sender.userIDHash !== userIDHash || chat.sender.userName !== userName)
 			sounds.play(`NEW_MESSAGE_0${1 + Math.floor(Math.random() * 2)}`)
 	}

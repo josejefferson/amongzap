@@ -1,4 +1,4 @@
-function Sounds() {
+const sounds = (() => {
 	const audios = {
 		EJECT_TEXT: new Audio('/sounds/eject_text.wav'),
 		NEW_MESSAGE_01: new Audio('/sounds/new_message_01.wav'),
@@ -19,4 +19,4 @@ function Sounds() {
 	return {
 		play
 	}
-}
+})()

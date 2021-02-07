@@ -75,18 +75,15 @@
 ul.list {
   display: flex;
   list-style-type: none;
-  padding-left: none;
+  padding-left: 0;
   text-align: left;
   flex-direction: column;
   padding: 0;
 }
-ul.list li {
+ul.list li, ul.list a, ul.list label, ul.list button {
   display: flex;
-  height: 50px;
-  justify-content: space-between;
+  height: 40px;
   align-items: center;
-}
-ul.list li a, ul.list li label, ul.list li button {
   color: inherit;
   background-color: inherit;
   border: none;
@@ -94,13 +91,13 @@ ul.list li a, ul.list li label, ul.list li button {
   outline: none;
   text-decoration: none;
   width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
   cursor: pointer;
   padding: 0;
 }
-ul.list li .badge {
+ul.list li .listIcon, ul.list a .listIcon, ul.list label .listIcon, ul.list button .listIcon {
+  margin-right: 10px;
+}
+ul.list li .listBadge, ul.list a .listBadge, ul.list label .listBadge, ul.list button .listBadge {
   background: red;
   border-radius: 50%;
   display: inline-block;
@@ -108,7 +105,15 @@ ul.list li .badge {
   width: 10px;
   height: 10px;
 }
-ul.list li:not(:last-child) {
+ul.list li .listText, ul.list a .listText, ul.list label .listText, ul.list button .listText {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+ul.list li .listCheck, ul.list a .listCheck, ul.list label .listCheck, ul.list button .listCheck {
+  margin-left: auto;
+}
+ul.list li:not(:last-child), ul.list a:not(:last-child), ul.list label:not(:last-child), ul.list button:not(:last-child) {
   border-bottom: #333 1px solid;
 }
 

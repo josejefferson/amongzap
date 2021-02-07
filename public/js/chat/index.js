@@ -1,15 +1,10 @@
-const helpers = Helpers()
-const sounds = Sounds()
-const { userIDHash, userName } = UserData()
-
-window.setInterval(() => {
-	$('.dateTime').each(function () {
-		$(this).text(moment(parseInt($(this).data('time'))).fromNow())
-	})
-}, 5000)
-
 angular.module('amongZap', ['ngAnimate', 'ngSanitize', 'ngInlineFmt', 'ngEnter', 'ngRightClick'])
 angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout', '$filter', ($scope, $timeout, $filter) => {
+	const $sendText = document.querySelector('.sendText')
+	const $openSettings = document.querySelector('.openSettings')
+	const $updateBadge = document.querySelector('.updateBadge')
+	const { userIDHash, userName } = UserData()
+
 	// Compartilhamento de texto de outros apps
 	const query = new URLSearchParams(location.search)
 	const share = [query.get('share_title'), query.get('share_text'), query.get('share_url')].filter(e => e).join(' ')
@@ -35,68 +30,24 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 	// Funções
 	$scope.send = text => {
 		text = text.trim()
-		$('.sendText').focus()
+		$sendText.focus()
 		if (text.trim() === '') return
 		$scope.socket.sendChat({ text })
 		$scope.sendText = ''
 	}
 	$scope.sendCode = (text, code) => {
-		Swal.fire({
-			title: 'Enviar código',
-			html: `
-				<form id="sendCodeForm" class="mt-3">
-					<input class="swal2-input my-1" type="text" id="sendCode" minlength="6" maxlength="6"
-						style="font-size:26px;text-align:center;text-transform:uppercase" pattern="^[a-zA-Z]+$"
-						value="${code || ''}" placeholder="Código" autocomplete="off" required>
-					<textarea class="swal2-input my-1" type="text" id="sendText" value="${text || ''}"
-						placeholder="Texto (opcional)" autocomplete="off" style="resize:none"></textarea>
-				</form>
-			`,
-			confirmButtonText: 'Enviar',
-			cancelButtonText: 'Cancelar',
-			showCloseButton: true,
-			showCancelButton: true,
-			didOpen: popup => {
-				popup.querySelector('#sendCodeForm').onsubmit = e => e.preventDefault()
-				const $code = popup.querySelector('#sendCode')
-				$code.onkeydown = e => { if (e.key === 'Enter') Swal.clickConfirm() }
-				$code.focus()
-			},
-			didClose: () => $('.sendText').focus(),
-			preConfirm: () => {
-				if (!document.querySelector('#sendCodeForm').checkValidity()) {
-					Swal.showValidationMessage('Código inválido')
-					document.querySelector('#sendCodeForm #sendCode').classList.add('validate')
-					document.querySelector('#sendCodeForm #sendCode').focus()
-				}
-
-				return {
-					code: document.querySelector('#sendCode').value,
-					text: document.querySelector('#sendText').value.trim()
-				}
-			}
-		}).then(r => {
+		modals.sendCode(text, code).then(r => {
 			if (!r.isConfirmed) return
 			const { text, code } = r.value
 			$scope.socket.sendChat({ text, code })
 			$scope.sendText = ''
-			$('.sendText').focus()
+			$sendText.focus()
 		})
 	}
-	$scope.previewChat = text => {
-		$('.sendText').focus()
+	$scope.previewChat = (text) => {
+		$sendText.focus()
 		if (!text.trim()) return
-		Swal.fire({
-			title: 'Prévia da mensagem',
-			html: $filter('inlineFmt')($filter('linky')(text, '_blank')),
-			toast: true,
-			position: 'top',
-			showCloseButton: true,
-			showConfirmButton: false,
-			width: 'calc(100vw - 30px)',
-			willClose: () => $('.sendText').focus(),
-			customClass: {content: 'messagePreview'}
-		})
+		modals.previewChat(text, $filter)
 	}
 	$scope.copy = text => {
 		helpers.copy(text)
@@ -129,48 +80,32 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 	})
 	$scope.$watch('iamtyping', (val) => $scope.socket.sendTyping(val))
 
-	// Foco na barra de mensagens ao abrir o site
-	$('.sendText').focus()
 
-	$('.openSettings').click(() => Swal.fire({
-		title: 'Configurações',
-		html: `
-			<ul class="list">
-				<li>
-					<label for="setting-sound">Sons</label>
-					<div><input type="checkbox" id="setting-sound" ${localStorage.getItem('amongZap.settings.sound') === 'false' ? '':'checked'}></div>
-				</li>
-
-				<li><a href="/">Editar dados</a></li>
-				<li>
-					<button onclick="window.location.reload()">
-						<span class="badge updateBadge ${$scope.update ? '':'hidden'}"></span> Atualizar
-					</button>
-				</li>
-			</ul>
-		`,
-		confirmButtonText: 'Salvar',
-		cancelButtonText: 'Cancelar',
-		showCloseButton: true,
-		showCancelButton: true,
-		preConfirm: () => {
-			return {
-				sound: $('#setting-sound').prop('checked')
-			}
-		}
-	}).then(r => {
+	// Modal de configurações
+	$openSettings.onclick = () => modals.settings($scope).then(r => {
 		if (!r.isConfirmed) return
-		localStorage.setItem('amongZap.settings.sound', r.value.sound)
-	}))
+		helpers.setOptions(r.value)
+	})
 
+	// Atualizações do Service Worker
 	if ('serviceWorker' in navigator) {
 		navigator.serviceWorker.addEventListener('message', m => {
 			if (m.data === 'update') {
-				$('.updateBadge').removeClass('hidden')
+				$updateBadge.classList.remove('hidden')
 				$scope.update = true
 			}
 		})
 	}
+
+	// Atualiza os horários das mensagens
+	window.setInterval(() => {
+		document.querySelectorAll('.dateTime').forEach(e => {
+			e.innerText = moment(parseInt(e.dataset.time)).fromNow()
+		})
+	}, 5000)
+
+	// Foco na barra de mensagens ao abrir o site
+	$sendText.focus()
 }])
 
 ///////////////// DEBUG ///////////////////
