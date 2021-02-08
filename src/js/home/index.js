@@ -11,12 +11,11 @@ $form.onsubmit = e => {
 	e.preventDefault()
 	localStorage.setItem(NAME_LS, $name.value)
 	localStorage.setItem(COLOR_LS, document.querySelector('.color:checked').value)
+	loading()
 	if ($name.value === ADMIN_NAME) {
-		e.preventDefault()
 		return window.location.href = '/auth'
 	}
 	window.location.href = '/chat'
-	loading()
 }
 
 if (!localStorage.getItem(COLOR_LS)) {
