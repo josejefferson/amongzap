@@ -16,6 +16,7 @@ $form.onsubmit = e => {
 		return window.location.href = '/auth'
 	}
 	window.location.href = '/chat'
+	loading()
 }
 
 if (!localStorage.getItem(COLOR_LS)) {
@@ -27,7 +28,10 @@ if (!localStorage.getItem(COLOR_LS)) {
 
 $name.value = localStorage.getItem(NAME_LS) || `Player${helpers.randomNumber(1000, 9999)}`
 
-$refresh.onclick = () => window.location.reload()
+$refresh.onclick = () => {
+	window.location.reload()
+	loading()
+}
 $showRules.onclick = () => Swal.fire({
 	title: 'Regras',
 	padding: '1.25em 0',

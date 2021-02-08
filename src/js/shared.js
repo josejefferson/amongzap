@@ -32,3 +32,26 @@ OneSignal.push(function () {
 		}
 	})
 })
+
+function loading() {
+	if (document.querySelector('.loadingScreen')) return
+	const $loading = document.createElement('div')
+	$loading.classList.add('loadingScreen')
+	$loading.innerHTML = '<div class="loadingIcon"></div>'
+	document.body.style.overflow = 'hidden'
+	document.body.appendChild($loading)
+	fadeIn($loading)
+}
+
+// https://gist.github.com/alirezas/c4f9f43e9fe1abba9a4824dd6fc60a55
+function fadeIn(el) {
+	el.style.opacity = 0;
+
+	(function fade() {
+		let val = parseFloat(el.style.opacity)
+		if (!((val += .1) > 1)) {
+			el.style.opacity = val
+			requestAnimationFrame(fade)
+		}
+	})()
+}

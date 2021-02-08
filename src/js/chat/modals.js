@@ -70,14 +70,14 @@ const modals = {
 				</li>
 
 				<li>
-					<a href="/">
+					<a href="/" onclick="loading()">
 						<i class="listIcon fas fa-pencil-alt"></i>
 						<div class="listText">Editar dados</div>
 					</a>
 				</li>
 
 				<li>
-					<button onclick="window.location.reload()">
+					<button onclick="window.location.reload();loading()">
 						<i class="listIcon fas fa-redo"></i> 
 						<span class="listBadge updateBadge ${$scope.update ? '' : 'hidden'}"></span>
 						<div class="listText">Atualizar</div>

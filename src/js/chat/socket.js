@@ -101,6 +101,7 @@ function Socket($scope) {
 		urlParams.set('reason', reason || '')
 		OneSignal.setSubscription(false)
 		window.location.href = `/banned?${urlParams.toString()}`
+		loading()
 	}
 
 	function sendEnabled(enabled) {
@@ -111,6 +112,7 @@ function Socket($scope) {
 
 	function reload() {
 		window.location.reload()
+		loading()
 	}
 
 
