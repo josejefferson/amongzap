@@ -18,10 +18,26 @@ const columns = {
 			return cell.getValue()
 		}
 	},
+	userNames: {
+		title: 'Nomes',
+		field: 'userNames',
+		headerFilter: 'input',
+		formatter: cell => {
+			return cell.getValue().join('<br>')
+		}
+	},
 	userID: {
 		title: 'ID',
 		field: 'userID',
 		headerFilter: 'input'
+	},
+	userIDs: {
+		title: 'IDs',
+		field: 'userIDs',
+		headerFilter: 'input',
+		formatter: cell => {
+			return cell.getValue().join('<br>')
+		}
 	},
 	userIP: {
 		title: 'IP',
@@ -32,6 +48,14 @@ const columns = {
 		title: 'Socket ID',
 		field: 'socketID',
 		headerFilter: 'input'
+	},
+	socketIDs: {
+		title: 'Socket IDs',
+		field: 'socketIDs',
+		headerFilter: 'input',
+		formatter: cell => {
+			return cell.getValue().join('<br>')
+		}
 	},
 
 	// Banimento
@@ -55,21 +79,22 @@ const columns = {
 	typingTime: {
 		title: 'Digitando desde',
 		field: 'onlineTime',
-		formatter: cell => moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+		formatter: cell => {
+			return moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+		}
 	},
 	onlineTime: {
 		title: 'Online desde',
 		field: 'onlineTime',
-		formatter: cell => moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+		formatter: cell => {
+			return moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+		}
 	},
 	onlineTimes: {
 		title: 'Tempos online',
-		field: 'onlineTime',
+		field: 'onlineTimes',
 		formatter: cell => {
-			if (Array.isArray(cell.getValue()))
-				return cell.getValue().map(i => moment(i).format('HH:mm:ss DD/MM/YYYY')).join('<br>')
-			else
-				return moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+			return cell.getValue().map(i => moment(i).format('HH:mm:ss DD/MM/YYYY')).join('<br>')
 		}
 	},
 
@@ -83,7 +108,9 @@ const columns = {
 		title: 'Tempo',
 		field: 'dateTime',
 		headerFilter: 'input',
-		formatter: cell => moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+		formatter: cell => {
+			return moment(cell.getValue()).format('HH:mm:ss DD/MM/YYYY')
+		}
 	},
 	msgID: {
 		title: 'ID',

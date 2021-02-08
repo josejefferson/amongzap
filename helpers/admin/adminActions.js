@@ -1,11 +1,11 @@
 const chat = require('../chat')
 const safeData = require('../safeData')
-const { uploadData } = require('../fetchData')
+const {uploadData} = require('../fetchData')
 
 module.exports = io => ({
 	ban: data => {
 		chat.blockedUsers.push(data)
-		
+
 		function banned(e) {
 			e.socket.emit('banned', data.reason)
 			e.socket.disconnect()
@@ -17,7 +17,7 @@ module.exports = io => ({
 
 	unBan: data => {
 		const i = chat.blockedUsers.findIndex(u => u.type === data.type && u.user === data.user)
-		if (i > -1) { 
+		if (i > -1) {
 			const del = chat.blockedUsers.splice(i, 1)
 			io.of('/admin').emit('-blockedUsers', del[0])
 		}
@@ -35,21 +35,25 @@ module.exports = io => ({
 		io.of('/chat').emit('deleteMsg', data)
 		io.of('/admin').emit('-messages', msg[0])
 	},
-	
+
 	disconnect: user => {
 		const users = chat.onlineUsers.filter(u => u.socketID === user)
 		users.forEach(u => u.socket.disconnect())
 	},
-	
+
 	stopTyping: userID => {
 		const i = chat.typingUsers.findIndex(u => u.userID === userID)
 		if (i > -1) chat.typingUsers.splice(i, 1)
 		io.of('/chat').emit('typing', safeData.users(chat.typingUsers))
 		io.of('/admin').emit('*typingUsers', chat.typingUsers)
 	},
-	
-	backup: () => {
-		uploadData('MESSAGES', chat.messages)
-		uploadData('BLOCKED_USERS', chat.blockedUsers)
+
+	backup: async () => {
+		await Promise.all([
+			uploadData('MESSAGES', chat.messages),
+			uploadData('BLOCKED_USERS', chat.blockedUsers),
+			uploadData('USER_HISTORY', chat.userHistory)
+		])
+		io.of('/admin').emit('backupDone')
 	}
 })

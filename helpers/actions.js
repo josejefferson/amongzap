@@ -12,13 +12,12 @@ function Actions(io) {
 	function userConnected(socket, user) {
 		Object.assign(socket, user)
 		chat.onlineUsers.push(user)
-		chat.userHistory.push(user)
+		userHistory(user)
 		socket.emit('initialChat', safeData.messages(chat.messages))
 		socket.emit('sendEnabled', chat.sendEnabled)
 		socket.emit('typing', safeData.users(typingUsers))
 		socket.broadcast.emit('userConnected', safeData.user(user))
 		io.of('/admin').emit('+onlineUsers', user)
-		io.of('/admin').emit('+userHistory', user)
 	}
 
 	function userDisconnected(socket, user) {
@@ -51,7 +50,29 @@ function Actions(io) {
 		io.of('/admin').emit('*typingUsers', typingUsers)
 	}
 
-	function notify(message) {
+	function userHistory(user) {
+		let { userID, userName, userColor, socketID, onlineTime, userIP = '0.0.0.0' } = user
+		const uidx = chat.userHistory.findIndex(u => u.userIP === userIP)
+		if (uidx < 0) return chat.userHistory.push({
+			userIP: userIP,
+			userIDs: [userID],
+			userNames: [userName],
+			userColors: [userColor],
+			socketIDs: [socketID],
+			onlineTimes: [onlineTime]
+		})
+
+		const { userIDs, userNames, userColors, socketIDs, onlineTimes } = chat.userHistory[uidx]
+		userIDs.indexOf(userID) === -1 && userIDs.push(userID)
+		userNames.indexOf(userName) === -1 && userNames.push(userName)
+		userColors.indexOf(userColor) === -1 && userColors.push(userColor)
+		socketIDs.indexOf(socketID) === -1 && socketIDs.push(socketID)
+		onlineTimes.indexOf(onlineTime) === -1 && onlineTimes.push(onlineTime)
+
+		io.of('/admin').emit('userHistory', chat.userHistory[uidx])
+	}
+
+	function notify() {
 		let text = ''
 		chat.messages.slice(-4).forEach((m, i) => {
 			if (i !== 0) text += '\n'
@@ -72,7 +93,7 @@ function Actions(io) {
 				'contents': { en: text },
 				'template_id': '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d'
 			})
-	})
+		})
 	}
 
 	if (message.code) {

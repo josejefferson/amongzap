@@ -1,6 +1,6 @@
 const MESSAGES_DATABASE = 'https://amongzap-450e.restdb.io/rest/data/600f23ecf564f0050002e587'
 const BLOCKED_USERS_DATABASE = 'https://amongzap-450e.restdb.io/rest/data/600f23fcf564f0050002e58b'
-//const USERS_HISTORY_DATABASE = 'https://jsonstorage.net/api/items/faa65f13-e124-4adc-980f-dd399cc5e159'
+const USER_HISTORY_DATABASE = 'https://amongzap-450e.restdb.io/rest/data/60215f397fdeb446000037b0'
 const API_KEY = '600f25861346a1524ff12e04'
 const MAX_ATTEMPTS = 3
 
@@ -12,7 +12,7 @@ async function downloadData(type) {
 	switch (type) {
 		case 'MESSAGES': URL = MESSAGES_DATABASE; break
 		case 'BLOCKED_USERS': URL = BLOCKED_USERS_DATABASE; break
-		//case 'USERS_HISTORY': URL = USERS_HISTORY_DATABASE; break
+		case 'USER_HISTORY': URL = USER_HISTORY_DATABASE; break
 		default: return false
 	}
 
@@ -38,7 +38,7 @@ async function uploadData(type, data) {
 	switch (type) {
 		case 'MESSAGES': URL = MESSAGES_DATABASE; break
 		case 'BLOCKED_USERS': URL = BLOCKED_USERS_DATABASE; break
-		//case 'USERS_HISTORY': URL = USERS_HISTORY_DATABASE; break
+		case 'USER_HISTORY': URL = USER_HISTORY_DATABASE; break
 		default: return false
 	}
 

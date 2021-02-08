@@ -5,12 +5,12 @@ socket.on('connect', () => console.log('Conectado'))
 socket.on('disconnect', () => console.log('Desconectado'))
 socket.onevent = e => {
 	const [event, data] = e.data
-	if (freeze) return pending.push({event, data})
-	ev({event, data})
+	if (freeze) return pending.push({ event, data })
+	ev({ event, data })
 }
 
 function ev(e) {
-	const {event, data} = e
+	const { event, data } = e
 	const special = event.startsWith('+') || event.startsWith('-') || event.startsWith('*')
 
 	try {
@@ -35,6 +35,23 @@ function ev(e) {
 			$messagesCount.innerText = state.messages.length
 			$typingUsersCount.innerText = state.typingUsers.length
 			$blockedUsersCount.innerText = state.blockedUsers.length
+
+		} else if (event === 'userHistory') {
+			const uidx = state.userHistory.findIndex(u => u.userIP === data.userIP)
+			if (uidx < 0) return state.userHistory.push({
+				userIP: data.userIP,
+				userIDs: [data.userID],
+				userNames: [data.userName],
+				userColors: [data.userColor],
+				socketIDs: [data.socketID],
+				onlineTimes: [data.onlineTime]
+			})
+			state.userHistory[uidx] = data
+			userHistoryTable.setData(state.userHistory)
+			$userHistoryCount.innerText = state.userHistory.length
+
+		} else if (event === 'backupDone') {
+			alert('Backup concluído!')
 		}
 
 		if (special) {

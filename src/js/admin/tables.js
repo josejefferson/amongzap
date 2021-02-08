@@ -1,6 +1,7 @@
 var blockedUsersTable = new Tabulator('.blockedUsers', {
 	data: state.blockedUsers,
 	placeholder: 'Ninguém banido',
+	maxHeight: '400px',
 	cellVertAlign: 'middle',
 	resizableColumns: false,
 	selectablePersistence: true,
@@ -18,6 +19,7 @@ var blockedUsersTable = new Tabulator('.blockedUsers', {
 var onlineUsersTable = new Tabulator('.onlineUsers', {
 	data: state.onlineUsers,
 	placeholder: 'Nenhum usuário online',
+	maxHeight: '400px',
 	cellVertAlign: 'middle',
 	resizableColumns: false,
 	selectablePersistence: true,
@@ -39,6 +41,7 @@ var onlineUsersTable = new Tabulator('.onlineUsers', {
 var messagesTable = new Tabulator('.messages', {
 	data: state.messages,
 	placeholder: 'Nenhuma mensagem',
+	maxHeight: '400px',
 	cellVertAlign: 'middle',
 	resizableColumns: false,
 	selectablePersistence: true,
@@ -61,6 +64,7 @@ var messagesTable = new Tabulator('.messages', {
 var typingUsersTable = new Tabulator('.typingUsers', {
 	data: state.typingUsers,
 	placeholder: 'Ninguém digitando',
+	maxHeight: '400px',
 	cellVertAlign: 'middle',
 	resizableColumns: false,
 	selectablePersistence: true,
@@ -81,17 +85,18 @@ var typingUsersTable = new Tabulator('.typingUsers', {
 var userHistoryTable = new Tabulator('.userHistory', {
 	data: state.userHistory,
 	placeholder: 'Nenhum usuário',
+	maxHeight: '400px',
 	cellVertAlign: 'middle',
 	resizableColumns: false,
 	selectablePersistence: true,
 	columns: [
 		columns.selection,
-		columns.userName,
-		columns.userID,
+		columns.userNames,
+		columns.userIDs,
 		columns.userIP,
+		columns.socketIDs,
 		columns.onlineTimes,
 		columns.actions([
-			'banID',
 			'banIP'
 		])
 	]
