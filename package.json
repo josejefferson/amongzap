@@ -1,31 +1,37 @@
 {
-  "name": "among-us-chat",
-  "version": "1.0.0",
-  "description": "Um chat para jogadores de Among Us",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "node dev.js",
-    "build": "npx sass src/scss:src/css --no-source-map --style compressed && npx gulp"
-  },
-  "keywords": [],
-  "author": "Jefferson Dantas",
-  "license": "ISC",
-  "dependencies": {
-    "abort-controller": "^3.0.0",
-    "bcryptjs": "^2.4.3",
-    "express": "^4.17.1",
-    "helmet": "^4.4.1",
-    "js-sha1": "^0.6.0",
-    "jsonschema": "^1.4.0",
-    "node-fetch": "^2.6.1",
-    "socket.io": "^3.0.1"
-  },
-  "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-clean": "^0.4.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-jsonminify": "^1.1.0",
-    "gulp-uglify-es": "^2.0.0"
-  }
+	"name": "amongzap",
+	"version": "1.0.0",
+	"description": "Converse e interaja com outros jogadores de AmongUs online e grátis a qualquer hora do dia com o AmongZap",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "node dev.js",
+		"build": "npx sass src/scss:src/css --no-source-map --style compressed && npx gulp"
+	},
+	"keywords": [
+		"amongus",
+		"amongus chat",
+		"chat para amongus",
+		"chat amongus online",
+		"amongzap",
+		"amongus zap"
+	],
+	"author": "Jefferson Dantas",
+	"dependencies": {
+		"abort-controller": "^3.0.0",
+		"bcryptjs": "^2.4.3",
+		"express": "^4.17.1",
+		"helmet": "^4.4.1",
+		"js-sha1": "^0.6.0",
+		"jsonschema": "^1.4.0",
+		"node-fetch": "^2.6.1",
+		"socket.io": "^3.0.1"
+	},
+	"devDependencies": {
+		"gulp": "^4.0.2",
+		"gulp-clean": "^0.4.0",
+		"gulp-htmlmin": "^5.0.1",
+		"gulp-jsonminify": "^1.1.0",
+		"gulp-uglify-es": "^2.0.0"
+	}
 }
