@@ -40,5 +40,6 @@ $showRules.onclick = () => Swal.fire({
 			<li>Proibido <i>spam</i> e <i>flood</i></li>
 			<li>Evitar palavrões excessivos ou que ofendam algum integrante</li>
 			<li>Proibido divulgação de conteúdos sem autorização</li>
+			<li>Não falar de outros assuntos que não sejam AmongUs</li>
 		</ul>`
 })
