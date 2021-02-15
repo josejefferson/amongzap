@@ -6,7 +6,10 @@ if ('serviceWorker' in navigator &&
 	navigator.serviceWorker.register('/OneSignalSDKWorker.js')
 	navigator.serviceWorker.addEventListener('message', m => {
 		if (m.data === 'update') {
+			document.querySelectorAll('.refresh').forEach(e => e.classList.remove('fa-spin'))
 			document.querySelectorAll('.updateBadge').forEach(e => e.classList.remove('hidden'))
+		} else if (m.data === 'updating') {
+			document.querySelectorAll('.refresh').forEach(e => e.classList.add('fa-spin'))
 		}
 	})
 }

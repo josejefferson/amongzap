@@ -4,6 +4,9 @@ self.addEventListener('install', e => {
 	console.log('[SW] Install')
 	self.skipWaiting()
 
+	self.clients.matchAll().then(clients => {
+		clients.forEach(client => client.postMessage('updating'))
+	})
 	e.waitUntil(
 		caches.open(staticCacheName).then(cache => {
 			return cache.addAll(filesToCache)

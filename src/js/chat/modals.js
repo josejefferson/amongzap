@@ -110,7 +110,7 @@ const modals = {
 
 				<li>
 					<button onclick="window.location.reload();loading()">
-						<i class="listIcon fas fa-redo"></i> 
+						<i class="listIcon fas fa-redo refresh"></i> 
 						<span class="listBadge updateBadge ${$scope.update ? '' : 'hidden'}"></span>
 						<div class="listText">Atualizar</div>
 					</button>
