@@ -85,7 +85,6 @@ ul.list {
 	flex-direction: column;
 	padding: 0;
 
-	
 	li, a, label, button {
 		display: flex;
 		height: 40px;
@@ -98,12 +97,29 @@ ul.list {
 		outline: none;
 		text-decoration: none;
 		width: 100%;
-		cursor: pointer;
 		padding: 0;
 		
 		.listIcon {
 			margin-right: 10px;
 			width: 20px;
+
+			&.player {
+				height: 20px;
+				background-image: url(/img/players.png);
+				background-size: calc(100% * 4);
+				&.player-blue   { background-position: calc(-20px * 0) calc(-20px * 0) }
+				&.player-brown  { background-position: calc(-20px * 1) calc(-20px * 0) }
+				&.player-cyan   { background-position: calc(-20px * 2) calc(-20px * 0) }
+				&.player-gray   { background-position: calc(-20px * 3) calc(-20px * 0) }
+				&.player-green  { background-position: calc(-20px * 0) calc(-20px * 1) }
+				&.player-lime   { background-position: calc(-20px * 1) calc(-20px * 1) }
+				&.player-orange { background-position: calc(-20px * 2) calc(-20px * 1) }
+				&.player-pink   { background-position: calc(-20px * 3) calc(-20px * 1) }
+				&.player-purple { background-position: calc(-20px * 0) calc(-20px * 2) }
+				&.player-red    { background-position: calc(-20px * 1) calc(-20px * 2) }
+				&.player-white  { background-position: calc(-20px * 2) calc(-20px * 2) }
+				&.player-yellow { background-position: calc(-20px * 3) calc(-20px * 2) }
+			}
 		}
 		
 		.listBadge {
@@ -129,4 +145,6 @@ ul.list {
 			border-bottom: #333 1px solid;
 		}
 	}
+
+	a, label, button { cursor: pointer; }
 }

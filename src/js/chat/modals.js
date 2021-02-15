@@ -70,6 +70,13 @@ const modals = {
 				</li>
 
 				<li>
+					<button class="openOnlineUsersModal">
+						<i class="listIcon fas fa-users"></i>
+						<div class="listText">Usuários online (${$scope.onlineUsers.length})</div>
+					</button>	
+				</li>
+
+				<li>
 					<a href="/" onclick="loading()">
 						<i class="listIcon fas fa-pencil-alt"></i>
 						<div class="listText">Editar dados</div>
@@ -97,11 +104,31 @@ const modals = {
 		showCloseButton: true,
 		showCancelButton: true,
 		padding: '1.25em 0',
+		didOpen: (popup) => {
+			popup.querySelector('.openOnlineUsersModal').onclick = () => modals.onlineUsers($scope.onlineUsers)
+		},
 		preConfirm: () => {
 			return {
 				sound: document.querySelector('#settings-sound').checked,
 				autoScroll: document.querySelector('#settings-autoScroll').checked
 			}
 		}
+	}),
+
+	onlineUsers: (users) => Swal.fire({
+		title: `Usuários online (${users.length})`,
+		html: `
+			<ul class="list">
+				${users.length ? users.map(u => `
+					<li>
+						<i class="listIcon player ${'player-' + u.userColor}"></i>
+						<div class="listText">${u.userName}</div>
+					</li>
+				`).join('') : '<li><b><i>Ninguém online</i></b></li>'}
+			</ul>
+		`,
+		showCloseButton: true,
+		showConfirmButton: false,
+		padding: '1.25em 0'
 	})
 }

@@ -14,6 +14,7 @@ function Actions(io) {
 		chat.onlineUsers.push(user)
 		userHistory(user)
 		socket.emit('initialChat', safeData.messages(chat.messages))
+		socket.emit('onlineUsers', safeData.users(chat.onlineUsers))
 		socket.emit('sendEnabled', chat.sendEnabled)
 		socket.emit('typing', safeData.users(typingUsers))
 		socket.broadcast.emit('userConnected', safeData.user(user))
@@ -21,7 +22,8 @@ function Actions(io) {
 	}
 
 	function userDisconnected(socket, user) {
-		chat.onlineUsers.splice(chat.onlineUsers.indexOf(user), 1)
+		const i = chat.onlineUsers.indexOf(user)
+		if (i > -1) chat.onlineUsers.splice(i, 1)
 		socket.broadcast.emit('userDisconnected', safeData.user(user))
 		io.of('/admin').emit('-onlineUsers', user)
 		typing(socket, user, false)

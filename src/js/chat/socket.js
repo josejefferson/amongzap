@@ -13,6 +13,7 @@ function Socket($scope) {
 	socket.on('disconnect', disconnect)
 	socket.on('error', error)
 	socket.on('initialChat', initialChat)
+	socket.on('onlineUsers', onlineUsers)
 	socket.on('chat', chat)
 	socket.on('typing', typing)
 	socket.on('userConnected', userConnected)
@@ -50,6 +51,12 @@ function Socket($scope) {
 		helpers.scrollBottom()
 	}
 
+	function onlineUsers(users) {
+		console.log(users)
+		$scope.onlineUsers = users
+		$scope.$apply()
+	}
+
 	function chat(chat) {
 		$scope.chats.push(chat)
 		$scope.$apply()
@@ -64,12 +71,19 @@ function Socket($scope) {
 	}
 
 	function userConnected(user) {
+		$scope.onlineUsers.push(user)
 		$scope.usersLog.push({ text: user.userName + ' entrou' })
 		$scope.$apply()
 		sounds.play('PLAYER_SPAWN')
 	}
 
 	function userDisconnected(user) {
+		const i = $scope.onlineUsers.findIndex(u =>
+			u.userIDHash === user.userIDHash &&
+			u.userName === user.userName &&
+			u.userColor === user.userColor
+		)
+		if (i > -1) $scope.onlineUsers.splice(i, 1)
 		$scope.usersLog.push({ text: user.userName + ' saiu' })
 		$scope.$apply()
 		sounds.play('PLAYER_LEFT')

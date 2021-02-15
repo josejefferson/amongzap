@@ -22,6 +22,7 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 	$scope.errors = []
 	$scope.usersLog = []
 	$scope.chats = []
+	$scope.onlineUsers = []
 	$scope.iamtyping = false
 	$scope.sendText = share
 	$scope.sendEnabled = true
