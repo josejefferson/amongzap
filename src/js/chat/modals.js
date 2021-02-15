@@ -1,15 +1,40 @@
 const modals = {
+	tips: () => Swal.fire({
+		title: 'Dicas',
+		html: `
+			<ul style="text-align:left;padding-left:0;font-size:14px">
+				<li style="margin-bottom:10px">Você pode ativar as notificações clicando sobre o ícone de sino <i class="fas fa-bell"></i>;</li>
+				<li style="margin-bottom:10px">Você pode enviar um código de sala do AmongUs clicando no ícone de controle de videogame;</li>
+				<li style="margin-bottom:10px">Você pode formatar o texto da sua mensagem digitando o texto inserindo certos caracteres antes e depois do texto:
+					<ul>
+						<li>*<b>Negrito</b>*</li>
+						<li>|<i>Itálico</i>|</li>
+						<li>_<u>Sublinhado</u>_</li>
+						<li>~<s>Tachado</s>~</li>
+						<li>--<small>Pequeno</small>--</li>
+						<li>^<big>Grande</big>^</li>
+						<li>\`\`\`<code>Código</code>\`\`\`</li>
+					</ul>
+				</li>
+				<li>Você pode pré-visualizar este texto formatado mantendo pressionado o botão de enviar a mensagem.</li>
+			</ul>
+		`,
+		showCloseButton: true,
+		showConfirmButton: false,
+		padding: '1.25em 10px'
+	}),
+
 	sendCode: (text = '', code = '') => Swal.fire({
 		title: 'Enviar código',
 		html: `
-				<form id="sendCodeForm" class="mt-3">
-					<input class="swal2-input my-1" type="text" id="sendCode" minlength="6" maxlength="6"
-						style="font-size:26px;text-align:center;text-transform:uppercase" pattern="^[a-zA-Z]+$"
-						value="${code}" placeholder="Código" autocomplete="off" required>
-					<textarea class="swal2-input my-1" type="text" id="sendText" value="${text}"
-						placeholder="Texto (opcional)" autocomplete="off" style="resize:none"></textarea>
-				</form>
-			`,
+			<form id="sendCodeForm" class="mt-3">
+				<input class="swal2-input my-1" type="text" id="sendCode" minlength="6" maxlength="6"
+					style="font-size:26px;text-align:center;text-transform:uppercase" pattern="^[a-zA-Z]+$"
+					value="${code}" placeholder="Código" autocomplete="off" required>
+				<textarea class="swal2-input my-1" type="text" id="sendText" value="${text}"
+					placeholder="Texto (opcional)" autocomplete="off" style="resize:none"></textarea>
+			</form>
+		`,
 		confirmButtonText: 'Enviar',
 		cancelButtonText: 'Cancelar',
 		showCloseButton: true,
@@ -95,6 +120,13 @@ const modals = {
 					<button onclick="caches.keys().then(c=>c.filter(n=>n.startsWith('amongZap')).map(n=>caches.delete(n)))">
 						<i class="listIcon fas fa-trash-alt"></i> 
 						<div class="listText">Limpar cache</div>
+					</button>
+				</li>
+
+				<li>
+					<button onclick="modals.tips()">
+						<i class="listIcon fas fa-info-circle"></i> 
+						<div class="listText">Dicas</div>
 					</button>
 				</li>
 			</ul>
