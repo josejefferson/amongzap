@@ -8,11 +8,13 @@ async function preparation() {
 	let messages = downloadData('MESSAGES')
 	let blockedUsers = downloadData('BLOCKED_USERS')
 	let userHistory = downloadData('USER_HISTORY')
+	let sendEnabled = downloadData('SEND_ENABLED')
 
-	await Promise.all([messages, blockedUsers, userHistory]).then(v => {
+	await Promise.all([messages, blockedUsers, userHistory, sendEnabled]).then(v => {
 		messages = v[0]
 		blockedUsers = v[1]
 		userHistory = v[2]
+		sendEnabled = v[3]
 	})
 
 	if (messages && Array.isArray(messages)) {
@@ -26,11 +28,16 @@ async function preparation() {
 	if (userHistory) {
 		chat.userHistory = userHistory
 	}
+	if (sendEnabled) {
+		console.log(sendEnabled)
+		chat.sendEnabled = sendEnabled.sendEnabled
+	}
 
 	setInterval(() => {
 		uploadData('MESSAGES', chat.messages)
 		uploadData('BLOCKED_USERS', chat.blockedUsers)
 		uploadData('USER_HISTORY', chat.userHistory)
+		uploadData('SEND_ENABLED', {sendEnabled:chat.sendEnabled})
 	}, BACKUP_TIME)
 	// uploadData('MESSAGES', [])
 }
