@@ -9,6 +9,7 @@ module.exports = {
 			type: 'object',
 			properties: {
 				'userID': { type: 'string', minLength: 30, maxLength: 30 },
+				'userIP': { type: 'string' },
 				'userName': { type: 'string', minLength: 1, maxLength: 10 },
 				'userColor': {
 					type: 'string',
