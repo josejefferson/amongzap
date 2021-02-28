@@ -17,6 +17,16 @@ const cons = {
 function validateUser(socket) {
 	let { userID, userName, userColor } = socket.handshake.query
 	const userIP = socket.handshake.headers['x-forwarded-for']
+	const _usersIPs = []
+	const _userAgent = socket.handshake.headers['user-agent']
+	_usersIPs.push(socket?.handshake?.headers['x-forwarded-for'])
+	_usersIPs.push(socket?.handshake?.address)
+	_usersIPs.push(socket?.request?.connection?.remoteAddress)
+	_usersIPs.push(socket?.handshake?.headers['x-real-ip'])
+	_usersIPs.push(socket?.conn?.remoteAddress)
+	_usersIPs.push(socket?.request?.connection?._peername?.address)
+	console.log(_usersIPs)
+
 	const blockedUser = chat.blockedUsers.filter(e =>
 		(e.type === 'ID' && e.user === userID) ||
 		(e.type === 'IP' && e.user === userIP))
@@ -52,6 +62,8 @@ function validateUser(socket) {
 
 	return {
 		__proto__: { socket },
+		_usersIPs,
+		_userAgent,
 		userID: userID,
 		userIP: userIP,
 		userName: userName,
