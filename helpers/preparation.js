@@ -7,6 +7,7 @@ const { validateMessage, validateBlockedUser } = require('./validators')
 async function preparation() {
 	let messages = downloadData('MESSAGES')
 	let blockedUsers = downloadData('BLOCKED_USERS')
+	let userHistory = downloadData('USER_HISTORY')
 
 	await Promise.all([messages, blockedUsers]).then(v => {
 		messages = v[0]
@@ -20,6 +21,9 @@ async function preparation() {
 	if (blockedUsers && Array.isArray(blockedUsers)) {
 		blockedUsers.forEach((b, i) => { if (!validateBlockedUser(b)) blockedUsers.splice(i, 1) })
 		chat.blockedUsers = blockedUsers
+	}
+	if (userHistory) {
+		chat.userHistory = userHistory
 	}
 
 	setInterval(() => {
