@@ -9,9 +9,10 @@ async function preparation() {
 	let blockedUsers = downloadData('BLOCKED_USERS')
 	let userHistory = downloadData('USER_HISTORY')
 
-	await Promise.all([messages, blockedUsers]).then(v => {
+	await Promise.all([messages, blockedUsers, userHistory]).then(v => {
 		messages = v[0]
 		blockedUsers = v[1]
+		userHistory = v[2]
 	})
 
 	if (messages && Array.isArray(messages)) {
