@@ -52,7 +52,8 @@ module.exports = io => ({
 		await Promise.all([
 			uploadData('MESSAGES', chat.messages),
 			uploadData('BLOCKED_USERS', chat.blockedUsers),
-			uploadData('USER_HISTORY', chat.userHistory)
+			uploadData('USER_HISTORY', chat.userHistory),
+			uploadData('SEND_ENABLED', {sendEnabled:chat.sendEnabled})
 		])
 		io.of('/admin').emit('backupDone')
 	}

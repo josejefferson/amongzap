@@ -98,6 +98,7 @@ function validateMessageText(socket, data) {
 		dateTime: Date.now(),
 		sender: {
 			userID: socket.userID,
+			userIP: socket.handshake.headers['x-forwarded-for'] || '0.0.0.0',
 			userName: socket.userName,
 			userColor: socket.userColor
 		},
