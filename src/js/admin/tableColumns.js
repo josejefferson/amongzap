@@ -44,6 +44,19 @@ const columns = {
 		field: 'userIP',
 		headerFilter: 'input'
 	},
+	userAgent: {
+		title: 'User Agent',
+		field: 'userAgent',
+		headerFilter: 'input'
+	},
+	userAgents: {
+		title: 'User Agents',
+		field: 'userAgents',
+		headerFilter: 'input',
+		formatter: cell => {
+			return cell.getValue().join('<br>')
+		}
+	},
 	socketID: {
 		title: 'Socket ID',
 		field: 'socketID',
@@ -134,6 +147,11 @@ const columns = {
 	msgSenderIP: {
 		title: 'IP do remetente',
 		field: 'sender.userIP',
+		headerFilter: 'input'
+	},
+	msgSenderUserAgent: {
+		title: 'User Agent do remetente',
+		field: 'sender.userAgent',
 		headerFilter: 'input'
 	},
 

@@ -14,7 +14,8 @@ module.exports = {
 				'userColor': {
 					type: 'string',
 					enum: ['red', 'blue', 'green', 'pink', 'orange', 'yellow', 'gray', 'white', 'purple', 'brown', 'cyan', 'lime']
-				}
+				},
+				'userAgent': { type: 'string' }
 			},
 			additionalProperties: false,
 			required: ['userID', 'userName', 'userColor']

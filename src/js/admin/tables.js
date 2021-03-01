@@ -30,6 +30,7 @@ var onlineUsersTable = new Tabulator('.onlineUsers', {
 		columns.userIP,
 		columns.socketID,
 		columns.onlineTime,
+		columns.userAgent,
 		columns.actions([
 			'disconnect',
 			'banID',
@@ -53,6 +54,7 @@ var messagesTable = new Tabulator('.messages', {
 		columns.msgSenderName,
 		columns.msgSenderID,
 		columns.msgSenderIP,
+		columns.msgSenderUserAgent,
 		columns.actions([
 			'delete',
 			'banID',
@@ -96,6 +98,7 @@ var userHistoryTable = new Tabulator('.userHistory', {
 		columns.userIP,
 		columns.socketIDs,
 		columns.onlineTimes,
+		columns.userAgents,
 		columns.actions([
 			'banIP'
 		])
