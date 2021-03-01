@@ -13,6 +13,11 @@ body {
 	overscroll-behavior: contain;
 }
 
+::selection {
+	background-color: #ADE1F5;
+	color: inherit;
+}
+
 .hidden {
 	display: none !important;
 }
