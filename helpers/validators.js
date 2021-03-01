@@ -14,18 +14,24 @@ const cons = {
 	messageSend: require('./validators/messageSend')
 }
 
+function ip(ipAddress) {
+	if (!ipAddress) return false
+	if (ipAddress === '::1') return false
+	return ipAddress
+}
+
 function validateUser(socket) {
 	let { userID, userName, userColor } = socket.handshake.query
-	const userIP = socket.handshake.headers['x-forwarded-for']
-	const _usersIPs = []
-	const _userAgent = socket.handshake.headers['user-agent']
-	_usersIPs.push(socket?.handshake?.headers['x-forwarded-for'])
-	_usersIPs.push(socket?.handshake?.address)
-	_usersIPs.push(socket?.request?.connection?.remoteAddress)
-	_usersIPs.push(socket?.handshake?.headers['x-real-ip'])
-	_usersIPs.push(socket?.conn?.remoteAddress)
-	_usersIPs.push(socket?.request?.connection?._peername?.address)
-	console.log(_usersIPs)
+	const userIP = ip(socket?.handshake?.headers?.['x-forwarded-for']) ||
+		ip(socket?.handshake?.headers?.['x-real-ip']) ||
+		ip(socket?.handshake?.address) ||
+		ip(socket?.conn?.remoteAddress) ||
+		ip(socket?.request?.connection?.remoteAddress) ||
+		ip(socket?.request?.connection?._peername?.address) ||
+		'0.0.0.0'
+	const userAgent = socket?.handshake?.headers?.['user-agent']
+	console.log(userIP)
+	console.log(userAgent)
 
 	const blockedUser = chat.blockedUsers.filter(e =>
 		(e.type === 'ID' && e.user === userID) ||
@@ -62,10 +68,9 @@ function validateUser(socket) {
 
 	return {
 		__proto__: { socket },
-		_usersIPs,
-		_userAgent,
 		userID: userID,
 		userIP: userIP,
+		userAgent: userAgent,
 		userName: userName,
 		userColor: userColor,
 		socketID: socket.id,

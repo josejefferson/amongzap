@@ -53,7 +53,7 @@ function Actions(io) {
 	}
 
 	function userHistory(user) {
-		let { userID, userName, userColor, socketID, onlineTime, userIP = '0.0.0.0', _usersIPs, _userAgent } = user
+		let { userID, userName, userColor, socketID, onlineTime, userIP, userAgent } = user
 		const uidx = chat.userHistory.findIndex(u => u.userIP === userIP)
 		if (uidx < 0) return chat.userHistory.push({
 			userIP: userIP,
@@ -62,21 +62,18 @@ function Actions(io) {
 			userColors: [userColor],
 			socketIDs: [socketID],
 			onlineTimes: [onlineTime],
-			_usersIPs: [_usersIPs],
-			_userAgent: [_userAgent]
+			userAgents: [userAgent]
 		})
 
-		const { userIDs, userNames, userColors, socketIDs, onlineTimes, _usersIPss, _userAgents } = chat.userHistory[uidx]
+		const { userIDs, userNames, userColors, userAgents, socketIDs, onlineTimes } = chat.userHistory[uidx]
 		userIDs.indexOf(userID) === -1 && userIDs.push(userID)
 		userNames.indexOf(userName) === -1 && userNames.push(userName)
 		userColors.indexOf(userColor) === -1 && userColors.push(userColor)
+		userAgents.indexOf(userAgent) === -1 && userAgents.push(userAgent)
 		socketIDs.indexOf(socketID) === -1 && socketIDs.push(socketID)
 		onlineTimes.indexOf(onlineTime) === -1 && onlineTimes.push(onlineTime)
-		_usersIPss?.indexOf(_usersIPs) === -1 && _usersIPss.push(_usersIPs)
-		_userAgents?.indexOf(_userAgent) === -1 && _userAgents.push(_userAgent)
 
 		io.of('/admin').emit('userHistory', chat.userHistory[uidx])
-		console.log(chat.userHistory)
 	}
 
 	function notify() {
