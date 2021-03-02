@@ -93,7 +93,7 @@ gulp.task('default', gulp.series(
 		'minifyHTML',
 		'minifyManifest'
 	),
-	'createSW',
+	// 'createSW',
 	'uglifySW',
 	'removeSWModel'
 ))

@@ -29,7 +29,6 @@ async function preparation() {
 		chat.userHistory = userHistory
 	}
 	if (sendEnabled) {
-		console.log(sendEnabled)
 		chat.sendEnabled = sendEnabled.sendEnabled
 	}
 

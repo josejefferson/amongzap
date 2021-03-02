@@ -43,7 +43,6 @@ const actions = {
 	},
 	
 	clear: (table) => {
-		console.log(table)
 		state[table] = []
 		window[table + 'Table'].setData([])
 		window['$' + table + 'Count'].innerText = 0

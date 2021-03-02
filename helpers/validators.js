@@ -30,8 +30,6 @@ function validateUser(socket) {
 		ip(socket?.request?.connection?._peername?.address) ||
 		'0.0.0.0'
 	const userAgent = socket?.handshake?.headers?.['user-agent']
-	console.log(userIP)
-	console.log(userAgent)
 
 	const blockedUser = chat.blockedUsers.filter(e =>
 		(e.type === 'ID' && e.user === userID) ||

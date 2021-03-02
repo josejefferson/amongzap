@@ -52,7 +52,6 @@ function Socket($scope) {
 	}
 
 	function onlineUsers(users) {
-		console.log(users)
 		$scope.onlineUsers = users
 		$scope.$apply()
 	}

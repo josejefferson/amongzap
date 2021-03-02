@@ -107,6 +107,13 @@ angular.module('amongZap').controller('amongZap-chatCtrl', ['$scope', '$timeout'
 
 	// Foco na barra de mensagens ao abrir o site
 	$sendText.focus()
+
+	// Correção de rolagem ao redimensionar tela
+	let oldScrollBottom = 0
+	document.onscroll = () => oldScrollBottom =
+		document.body.scrollHeight - document.scrollingElement.scrollTop - window.innerHeight + 117
+	window.onresize = () => document.scrollingElement.scrollTop =
+		document.body.scrollHeight - window.innerHeight + 117 - oldScrollBottom
 }])
 
 ///////////////// DEBUG ///////////////////
