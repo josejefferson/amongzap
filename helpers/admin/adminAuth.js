@@ -1,6 +1,4 @@
-const ADMINS = {
-	'Jefferson': '$2a$10$dmzDGy7bn163uXvhkTYnx.xm6D9S4znDcz.tHT6YNQo6n5qtPikb2'
-}
+const ADMINS = JSON.parse(process.env.ADMINS)
 
 const bcrypt = require('bcryptjs')
 

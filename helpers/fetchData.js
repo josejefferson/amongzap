@@ -1,9 +1,8 @@
-const MESSAGES_DATABASE = 'https://amongzap-450e.restdb.io/rest/data/600f23ecf564f0050002e587'
-const BLOCKED_USERS_DATABASE = 'https://amongzap-450e.restdb.io/rest/data/600f23fcf564f0050002e58b'
-const USER_HISTORY_DATABASE = 'https://amongzap-450e.restdb.io/rest/data/60215f397fdeb446000037b0'
-const SEND_ENABLED_DATABASE = 'https://amongzap-450e.restdb.io/rest/data/603bf02161889c220000d797'
-const API_KEY = '600f25861346a1524ff12e04'
-const MAX_ATTEMPTS = 3
+const MESSAGES_DATABASE = process.env.MESSAGES_DATABASE
+const BLOCKED_USERS_DATABASE = process.env.BLOCKED_USERS_DATABASE
+const USER_HISTORY_DATABASE = process.env.USER_HISTORY_DATABASE
+const SEND_ENABLED_DATABASE = process.env.SEND_ENABLED_DATABASE
+const API_KEY = process.env.API_KEY
 
 const fetch = require('node-fetch')
 
@@ -18,7 +17,7 @@ async function downloadData(type) {
 		default: return false
 	}
 
-	for (let i = 0; i < MAX_ATTEMPTS; i++) {
+	for (let i = 0; i < 3; i++) {
 		result = await fetch(URL, {
 			headers: { 'x-apikey': API_KEY }
 		})
@@ -45,7 +44,7 @@ async function uploadData(type, data) {
 		default: return false
 	}
 
-	for (let i = 0; i < MAX_ATTEMPTS; i++) {
+	for (let i = 0; i < 3; i++) {
 		result = await fetch(URL, {
 			headers: {
 				'content-type': 'application/json; charset=UTF-8',
