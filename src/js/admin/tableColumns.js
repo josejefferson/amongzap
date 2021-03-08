@@ -44,6 +44,14 @@ const columns = {
 		field: 'userIP',
 		headerFilter: 'input'
 	},
+	userIPs: {
+		title: 'IPs',
+		field: 'userIPs',
+		headerFilter: 'input',
+		formatter: cell => {
+			return cell.getValue().join('<br>')
+		}
+	},
 	userAgent: {
 		title: 'User Agent',
 		field: 'userAgent',

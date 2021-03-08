@@ -37,15 +37,19 @@ function ev(e) {
 			$blockedUsersCount.innerText = state.blockedUsers.length
 
 		} else if (event === 'userHistory') {
-			const uidx = state.userHistory.findIndex(u => u.userIP === data.userIP)
-			if (uidx < 0) return state.userHistory.push({
-				userIP: data.userIP,
-				userIDs: [data.userID],
-				userNames: [data.userName],
-				userColors: [data.userColor],
-				socketIDs: [data.socketID],
-				onlineTimes: [data.onlineTime]
-			})
+			const uidx = state.userHistory.findIndex(u => data.userIPBase.startsWith(u.userIPBase))
+			if (uidx < 0) {
+				state.userHistory.push({
+					userIPs: [data.userIP],
+					userIDs: [data.userID],
+					userNames: [data.userName],
+					userColors: [data.userColor],
+					socketIDs: [data.socketID],
+					onlineTimes: [data.onlineTime]
+				})
+				userHistoryTable.setData(state.userHistory)
+				return $userHistoryCount.innerText = state.userHistory.length
+			}
 			state.userHistory[uidx] = data
 			userHistoryTable.setData(state.userHistory)
 			$userHistoryCount.innerText = state.userHistory.length
@@ -54,7 +58,7 @@ function ev(e) {
 			alert('Backup concluído!')
 		}
 
-		if (special) {
+		if (special && ev !== 'sendEnabled') {
 			window[ev + 'Table'].setData(state[ev])
 			window['$' + ev + 'Count'].innerText = state[ev].length
 		}
@@ -64,5 +68,10 @@ function ev(e) {
 		$log.innerText = `[${event}] ${JSON.stringify(data)}`
 		$logs.prepend($log)
 		$logsCount.innerText = logs.length
+		if (state.sendEnabled) {
+			$sendEnabled.classList.add('hidden')
+		} else {
+			$sendEnabled.classList.remove('hidden')
+		}
 	} catch (err) { console.warn(err) }
 }

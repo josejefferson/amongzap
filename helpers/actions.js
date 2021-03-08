@@ -54,24 +54,33 @@ function Actions(io) {
 
 	function userHistory(user) {
 		let { userID, userName, userColor, socketID, onlineTime, userIP, userAgent } = user
-		const uidx = chat.userHistory.findIndex(u => u.userIP === userIP)
-		if (uidx < 0) return chat.userHistory.push({
-			userIP: userIP,
-			userIDs: [userID],
-			userNames: [userName],
-			userColors: [userColor],
-			socketIDs: [socketID],
-			onlineTimes: [onlineTime],
-			userAgents: [userAgent]
-		})
+		const uidx = chat.userHistory.findIndex(u => userIP.startsWith(u.userIPBase))
+		if (uidx < 0) {
+			const newUser = {
+				userIPBase: userIP.split('.').slice(0, 3).join('.'),
+				userIPs: [userIP],
+				userIDs: [userID],
+				userNames: [userName],
+				userColors: [userColor],
+				socketIDs: [socketID],
+				onlineTimes: [onlineTime],
+				userAgents: [userAgent]
+			}
+			chat.userHistory.push(newUser)
+			return io.of('/admin').emit('userHistory', newUser)
+		}
 
-		const { userIDs, userNames, userColors, userAgents, socketIDs, onlineTimes } = chat.userHistory[uidx]
+		const { userIPs, userIDs, userNames, userColors, userAgents, socketIDs, onlineTimes } = chat.userHistory[uidx]
+		userIPs.indexOf(userIP) === -1 && userIPs.push(userIP)
 		userIDs.indexOf(userID) === -1 && userIDs.push(userID)
 		userNames.indexOf(userName) === -1 && userNames.push(userName)
 		userColors.indexOf(userColor) === -1 && userColors.push(userColor)
 		userAgents.indexOf(userAgent) === -1 && userAgents.push(userAgent)
 		socketIDs.indexOf(socketID) === -1 && socketIDs.push(socketID)
 		onlineTimes.indexOf(onlineTime) === -1 && onlineTimes.push(onlineTime)
+
+		chat.userHistory[uidx].onlineTimes = [...onlineTimes].reverse().splice(0, 5).reverse()
+		chat.userHistory[uidx].socketIDs = [...socketIDs].reverse().splice(0, 5).reverse()
 
 		io.of('/admin').emit('userHistory', chat.userHistory[uidx])
 	}

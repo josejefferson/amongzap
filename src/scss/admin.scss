@@ -6,12 +6,6 @@ td, th {
 	white-space: nowrap;
 }
 
-tr:target {
-	animation: teste .5s ease-out;
-}
-
-@keyframes teste {
-	from { background: transparent }
-	50% { background: #ffff99 }
-	to { background: transparent }
+.hidden {
+	display: none !important;
 }

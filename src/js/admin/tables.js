@@ -95,7 +95,7 @@ var userHistoryTable = new Tabulator('.userHistory', {
 		columns.selection,
 		columns.userNames,
 		columns.userIDs,
-		columns.userIP,
+		columns.userIPs,
 		columns.socketIDs,
 		columns.onlineTimes,
 		columns.userAgents,

@@ -15,6 +15,16 @@ const actions = {
 		})
 	},
 
+	manualBan: (type) => {
+		socket.emit('ban', {
+			type,
+			user: $manualBan.value,
+			reason: prompt('Motivo:')
+		})
+		$manualBan.value = ''
+		$manualBan.focus()
+	},
+
 	undoBan: (data) => {
 		socket.emit('unban', {
 			type: data.type,

@@ -1,1 +1,1 @@
-table,pre{max-height:400px}td,th{white-space:nowrap}tr:target{animation:teste .5s ease-out}@keyframes teste{from{background:transparent}50%{background:#ff9}to{background:transparent}}
+table,pre{max-height:400px}td,th{white-space:nowrap}.hidden{display:none !important}

@@ -23,8 +23,8 @@
 		<button class="btn btn-sm btn-info" onclick="freezeFn()">Congelar resultados</button>
 		<button class="btn btn-sm btn-secondary" onclick="actions.backup()">Fazer
 			backup</button>
-		<button class="btn btn-sm btn-danger" onclick="actions.sendEnabled(false)">Bloquear mensagens</button>
-		<button class="btn btn-sm btn-success" onclick="actions.sendEnabled(true)">Desbloquear mensagens</button>
+		<button class="btn btn-sm btn-danger" onclick="actions.sendEnabled(!state.sendEnabled)">Bloquear/desbloquear mensagens</button>
+		<div class="sendEnabled text-danger hidden">O envio de mensagens está desativado</div>
 
 		<h4 class="mt-3">Usuários online (<span class="onlineUsersCount">0</span>)</h4>
 		<div class="onlineUsers">Carregando...</div>
@@ -66,6 +66,11 @@
 			<button class="btn btn-sm btn-secondary" onclick="actions.clear('blockedUsers')">Limpar lista</button>
 			<button class="btn btn-sm btn-primary" onclick="acts(blockedUsersTable, 'undoBan')">Desfazer</button>
 		</div>
+
+		<h4 class="mt-3">Banir manualmente</h4>
+		<input type="text" class="form-control mb-2 manualBan" placeholder="IP ou ID">
+		<button class="btn btn-sm btn-danger" onclick="actions.manualBan('IP')">Banir IP</button>
+		<button class="btn btn-sm btn-danger" onclick="actions.manualBan('ID')">Banir ID</button>
 
 		<h4 class="mt-3">Logs (<span class="logsCount">0</span>)</h4>
 		<pre class="logs border"></pre>

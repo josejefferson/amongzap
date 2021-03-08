@@ -13,11 +13,13 @@ function freezeFn() {
 
 var $logs = document.querySelector('.logs')
 var $logsCount = document.querySelector('.logsCount')
+var $sendEnabled = document.querySelector('.sendEnabled')
 var $onlineUsersCount = document.querySelector('.onlineUsersCount')
 var $userHistoryCount = document.querySelector('.userHistoryCount')
 var $messagesCount = document.querySelector('.messagesCount')
 var $typingUsersCount = document.querySelector('.typingUsersCount')
 var $blockedUsersCount = document.querySelector('.blockedUsersCount')
+var $manualBan = document.querySelector('.manualBan')
 // importante verificar se existe linhas selecionadas antes de atualizar (colocar botão para atualizar)
 let freeze = false
 const pending = []
