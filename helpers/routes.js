@@ -17,6 +17,10 @@ routes.get('/admin', auth, (req, res) => {
 	res.sendFile('pages/admin.html', { root: './' })
 })
 
+routes.get('/newadmin', auth, (req, res) => {
+	res.sendFile('pages/newadmin.html', { root: './' })
+})
+
 routes.get('/debug', auth, (req, res) => {
 	res.json(chat)
 })

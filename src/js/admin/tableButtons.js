@@ -19,7 +19,7 @@ const buttons = {
 		const btn = document.createElement('button')
 		btn.innerText = 'Banir IP'
 		btn.classList.add('btn', 'btn-sm', 'btn-danger')
-		btn.onclick = () => actions.banID(cell.getData())
+		btn.onclick = () => actions.banIP(cell.getData())
 		return btn
 	},
 

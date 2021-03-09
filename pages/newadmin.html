@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR" ng-app="amongZap">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#FFFFFF">
+	<title>Administração do AmongZap</title>
+	<meta name="robots" content="noindex, nofollow">
+	<link rel="shortcut icon" href="favicon.png" type="image/png">
+	<link rel="stylesheet" href="/lib/css/font-awesome.all.min.css">
+	<link rel="stylesheet" href="/lib/css/sweetalert2.min.css">
+	<link rel="stylesheet" href="/lib/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/newadmin.css">
+</head>
+
+<body class="container-fluid py-3" ng-controller="adminCtrl">
+	<nav class="navbar navbar-dark sticky-top bg-primary shadow" style="margin-top:-1rem;margin-left:-.75rem;margin-right:-.75rem">
+		<div class="container-fluid">
+			<span class="navbar-brand"><i class="fas fa-crown"></i> Administração do AmongZap</span>
+		</div>
+	</nav>
+
+	<h4 class="table-title mt-3">
+		<i class="fas fa-gamepad"></i>
+		Controles
+	</h4>
+	<div class="table-footer">
+		<button class="btn btn-sm btn-primary" ng-click="freeze = !freeze">
+			<i class="fas fa-icicles"></i>
+			{{freeze ? 'Descongelar' : 'Congelar'}} resultados
+		</button>
+		<button class="btn btn-sm btn-secondary" ng-click="::actions.backup()">
+			<i class="fas fa-cloud-upload-alt"></i>
+			Fazer backup
+		</button>
+		<button class="btn btn-sm btn-danger" ng-click="::actions.sendEnabled(!state.sendEnabled)">
+			<div class="fas fa-lock"></div>
+			{{state.sendEnabled ? 'Bloquear' : 'Desbloquear'}} mensagens
+		</button>
+	</div>
+
+	<h4 class="table-title">
+		<div class="fas fa-users"></div>
+		Usuários online ({{state.onlineUsers.length}})
+	</h4>
+	<div class="table-container">
+		<table class="table table-bordered table-striped table-hover table-sm mb-0">
+			<thead class="table-dark">
+				<tr>
+					<th ng-click="selectAll(state.onlineUsers)"></th>
+					<th>Nome</th>
+					<th>ID</th>
+					<th>IP</th>
+					<th>Socket ID</th>
+					<th>Online desde</th>
+					<th>User Agent</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="!state.onlineUsers.length">
+					<td colspan="8" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
+				</tr>
+				<tr ng-repeat="user in state.onlineUsers" ng-class="{'table-info': user.$selected}">
+					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
+					<td title="{{::user.userName}}" ng-style="::{color: user.userColor}">{{::user.userName}}</td>
+					<td title="{{::user.userID}}">{{::user.userID}}</td>
+					<td title="{{::user.userIP}}">{{::user.userIP}}</td>
+					<td title="{{::user.socketID}}">{{::user.socketID}}</td>
+					<td title="{{::user.onlineTime | mm}}">{{::user.onlineTime | mm}}</td>
+					<td title="{{::user.userAgent}}">{{::user.userAgent}}</td>
+					<td class="actions">
+						<button ng-click="::actions.disconnect(user)" class="btn btn-sm btn-warning">Desconectar</button>
+						<button ng-click="::actions.banID(user)" class="btn btn-sm btn-danger">Banir ID</button>
+						<button ng-click="::actions.banIP(user)" class="btn btn-sm btn-danger">Banir IP</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table-footer">
+		<button class="btn btn-sm btn-warning" ng-click="acts(state.onlineUsers, 'disconnect')">Desconectar</button>
+		<button class="btn btn-sm btn-danger" ng-click="acts(state.onlineUsers, 'banID')">Banir ID</button>
+		<button class="btn btn-sm btn-danger" ng-click="acts(state.onlineUsers, 'banIP')">Banir IP</button>
+	</div>
+
+
+	<h4 class="table-title">
+		<div class="fas fa-history"></div>
+		Histórico de usuários ({{state.userHistory.length}})
+	</h4>
+	<div class="table-container">
+		<table class="table table-bordered table-striped table-hover table-sm mb-0">
+			<thead class="table-dark">
+				<tr>
+					<th ng-click="selectAll(state.userHistory)"></th>
+					<th>Nomes</th>
+					<th>IDs</th>
+					<th>IPs</th>
+					<th>Socket IDs</th>
+					<th>Tempos online</th>
+					<th>User Agents</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="!state.userHistory.length">
+					<td colspan="7" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
+				</tr>
+				<tr ng-repeat="user in state.userHistory" ng-class="{'table-info': user.$selected}">
+					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
+					<td>
+						<div title="{{::info}}" ng-repeat="info in user.userNames">{{::info}}</div>
+					</td>
+					<td>
+						<div title="{{::info}}" ng-repeat="info in user.userIDs">{{::info}}</div>
+					</td>
+					<td>
+						<div title="{{::info}}" ng-repeat="info in user.userIPs">{{::info}}</div>
+					</td>
+					<td>
+						<div title="{{::info}}" ng-repeat="info in user.socketIDs">{{::info}}</div>
+					</td>
+					<td>
+						<div title="{{::info | mm}}" ng-repeat="info in user.onlineTimes">{{::info | mm}}</div>
+					</td>
+					<td>
+						<div title="{{::info}}" ng-repeat="info in user.userAgents">{{::info}}</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<h4 class="table-title">
+		<div class="fas fa-envelope"></div>
+		Mensagens ({{state.messages.length}})
+	</h4>
+	<div class="table-container">
+		<table class="table table-bordered table-striped table-hover table-sm mb-0">
+			<thead class="table-dark">
+				<tr>
+					<th ng-click="selectAll(state.messages)"></th>
+					<th>Texto</th>
+					<th>Tempo</th>
+					<th>ID</th>
+					<th>Nome do remetente</th>
+					<th>ID do remetente</th>
+					<th>IP do remetente</th>
+					<th>User Agent do remetente</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="!state.messages.length">
+					<td colspan="9" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
+				</tr>
+				<tr ng-repeat="msg in state.messages" ng-class="{'table-info': msg.$selected}">
+					<td><input type="checkbox" class="form-check-input" ng-model="msg.$selected"></td>
+					<td title="{{::msg.text}}">{{::msg.text}}</td>
+					<td title="{{::msg.dateTime | mm}}">{{::msg.dateTime | mm}}</td>
+					<td title="{{::msg.id}}">{{::msg.id}}</td>
+					<td title="{{::msg.sender.userName}}">{{::msg.sender.userName}}</td>
+					<td title="{{::msg.sender.userID}}">{{::msg.sender.userID}}</td>
+					<td title="{{::msg.sender.userIP}}">{{::msg.sender.userIP}}</td>
+					<td title="{{::msg.sender.userAgent}}">{{::msg.sender.userAgent}}</td>
+					<td class="actions">
+						<button ng-click="::actions.delete(msg)" class="btn btn-sm btn-danger">Excluir</button>
+						<button ng-click="::actions.banID(msg.sender)" class="btn btn-sm btn-danger">Banir ID</button>
+						<button ng-click="::actions.banIP(msg.sender)" class="btn btn-sm btn-danger">Banir IP</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table-footer">
+		<button class="btn btn-sm btn-danger" ng-click="acts(state.messages, 'delete')">Excluir</button>
+		<button class="btn btn-sm btn-danger" ng-click="acts(state.messages, 'banID')">Banir ID</button>
+		<button class="btn btn-sm btn-danger" ng-click="acts(state.messages, 'banIP')">Banir IP</button>
+	</div>
+
+
+	<h4 class="table-title">
+		<div class="fas fa-keyboard"></div>
+		Digitando ({{state.typingUsers.length}})
+	</h4>
+	<div class="table-container">
+		<table class="table table-bordered table-striped table-hover table-sm mb-0">
+			<thead class="table-dark">
+				<tr>
+					<th ng-click="selectAll(state.typingUsers)"></th>
+					<th>Nome</th>
+					<th>ID</th>
+					<th>IP</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="!state.typingUsers.length">
+					<td colspan="5" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
+				</tr>
+				<tr ng-repeat="user in state.typingUsers" ng-class="{'table-info': user.$selected}">
+					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
+					<td title="{{::user.userName}}">{{::user.userName}}</td>
+					<td title="{{::user.userID}}">{{::user.userID}}</td>
+					<td title="{{::user.userIP}}">{{::user.userIP}}</td>
+					<td class="actions">
+						<button ng-click="::actions.stop(user)" class="btn btn-sm btn-primary">Parar</button>
+						<button ng-click="::actions.banID(user)" class="btn btn-sm btn-danger">Banir ID</button>
+						<button ng-click="::actions.banIP(user)" class="btn btn-sm btn-danger">Banir IP</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table-footer">
+		<button class="btn btn-sm btn-primary" ng-click="acts(state.typingUsers, 'stop')">Parar</button>
+		<button class="btn btn-sm btn-danger" ng-click="acts(state.typingUsers, 'banID')">Banir ID</button>
+		<button class="btn btn-sm btn-danger" ng-click="acts(state.typingUsers, 'banIP')">Banir IP</button>
+	</div>
+
+
+	<h4 class="table-title">
+		<div class="fas fa-user-times"></div>
+		Usuários banidos ({{state.blockedUsers.length}})
+	</h4>
+	<div class="table-container">
+		<table class="table table-bordered table-striped table-hover table-sm mb-0">
+			<thead class="table-dark">
+				<tr>
+					<th ng-click="selectAll(state.blockedUsers)"></th>
+					<th>Banido pelo</th>
+					<th>Usuário</th>
+					<th>Motivo</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="!state.blockedUsers.length">
+					<td colspan="5" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
+				</tr>
+				<tr ng-repeat="user in state.blockedUsers" ng-class="{'table-info': user.$selected}">
+					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
+					<td title="{{::user.type}}">{{::user.type}}</td>
+					<td title="{{::user.user}}">{{::user.user}}</td>
+					<td title="{{::user.reason}}">{{::user.reason}}</td>
+					<td class="actions">
+						<button ng-click="::actions.undoBan(user)" class="btn btn-sm btn-primary">Desfazer</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table-footer">
+		<button class="btn btn-sm btn-primary" ng-click="acts(state.blockedUsers, 'undoBan')">Desfazer</button>
+	</div>
+
+
+	<h4 class="table-title">
+		<i class="fas fa-user-slash"></i>
+		Banir manualmente
+	</h4>
+	<input type="text" class="form-control mb-2 manualBan" placeholder="IP ou ID">
+	<button class="btn btn-sm btn-danger" ng-click="actions.manualBan('IP')">Banir IP</button>
+	<button class="btn btn-sm btn-danger" ng-click="actions.manualBan('ID')">Banir ID</button>
+
+	<h4 class="table-title">
+		<i class="fas fa-list-alt"></i>
+		Logs ({{logs.length}})
+	</h4>
+	<pre class="logs border"><div ng-repeat="log in logs">{{::log.text}}</div></pre>
+	<button class="btn btn-sm btn-secondary" onclick="actions.clearLogs()">Limpar logs</button>
+
+	<script src="/socket.io/socket.io.min.js"></script>
+	<script src="/lib/js/moment.min.js"></script>
+	<script src="/lib/js/sweetalert2.min.js"></script>
+	<script src="/lib/js/angular.min.js"></script>
+	<script src="/js/admin/newindex.js"></script>
+	<script src="/js/admin/newsocket.js"></script>
+	<script src="/js/admin/newactions.js"></script>
+</body>
+
+</html>

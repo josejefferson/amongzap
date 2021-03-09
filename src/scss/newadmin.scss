@@ -1,0 +1,53 @@
+header {
+	margin-left: -0.75rem;
+	margin-right: -0.75rem;
+	margin-top: -1rem;
+}
+
+table {
+	overflow: hidden;
+}
+
+td,
+th,
+td div {
+	vertical-align: middle !important;
+	white-space: nowrap;
+	max-width: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+td.actions {
+	max-width: initial;
+}
+
+.table-title {
+	background-color: #212529;
+	border-top-left-radius: .25rem;
+	border-top-right-radius: .25rem;
+	color: #fff;
+	margin-top: 3rem;
+	margin-bottom: 0;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+
+.table-footer {
+	background-color: rgba(0, 0, 0, 0.05);
+	border-bottom-left-radius: .25rem;
+	border-bottom-right-radius: .25rem;
+	color: #fff;
+	margin-bottom: 0;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+
+.table-container {
+	overflow: auto;
+	max-height: 75vh;
+}
