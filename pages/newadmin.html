@@ -274,7 +274,7 @@
 		Logs ({{logs.length}})
 	</h4>
 	<pre class="logs border"><div ng-repeat="log in logs">{{::log.text}}</div></pre>
-	<button class="btn btn-sm btn-secondary" onclick="actions.clearLogs()">Limpar logs</button>
+	<button class="btn btn-sm btn-secondary" ng-click="logs = []">Limpar logs</button>
 
 	<script src="/socket.io/socket.io.min.js"></script>
 	<script src="/lib/js/moment.min.js"></script>

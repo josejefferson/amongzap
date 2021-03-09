@@ -57,11 +57,6 @@ function actions(socket) {
 			state[table] = []
 			window[table + 'Table'].setData([])
 			window['$' + table + 'Count'].innerText = 0
-		},
-
-		clearLogs: () => {
-			$logs.innerHTML = ''
-			$logsCount.innerText = 0
 		}
 	}
 	
