@@ -15,7 +15,7 @@
 </head>
 
 <body class="container-fluid py-3" ng-controller="adminCtrl">
-	<nav class="navbar navbar-dark sticky-top bg-primary shadow" style="margin-top:-1rem;margin-left:-.75rem;margin-right:-.75rem">
+	<nav class="navbar navbar-dark sticky-top bg-success shadow" style="margin-top:-1rem;margin-left:-.75rem;margin-right:-.75rem">
 		<div class="container-fluid">
 			<span class="navbar-brand"><i class="fas fa-crown"></i> Administração do AmongZap</span>
 		</div>
@@ -28,7 +28,7 @@
 	<div class="table-footer">
 		<button class="btn btn-sm btn-primary" ng-click="freeze = !freeze">
 			<i class="fas fa-icicles"></i>
-			{{freeze ? 'Descongelar' : 'Congelar'}} resultados
+			{{freeze ? 'Desc' : 'C'}}ongelar resultados
 		</button>
 		<button class="btn btn-sm btn-secondary" ng-click="::actions.backup()">
 			<i class="fas fa-cloud-upload-alt"></i>
@@ -36,7 +36,7 @@
 		</button>
 		<button class="btn btn-sm btn-danger" ng-click="::actions.sendEnabled(!state.sendEnabled)">
 			<div class="fas fa-lock"></div>
-			{{state.sendEnabled ? 'Bloquear' : 'Desbloquear'}} mensagens
+			{{state.sendEnabled ? 'B' : 'Desb'}}loquear mensagens
 		</button>
 	</div>
 
