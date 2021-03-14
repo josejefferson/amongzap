@@ -62,7 +62,7 @@
 				<tr ng-if="!state.onlineUsers.length">
 					<td colspan="8" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
 				</tr>
-				<tr ng-repeat="user in state.onlineUsers" ng-class="{'table-info': user.$selected}">
+				<tr ng-repeat="user in state.onlineUsers | orderBy:'-'" ng-class="{'table-info': user.$selected}">
 					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
 					<td title="{{::user.userName}}" ng-style="::{color: user.userColor}">{{::user.userName}}</td>
 					<td title="{{::user.userID}}">{{::user.userID}}</td>
@@ -108,7 +108,7 @@
 				<tr ng-if="!state.userHistory.length">
 					<td colspan="7" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
 				</tr>
-				<tr ng-repeat="user in state.userHistory" ng-class="{'table-info': user.$selected}">
+				<tr ng-repeat="user in state.userHistory | orderBy:'-'" ng-class="{'table-info': user.$selected}">
 					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
 					<td>
 						<div title="{{::info}}" ng-repeat="info in user.userNames">{{::info}}</div>
@@ -157,7 +157,7 @@
 				<tr ng-if="!state.messages.length">
 					<td colspan="9" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
 				</tr>
-				<tr ng-repeat="msg in state.messages" ng-class="{'table-info': msg.$selected}">
+				<tr ng-repeat="msg in state.messages | limitTo:-300 | orderBy:'-'" ng-class="{'table-info': msg.$selected}">
 					<td><input type="checkbox" class="form-check-input" ng-model="msg.$selected"></td>
 					<td title="{{::msg.text}}">{{::msg.text}}</td>
 					<td title="{{::msg.dateTime | mm}}">{{::msg.dateTime | mm}}</td>
@@ -202,7 +202,7 @@
 				<tr ng-if="!state.typingUsers.length">
 					<td colspan="5" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
 				</tr>
-				<tr ng-repeat="user in state.typingUsers" ng-class="{'table-info': user.$selected}">
+				<tr ng-repeat="user in state.typingUsers | orderBy:'-'" ng-class="{'table-info': user.$selected}">
 					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
 					<td title="{{::user.userName}}">{{::user.userName}}</td>
 					<td title="{{::user.userID}}">{{::user.userID}}</td>
@@ -243,7 +243,7 @@
 				<tr ng-if="!state.blockedUsers.length">
 					<td colspan="5" class="text-secondary fs-5 text-center fw-bold">Nenhum dado</td>
 				</tr>
-				<tr ng-repeat="user in state.blockedUsers" ng-class="{'table-info': user.$selected}">
+				<tr ng-repeat="user in state.blockedUsers | orderBy:'-'" ng-class="{'table-info': user.$selected}">
 					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
 					<td title="{{::user.type}}">{{::user.type}}</td>
 					<td title="{{::user.user}}">{{::user.user}}</td>
@@ -273,7 +273,7 @@
 		<i class="fas fa-list-alt"></i>
 		Logs ({{logs.length}})
 	</h4>
-	<pre class="logs border"><div ng-repeat="log in logs">{{::log.text}}</div></pre>
+	<pre class="logs border"><div ng-repeat="log in logs | limitTo:-100 | orderBy:'-'">{{::log.text}}</div></pre>
 	<button class="btn btn-sm btn-secondary" ng-click="logs = []">Limpar logs</button>
 
 	<script src="/socket.io/socket.io.min.js"></script>

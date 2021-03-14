@@ -1,5 +1,5 @@
 <div class="chat container">
-	<div class="messageArea" ng-repeat="chat in chats track by chat.id" ng-class="::{'sent': isSent(chat)}">
+	<div class="messageArea" ng-repeat="chat in chats | limitTo:-300 as results track by chat.id" ng-class="::{'sent': isSent(chat)}">
 		<div class="message">
 			<div class="picture">
 				<div class="pic" ng-class="::'player-' + chat.sender.userColor"></div>
