@@ -21,15 +21,35 @@ header {
 		outline: none;
 		cursor: pointer;
 		flex-basis: 45px;
+		position: relative;
 		
 		.badge {
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			font-family: sans-serif;
+			font-weight: normal;
+		}
+
+		.updateBadge {
 			background-color: red;
 			width: 10px;
 			height: 10px;
-			border-radius: 50%;
-			display: inline-block;
-			position: absolute;
-			transform: translateY(-5px);
+			right: 0;
+			bottom: 0;
+			transform: translate(-5px, 5px);
+		}
+
+		.onlineBadge {
+			transform: translate(5px, -5px);
+			top: 0;
+			right: 0;
+			width: 20px;
+			height: 20px;
+			font-size: 14px;
+			background: royalblue;
 		}
 	}
 
