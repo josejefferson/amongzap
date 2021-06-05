@@ -7,6 +7,7 @@ const fetch = require('node-fetch')
 const AbortController = require('abort-controller')
 let controller = new AbortController()
 let codeController = new AbortController()
+let onlineController = new AbortController()
 
 function Actions(io) {
 	function userConnected(socket, user) {
@@ -19,6 +20,7 @@ function Actions(io) {
 		socket.emit('typing', safeData.users(typingUsers))
 		socket.broadcast.emit('userConnected', safeData.user(user))
 		io.of('/admin').emit('+onlineUsers', user)
+		notifyOnline(user)
 	}
 
 	function userDisconnected(socket, user) {
@@ -35,7 +37,7 @@ function Actions(io) {
 		io.of('/chat').emit('chat', safeData.message(message))
 		io.of('/admin').emit('+messages', message)
 		typing(socket, message.sender, false)
-		if (production) notify(message)
+		notify(message)
 	}
 
 	function typing(socket, user, typing) {
@@ -86,7 +88,6 @@ function Actions(io) {
 	}
 
 	function notify(message) {
-		console.log(`https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`)
 		if (!message.code) {
 			controller.abort()
 			controller = new AbortController()
@@ -98,7 +99,7 @@ function Actions(io) {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					'included_segments': ['Subscribed Users'],
+					'included_segments': [production ? 'Subscribed Users' : 'Test Users'],
 					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
 					'template_id': '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d',
 					'headings': { en: message.sender.userName },
@@ -117,7 +118,7 @@ function Actions(io) {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					'included_segments': ['Subscribed Users'],
+					'included_segments': [production ? 'Subscribed Users' : 'Test Users'],
 					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
 					'template_id': '1859dd1c-5949-4c86-a4cf-c52cbbd1c6f4',
 					'web_push_topic': 'codes',
@@ -133,6 +134,27 @@ function Actions(io) {
 		}
 	}
 
+	function notifyOnline(user) {
+			onlineController.abort()
+			onlineController = new AbortController()
+			fetch('https://onesignal.com/api/v1/notifications', {
+				signal: onlineController.signal,
+				method: 'POST',
+				headers: {
+					'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					'included_segments': ['Test Users'],
+					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
+					'template_id': '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d',
+					'web_push_topic': 'online',
+					'headings': { en: `"${user.userName}" está online agora!` },
+					'contents': { en: 'Entre no AmongZap para conversarem' },
+					'chrome_web_icon': `https://amongzap.herokuapp.com/img/players/${user.userColor}.png`
+				})
+			})
+	}
 
 	return {
 		userConnected,
