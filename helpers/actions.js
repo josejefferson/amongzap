@@ -1,9 +1,9 @@
 const MAX_MESSAGES = 300
 const { removeFormatChars, convertLetters } = require('./helpers')
 const { typingUsers } = require('./chat')
+const fetchData = require('./fetchData')
 const chat = require('./chat')
 const safeData = require('./safeData')
-const fetch = require('node-fetch')
 const AbortController = require('abort-controller')
 let controller = new AbortController()
 let codeController = new AbortController()
@@ -91,69 +91,45 @@ function Actions(io) {
 		if (!message.code) {
 			controller.abort()
 			controller = new AbortController()
-			fetch('https://onesignal.com/api/v1/notifications', {
-				signal: controller.signal,
-				method: 'POST',
-				headers: {
-					'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'included_segments': [production ? 'Subscribed Users' : 'Test Users'],
-					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
-					'template_id': '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d',
-					'headings': { en: message.sender.userName },
-					'contents': { en: removeFormatChars(message.text || '') },
-					'chrome_web_icon': `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
-				})
-			})
+			const title = message.sender.userName
+			const text = removeFormatChars(message.text || '')
+			const template = '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d'
+			const icon = `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
+			const topic = 'message'
+			const signal = controller.signal
+			
+			fetchData.notify(title, text, template, icon, topic, signal)
+
 		} else {
 			codeController.abort()
 			codeController = new AbortController()
-			fetch('https://onesignal.com/api/v1/notifications', {
-				signal: codeController.signal,
-				method: 'POST',
-				headers: {
-					'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'included_segments': [production ? 'Subscribed Users' : 'Test Users'],
-					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
-					'template_id': '1859dd1c-5949-4c86-a4cf-c52cbbd1c6f4',
-					'web_push_topic': 'codes',
-					'headings': { en: `"${message.sender.userName}" está te chamando para jogar AmongUs!` },
-					'contents': { en: '🔵 Código da sala: ' + 
-						message.code.split('').join('') + '\n' +
-						convertLetters(message.code) + '\n' +
-						removeFormatChars(message.text || '')
-					},
-					'chrome_web_icon': `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
-				})
-			})
+			const title = `"${message.sender.userName}" está te chamando para jogar AmongUs!`
+			const text = '🔵 Código da sala: ' + 
+				message.code.split('').join('') + '\n' +
+				convertLetters(message.code) + '\n' +
+				removeFormatChars(message.text || '')
+			const template ='1859dd1c-5949-4c86-a4cf-c52cbbd1c6f4'
+			const icon = `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
+			const topic = 'codes'
+			const signal = codeController.signal
+
+			fetchData.notify(title, text, template, icon, topic, signal)
 		}
 	}
 
 	function notifyOnline(user) {
 			onlineController.abort()
 			onlineController = new AbortController()
-			fetch('https://onesignal.com/api/v1/notifications', {
-				signal: onlineController.signal,
-				method: 'POST',
-				headers: {
-					'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'included_segments': ['Test Users'],
-					'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
-					'template_id': '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d',
-					'web_push_topic': 'online',
-					'headings': { en: `"${user.userName}" está online agora!` },
-					'contents': { en: 'Entre no AmongZap para conversarem' },
-					'chrome_web_icon': `https://amongzap.herokuapp.com/img/players/${user.userColor}.png`
-				})
-			})
+
+			const title = `"${user.userName}" está online agora!`
+			const text = 'Entre no AmongZap para conversarem'
+			const template = 'add5428c-c16c-4030-981a-fbada1b06891'
+			const icon = `https://amongzap.herokuapp.com/img/players/${user.userColor}.png`
+			const topic = 'online'
+			const signal = onlineController.signal
+			const segments = ['Test Users']
+
+			fetchData.notify(title, text, template, icon, topic, signal, segments)
 	}
 
 	return {

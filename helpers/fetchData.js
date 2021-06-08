@@ -64,7 +64,28 @@ async function uploadData(type, data) {
 	return result
 }
 
+function notify(title, text, template, icon, topic, signal, segments) {
+	fetch('https://onesignal.com/api/v1/notifications', {
+		signal: signal || undefined,
+		method: 'POST',
+		headers: {
+			'Authorization': 'Basic YWZjNjQ0ZDYtNzg5MC00ZWJiLWIxZDEtZjg2ZjkwMTliMjk4',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			'included_segments': segments || [production ? 'Subscribed Users' : 'Test Users'],
+			'app_id': '816dc5a8-149a-4f41-a2e8-2bb933c59e56',
+			'template_id': template || undefined,
+			'web_push_topic': topic || undefined,
+			'headings': { en: title || undefined },
+			'contents': { en: text || undefined },
+			'chrome_web_icon': icon || undefined
+		})
+	})
+}
+
 module.exports = {
 	downloadData,
-	uploadData
+	uploadData,
+	notify
 }
