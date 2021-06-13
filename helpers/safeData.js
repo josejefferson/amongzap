@@ -25,11 +25,14 @@ function messages(msgs) {
 	return messages
 }
 
-function user(us) {
+function user(us, internetProblem = false) {
 	return {
 		userIDHash: sha1(us.userID),
 		userName: us.userName,
-		userColor: us.userColor
+		userColor: us.userColor,
+		...(internetProblem && {
+			internetProblem: true
+		})
 	}
 }
 

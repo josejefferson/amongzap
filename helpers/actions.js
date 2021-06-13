@@ -24,10 +24,10 @@ function Actions(io) {
 	}
 
 	function userDisconnected(socket, user, reason) {
-		console.log(reason)
+		const internetProblem = reason === 'ping timeout'
 		const i = chat.onlineUsers.indexOf(user)
 		if (i > -1) chat.onlineUsers.splice(i, 1)
-		socket.broadcast.emit('userDisconnected', safeData.user(user))
+		socket.broadcast.emit('userDisconnected', safeData.user(user, internetProblem))
 		io.of('/admin').emit('-onlineUsers', user)
 		typing(socket, user, false)
 	}

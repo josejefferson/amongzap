@@ -83,7 +83,7 @@ function Socket($scope) {
 			u.userColor === user.userColor
 		)
 		if (i > -1) $scope.onlineUsers.splice(i, 1)
-		$scope.usersLog.push({ text: user.userName + ' saiu' })
+		$scope.usersLog.push({ text: user.userName + (user.internetProblem ? ' caiu' : ' saiu') })
 		$scope.$apply()
 		sounds.play('PLAYER_LEFT')
 	}
