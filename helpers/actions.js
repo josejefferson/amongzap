@@ -20,10 +20,11 @@ function Actions(io) {
 		socket.emit('typing', safeData.users(typingUsers))
 		socket.broadcast.emit('userConnected', safeData.user(user))
 		io.of('/admin').emit('+onlineUsers', user)
-		notifyOnline(user)
+		if (production) notifyOnline(user)
 	}
 
-	function userDisconnected(socket, user) {
+	function userDisconnected(socket, user, reason) {
+		console.log(reason)
 		const i = chat.onlineUsers.indexOf(user)
 		if (i > -1) chat.onlineUsers.splice(i, 1)
 		socket.broadcast.emit('userDisconnected', safeData.user(user))

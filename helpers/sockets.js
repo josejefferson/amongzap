@@ -19,6 +19,6 @@ module.exports = io => {
 			actions.typing(socket, user, typing)
 		})
 
-		socket.on('disconnect', () => actions.userDisconnected(socket, user))
+		socket.on('disconnect', (reason) => actions.userDisconnected(socket, user, reason))
 	})
 }

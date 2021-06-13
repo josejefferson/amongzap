@@ -1,4 +1,4 @@
-const ADMINS = JSON.parse(process.env.ADMINS)
+const ADMINS = JSON.parse(process.env.ADMINS || '{}')
 
 const bcrypt = require('bcryptjs')
 
