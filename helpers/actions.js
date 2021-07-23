@@ -82,8 +82,10 @@ function Actions(io) {
 		socketIDs.indexOf(socketID) === -1 && socketIDs.push(socketID)
 		onlineTimes.indexOf(onlineTime) === -1 && onlineTimes.push(onlineTime)
 
-		chat.userHistory[uidx].onlineTimes = [...onlineTimes].reverse().splice(0, 5).reverse()
+		chat.userHistory[uidx].userIPs = [...userIPs].reverse().splice(0, 5).reverse()
+		chat.userHistory[uidx].userIDs = [...userIDs].reverse().splice(0, 5).reverse()
 		chat.userHistory[uidx].socketIDs = [...socketIDs].reverse().splice(0, 5).reverse()
+		chat.userHistory[uidx].onlineTimes = [...onlineTimes].reverse().splice(0, 5).reverse()
 
 		io.of('/admin').emit('userHistory', chat.userHistory[uidx])
 	}
@@ -98,18 +100,18 @@ function Actions(io) {
 			const icon = `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
 			const topic = 'message'
 			const signal = controller.signal
-			
+
 			fetchData.notify(title, text, template, icon, topic, signal)
 
 		} else {
 			codeController.abort()
 			codeController = new AbortController()
 			const title = `"${message.sender.userName}" está te chamando para jogar AmongUs!`
-			const text = '🔵 Código da sala: ' + 
+			const text = '🔵 Código da sala: ' +
 				message.code.split('').join('') + '\n' +
 				convertLetters(message.code) + '\n' +
 				removeFormatChars(message.text || '')
-			const template ='1859dd1c-5949-4c86-a4cf-c52cbbd1c6f4'
+			const template = '1859dd1c-5949-4c86-a4cf-c52cbbd1c6f4'
 			const icon = `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
 			const topic = 'codes'
 			const signal = codeController.signal
@@ -119,18 +121,18 @@ function Actions(io) {
 	}
 
 	function notifyOnline(user) {
-			onlineController.abort()
-			onlineController = new AbortController()
+		onlineController.abort()
+		onlineController = new AbortController()
 
-			const title = `"${user.userName}" está online agora!`
-			const text = 'Entre no AmongZap para conversarem'
-			const template = 'add5428c-c16c-4030-981a-fbada1b06891'
-			const icon = `https://amongzap.herokuapp.com/img/players/${user.userColor}.png`
-			const topic = 'online'
-			const signal = onlineController.signal
-			const segments = ['Test Users']
+		const title = `"${user.userName}" está online agora!`
+		const text = 'Entre no AmongZap para conversarem'
+		const template = 'add5428c-c16c-4030-981a-fbada1b06891'
+		const icon = `https://amongzap.herokuapp.com/img/players/${user.userColor}.png`
+		const topic = 'online'
+		const signal = onlineController.signal
+		const segments = ['Test Users']
 
-			fetchData.notify(title, text, template, icon, topic, signal, segments)
+		fetchData.notify(title, text, template, icon, topic, signal, segments)
 	}
 
 	return {
