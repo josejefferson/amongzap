@@ -111,22 +111,22 @@
 				<tr ng-repeat="user in state.userHistory | orderBy:'-'" ng-class="{'table-info': user.$selected}">
 					<td><input type="checkbox" class="form-check-input" ng-model="user.$selected"></td>
 					<td>
-						<div title="{{::info}}" ng-repeat="info in user.userNames">{{::info}}</div>
+						<div title="{{::info}}" ng-repeat="info in user.userNames | limitTo:-5">{{::info}}</div>
 					</td>
 					<td>
-						<div title="{{::info}}" ng-repeat="info in user.userIDs">{{::info}}</div>
+						<div title="{{::info}}" ng-repeat="info in user.userIDs | limitTo:-5">{{::info}}</div>
 					</td>
 					<td>
-						<div title="{{::info}}" ng-repeat="info in user.userIPs">{{::info}}</div>
+						<div title="{{::info}}" ng-repeat="info in user.userIPs | limitTo:-5">{{::info}}</div>
 					</td>
 					<td>
-						<div title="{{::info}}" ng-repeat="info in user.socketIDs">{{::info}}</div>
+						<div title="{{::info}}" ng-repeat="info in user.socketIDs | limitTo:-5">{{::info}}</div>
 					</td>
 					<td>
-						<div title="{{::info | mm}}" ng-repeat="info in user.onlineTimes">{{::info | mm}}</div>
+						<div title="{{::info | mm}}" ng-repeat="info in user.onlineTimes | limitTo:-5">{{::info | mm}}</div>
 					</td>
 					<td>
-						<div title="{{::info}}" ng-repeat="info in user.userAgents">{{::info}}</div>
+						<div title="{{::info}}" ng-repeat="info in user.userAgents | limitTo:-5">{{::info}}</div>
 					</td>
 				</tr>
 			</tbody>
