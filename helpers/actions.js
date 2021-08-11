@@ -84,6 +84,9 @@ function Actions(io) {
 
 		chat.userHistory[uidx].userIPs = [...userIPs].reverse().splice(0, 5).reverse()
 		chat.userHistory[uidx].userIDs = [...userIDs].reverse().splice(0, 5).reverse()
+		chat.userHistory[uidx].userNames = [...userNames].reverse().splice(0, 5).reverse()
+		chat.userHistory[uidx].userColors = [...userColors].reverse().splice(0, 5).reverse()
+		chat.userHistory[uidx].userAgents = [...userAgents].reverse().splice(0, 5).reverse()
 		chat.userHistory[uidx].socketIDs = [...socketIDs].reverse().splice(0, 5).reverse()
 		chat.userHistory[uidx].onlineTimes = [...onlineTimes].reverse().splice(0, 5).reverse()
 
