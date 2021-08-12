@@ -38,7 +38,7 @@ function Actions(io) {
 		io.of('/chat').emit('chat', safeData.message(message))
 		io.of('/admin').emit('+messages', message)
 		typing(socket, message.sender, false)
-		notify(message)
+		// notify(message)
 	}
 
 	function typing(socket, user, typing) {
