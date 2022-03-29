@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js",
-		"dev": "node dev.js",
+		"dev": "npx cross-env NODE_ENV=development node index.js",
 		"build": "npx sass src/scss:src/css --no-source-map --style compressed && npx gulp"
 	},
 	"keywords": [

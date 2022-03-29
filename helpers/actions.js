@@ -38,7 +38,7 @@ function Actions(io) {
 		io.of('/chat').emit('chat', safeData.message(message))
 		io.of('/admin').emit('+messages', message)
 		typing(socket, message.sender, false)
-		// notify(message)
+		notify(message)
 	}
 
 	function typing(socket, user, typing) {
@@ -99,8 +99,8 @@ function Actions(io) {
 			controller = new AbortController()
 			const title = message.sender.userName
 			const text = removeFormatChars(message.text || '')
-			const template = '7ccaaaf9-1183-4d8f-aa42-413319e4cd6d'
-			const icon = `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
+			const template = process.env.NOTIFICATION_TEMPLATE_ID
+			const icon = `${process.env.SITE_URL}img/players/${message.sender.userColor}.png`
 			const topic = 'message'
 			const signal = controller.signal
 
@@ -114,8 +114,8 @@ function Actions(io) {
 				message.code.split('').join('') + '\n' +
 				convertLetters(message.code) + '\n' +
 				removeFormatChars(message.text || '')
-			const template = '1859dd1c-5949-4c86-a4cf-c52cbbd1c6f4'
-			const icon = `https://amongzap.herokuapp.com/img/players/${message.sender.userColor}.png`
+			const template = process.env.NOTIFICATION_TEMPLATE_ID_CODE
+			const icon = `${process.env.SITE_URL}img/players/${message.sender.userColor}.png`
 			const topic = 'codes'
 			const signal = codeController.signal
 
@@ -129,8 +129,8 @@ function Actions(io) {
 
 		const title = `"${user.userName}" está online agora!`
 		const text = 'Entre no AmongZap para conversarem'
-		const template = 'add5428c-c16c-4030-981a-fbada1b06891'
-		const icon = `https://amongzap.herokuapp.com/img/players/${user.userColor}.png`
+		const template = process.env.NOTIFICATION_TEMPLATE_ID_ONLINE
+		const icon = `${process.env.SITE_URL}img/players/${user.userColor}.png`
 		const topic = 'online'
 		const signal = onlineController.signal
 		const segments = ['Test Users']

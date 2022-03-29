@@ -1,7 +1,8 @@
 (async function () {
 	console.clear()
 	require('dotenv/config')
-	if (!('production' in global)) global.production = true
+	global.production = process.env.NODE_ENV !== 'development'
+	console.log(global.production)
 	const express = require('express')
 	const app = express()
 	const http = require('http').Server(app)
