@@ -23,6 +23,7 @@ Chat público para jogadores de Among Us
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Angular.js](https://img.shields.io/badge/angular.js-%23E23237.svg?style=for-the-badge&logo=angularjs&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![OneSignal](https://img.shields.io/badge/OneSignal-%23de494b.svg?style=for-the-badge&logoColor=%23202124)
 
 ## Instruções
 ### 1. Instalação
