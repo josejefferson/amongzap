@@ -48,3 +48,15 @@ npm start
 ```
 
 ## Screenshots
+### Tela inicial do AmongZap
+<img src="https://github.com/josejefferson/amongzap/assets/52979246/32fb0799-2e1d-4475-b2b5-63043b10302f" alt="Tela inicial" width="300" />
+
+### Chat do AmongZap
+<img src="https://github.com/josejefferson/amongzap/assets/52979246/709da35a-ba32-4cad-b388-418a398e1ec3" alt="Chat" width="300" />
+
+### Administração
+![Administração](https://github.com/josejefferson/amongzap/assets/52979246/8da4f57a-1339-4ac8-81f4-48eda4c58087)
+![Captura de Tela (3526)](https://github.com/josejefferson/amongzap/assets/52979246/ddb63e67-3549-4685-95aa-b60f7d5e1da1)
+
+### Tela de banimento
+<img src="https://github.com/josejefferson/amongzap/assets/52979246/482c830a-33a3-4bfd-92f1-390809139223" alt="Tela de banimento" width="300" />
